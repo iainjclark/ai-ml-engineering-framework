@@ -4,15 +4,27 @@
 
 ## Purpose
 
+Compare credible options for an important engineering choice and make the reasoning, evidence, assumptions and trade-offs visible.
+
 ## When Should It Be Created
+
+Create this before making a material choice where alternatives exist and the outcome affects cost, risk, performance or design.
 
 ## When Should It Be Updated
 
+Update it when new evidence, requirements, risks, constraints or alternatives could materially change the preferred option.
+
 ## Inputs
+
+Use relevant requirements, constraints, risks, assumptions, technical evidence, costs, data and lessons from comparable work.
 
 ## Activities
 
+Identify realistic alternatives and decision criteria. Compare evidence, assumptions, uncertainty and trade-offs, then recommend an option.
+
 ## Outputs / Artefacts
+
+Record the alternatives, criteria, analysis, evidence, uncertainties and recommendation, ready for the final decision to be logged.
 
 ## Traceability
 

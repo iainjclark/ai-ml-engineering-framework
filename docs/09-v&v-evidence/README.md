@@ -4,15 +4,27 @@
 
 ## Purpose
 
+Record what verification and validation actually showed, including failures, uncertainty and whether agreed acceptance criteria were met.
+
 ## When Should It Be Created
+
+Create evidence records as planned V&V activities are performed, using the approved methods, conditions and acceptance criteria.
 
 ## When Should It Be Updated
 
+Update them when activities are repeated, corrected or extended, or when findings are resolved or new evidence changes the conclusion.
+
 ## Inputs
+
+Use the V&V plan, controlled system baseline, approved data, test procedures, acceptance criteria and records of actual execution conditions.
 
 ## Activities
 
+Perform the planned checks and record actual results, conditions, deviations, failures and uncertainty. Compare results with acceptance criteria.
+
 ## Outputs / Artefacts
+
+Produce V&V evidence records showing what was tested or validated, what happened, whether it passed and what remains unresolved.
 
 ## Traceability
 

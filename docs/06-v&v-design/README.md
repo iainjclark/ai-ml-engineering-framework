@@ -4,15 +4,27 @@
 
 ## Purpose
 
+Plan how the system will be checked against its requirements and intended use, including what evidence will count as acceptable.
+
 ## When Should It Be Created
+
+Create this before testing or validation begins, early enough for evidence needs to influence design, data collection and implementation.
 
 ## When Should It Be Updated
 
+Update it when requirements, risks, design, intended use, available data or evidence needs materially change.
+
 ## Inputs
+
+Use requirements, stakeholder needs, architecture, risks, controls, assumptions, intended-use scenarios and available test or validation data.
 
 ## Activities
 
+Define what will be checked, how, under what conditions, using which data, and against what acceptance criteria. Cover important failure cases.
+
 ## Outputs / Artefacts
+
+Produce a V&V plan linking each planned check to its target, method, conditions, data, acceptance criteria and required evidence.
 
 ## Traceability
 

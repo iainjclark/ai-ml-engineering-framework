@@ -4,15 +4,27 @@
 
 ## Purpose
 
+Compare what happened in operation with what was intended, capture lessons, and turn operational evidence into better future decisions.
+
 ## When Should It Be Created
+
+Create this after enough operational use exists to judge outcomes, and after major releases, incidents or other useful review points.
 
 ## When Should It Be Updated
 
+Update it when further operational evidence, incidents, drift, user feedback or completed improvement actions change the findings.
+
 ## Inputs
+
+Use operational results, monitoring, incidents, user feedback, business outcomes, original objectives, requirements, risks and release records.
 
 ## Activities
 
+Compare actual outcomes with expectations. Investigate gaps, successes and failures, identify lessons, and agree improvement actions.
+
 ## Outputs / Artefacts
+
+Record findings, lessons and improvement actions, including links to new requirements, risks, decisions or changes where needed.
 
 ## Traceability
 

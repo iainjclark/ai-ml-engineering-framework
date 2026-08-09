@@ -4,15 +4,27 @@
 
 ## Purpose
 
+Describe how the system will be structured and how its parts, data and interfaces will work together to satisfy the requirements.
+
 ## When Should It Be Created
+
+Create this once key requirements and major design choices are understood, before implementation becomes difficult to change.
 
 ## When Should It Be Updated
 
+Update it when requirements, interfaces, components, data flows, dependencies or major technical decisions materially change.
+
 ## Inputs
+
+Use requirements, decision analyses, constraints, risks, existing systems, interface needs and relevant technical standards.
 
 ## Activities
 
+Define components, responsibilities, interfaces and data flows. Check that the design covers requirements, risks and important failure modes.
+
 ## Outputs / Artefacts
+
+Produce architecture diagrams and design descriptions showing components, interfaces, data flows, dependencies and key design choices.
 
 ## Traceability
 

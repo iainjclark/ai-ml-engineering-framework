@@ -4,15 +4,27 @@
 
 ## Purpose
 
+Keep an authoritative record of important engineering decisions so later work can see what was decided, by whom, when and why.
+
 ## When Should It Be Created
+
+Start the log when the first material engineering decision is made and maintain it throughout the life of the system.
 
 ## When Should It Be Updated
 
+Add an entry whenever a material decision is made, changed, rejected or superseded. Do not rewrite the history of earlier decisions.
+
 ## Inputs
+
+Use decision analyses, meeting outcomes, requirements, risks, design information, evidence and the authority responsible for the decision.
 
 ## Activities
 
+Record the decision, rationale, date, owner, status and affected items. Link supporting analysis and preserve superseded decisions.
+
 ## Outputs / Artefacts
+
+Maintain a decision log that shows the current and historical record of material engineering decisions and their supporting rationale.
 
 ## Traceability
 

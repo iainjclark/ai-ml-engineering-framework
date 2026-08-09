@@ -4,15 +4,27 @@
 
 ## Purpose
 
+Identify what could prevent acceptable outcomes, decide how those risks will be controlled, and define what evidence will support confidence.
+
 ## When Should It Be Created
+
+Create this early enough for risks to influence requirements, design and planning, then keep it active throughout the lifecycle.
 
 ## When Should It Be Updated
 
+Update it when risks, controls, assumptions, evidence, incidents, system changes or the operating environment materially change.
+
 ## Inputs
+
+Use requirements, architecture, assumptions, operational scenarios, prior incidents, known hazards, security concerns and stakeholder tolerances.
 
 ## Activities
 
+Identify and assess material risks. Choose controls, assign owners, define evidence of control effectiveness, and assess remaining risk.
+
 ## Outputs / Artefacts
+
+Maintain the risk register, controls and assurance claims, including owners, evidence needs, status and accepted residual risks.
 
 ## Traceability
 

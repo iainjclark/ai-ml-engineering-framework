@@ -4,15 +4,27 @@
 
 ## Purpose
 
+Define exactly what makes up a controlled system version and manage changes so deployed states can be understood and reproduced.
+
 ## When Should It Be Created
+
+Create this once system items need controlled versions, and before a baseline is relied on for formal testing or release.
 
 ## When Should It Be Updated
 
+Update it whenever controlled code, models, data, dependencies, configuration, infrastructure or documentation change.
+
 ## Inputs
+
+Use versioned code, models, data, dependencies, configuration, infrastructure, documentation, change requests and approval records.
 
 ## Activities
 
+Identify controlled items and baselines. Assess proposed changes, their impacts and required checks, then record approval and implementation.
+
 ## Outputs / Artefacts
+
+Maintain configuration records, baselines and change records that show what changed, why, who approved it and what checks were required.
 
 ## Traceability
 

@@ -5,15 +5,27 @@
 
 ## Purpose
 
+Decide whether a specific controlled version has enough evidence and acceptable remaining risk to justify operational use.
+
 ## When Should It Be Created
+
+Create this for each proposed production release after the required evidence is available and before deployment is authorised.
 
 ## When Should It Be Updated
 
+Update it if the release scope, baseline, evidence, open risks, conditions, deployment plan or approval decision changes.
+
 ## Inputs
+
+Use the approved baseline, V&V evidence, open risks, accepted residual risks, operational controls, deployment plan and rollback plan.
 
 ## Activities
 
+Review readiness, evidence and open issues. Confirm deployment and rollback arrangements, then approve, conditionally approve or reject release.
+
 ## Outputs / Artefacts
+
+Produce a release record identifying the approved baseline, supporting evidence, remaining risks, conditions, authority and decision.
 
 ## Traceability
 

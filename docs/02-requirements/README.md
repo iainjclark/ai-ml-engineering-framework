@@ -4,15 +4,27 @@
 
 ## Purpose
 
+Turn agreed needs, objectives and constraints into clear, testable statements of what the system must do and how well it must perform.
+
 ## When Should It Be Created
+
+Create this once the problem and intended outcomes are understood, before detailed design and implementation begin.
 
 ## When Should It Be Updated
 
+Update it when needs, scope, constraints, risks or design discoveries change what the system must do or how well it must perform.
+
 ## Inputs
+
+Use concept-stage needs, objectives, constraints and scenarios, plus stakeholder input, policies, standards and known technical limits.
 
 ## Activities
 
+Write clear, testable requirements. Remove ambiguity, resolve conflicts, separate needs from solutions, and define measurable acceptance criteria.
+
 ## Outputs / Artefacts
+
+Produce an agreed set of stakeholder, system and non-functional requirements, with IDs, sources, priorities and acceptance criteria.
 
 ## Traceability
 
