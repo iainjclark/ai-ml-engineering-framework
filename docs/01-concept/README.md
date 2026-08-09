@@ -4,15 +4,27 @@
 
 ## Purpose
 
+Explain the problem, who it affects, the outcome sought, and why it matters. Avoid assuming a particular solution too early.
+
 ## When Should It Be Created
+
+Create this at the start of significant work, before any detailed requirements or specific design decisions are locked in.
 
 ## When Should It Be Updated
 
+Update it when the problem, users, objectives, scope, constraints or operating context materially change.
+
 ## Inputs
+
+Use records of stakeholder discussions, business goals, current processes, known constraints, relevant data and operational experience.
 
 ## Activities
 
+Clarify the problem, users, needs, objectives, constraints, scope and key usage scenarios. Challenge assumptions and record open questions.
+
 ## Outputs / Artefacts
+
+Capture the agreed needs, objectives, constraints, scenarios, scope, assumptions and unresolved questions for later engineering work.
 
 ## Traceability
 
