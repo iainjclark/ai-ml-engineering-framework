@@ -24,7 +24,16 @@ Write clear, testable requirements. Remove ambiguity, resolve conflicts, separat
 
 ## Outputs / Artefacts
 
-Produce an agreed set of stakeholder, system and non-functional requirements, with IDs, sources, priorities and acceptance criteria.
+Produce an agreed set of stakeholder, system and non-functional requirements,
+with IDs, sources, priorities and acceptance criteria.
+
+Record these in a `SystemRequirementsSpecification.md` (SRS), or equivalent
+controlled requirements artefact appropriate to the project.
+
+The structure of the SRS is informed by Sommerville’s treatment of the software
+requirements document and structured specifications, NASA’s Technical
+Requirements Definition process, and Kossiakoff et al.’s treatment of
+operational, functional and performance requirements.
 
 The structure of `RequirementsTraceabilityMatrix.xlsx` is adapted from the
 Requirements Verification Matrix in Appendix D, Table D-1 of the NASA
@@ -60,5 +69,8 @@ Appendix D, "Requirements Verification Matrix", Table D-1, pp. 201–202.
 USA: John Wiley & Sons, 2011, Chapter 7, "Concept Exploration",
 pp. 165--194.
 
-\[3\] I. Sommerville, *Software Engineering*, 10th ed. Boston, MA, USA:
-Pearson, 2016, Chapter 4, "Requirements engineering", pp. 101--137.
+[3] I. Sommerville, *Software Engineering*, 10th ed. Boston, MA, USA:
+Pearson, 2016, Chapter 4, "Requirements engineering", pp. 101--137;
+Section 4.4.4, "The software requirements document", pp. 126--129;
+Figure 4.17, "The structure of a requirements document", p. 128.
+

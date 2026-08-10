@@ -32,8 +32,7 @@ structure of `MilestoneChangeLog.xlsx` informed in part by the example change re
 ## Traceability
 
 -   Give controlled configuration items and change records stable IDs,
-    for example: configuration items (`CI-001`), baselines (`BASE-001`)
-    and changes (`CHG-001`).
+    for example: configuration items (`CI-001`) and changes (`CHG-001`).
 -   Identify the versions of code, models, data, dependencies,
     configuration, infrastructure and documentation that constitute a
     controlled baseline.
