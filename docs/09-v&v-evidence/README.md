@@ -24,32 +24,48 @@ Perform the planned checks and record actual results, conditions, deviations, fa
 
 ## Outputs / Artefacts
 
-Produce V&V evidence records showing what was tested or validated, what happened, whether it passed and what remains unresolved.
+Produce V&V evidence records showing what was tested or validated, what happened,
+whether it passed and what remains unresolved.
+
+Use `RequirementsTraceabilityMatrix.xlsx` to maintain verification traceability
+from requirements through planned verification activities to evidence
+(`REQ ↔ VER ↔ EVID`).
+
+Use `ValidationTraceabilityMatrix.xlsx` to maintain validation traceability from
+stakeholder needs or benefits through planned validation activities to evidence
+(`BEN / NEED ↔ VAL ↔ EVID`).
+
+The structure of `ValidationTraceabilityMatrix.xlsx` is adapted from the
+Validation Requirements Matrix in Appendix E, Table E-1 of the NASA
+*Systems Engineering Handbook*, with additional lifecycle traceability informed
+by systems and software engineering practice.
 
 ## Traceability
 
--   Give each evidence item or executed V&V record a stable ID, for
-    example: evidence (`EVID-001`) or retain the corresponding `VER-###`
-    / `VAL-###` identifier.
--   Link each result to the V&V activity defined in `06-v&v-design` and
-    to the requirement, stakeholder expectation, risk control or
-    assurance claim being evaluated.
--   Record actual conditions, data/configuration versions, results,
-    deviations, failures and disposition.
--   Preserve failed and inconclusive results as part of the engineering
-    record; do not retain only successful evidence.
--   Link unresolved findings to change records, risks, decisions or
-    release constraints.
--   The purpose is to show **what was actually demonstrated, under what
-    conditions, and whether the pre-defined acceptance criteria were
-    met**.
+- Give each evidence item or executed V&V record a stable ID, for
+  example: evidence (`EVID-001`) or retain the corresponding `VER-###`
+  / `VAL-###` identifier.
+- Trace verification evidence back through `VER-###` to the requirement
+  being verified.
+- Trace validation evidence back through `VAL-###` to the stakeholder
+  need, benefit or intended use being validated.
+- Link results to relevant risk controls or assurance claims where applicable.
+- Record actual conditions, data/configuration versions, results,
+  deviations, failures and disposition.
+- Preserve failed and inconclusive results as part of the engineering
+  record; do not retain only successful evidence.
+- Link unresolved findings to change records, risks, decisions or
+  release constraints.
+- The purpose is to show **what was actually demonstrated, under what
+  conditions, and whether the pre-defined acceptance criteria were met**.
 
 ## References
 
 \[1\] National Aeronautics and Space Administration, *NASA Systems
 Engineering Handbook*, Rev. 2, NASA/SP-2016-6105 Rev. 2. Washington, DC,
 USA: NASA, 2016, Sections 5.3--5.4, "Product Verification" and "Product
-Validation", pp. 88--106.
+Validation", pp. 88--106; Appendix E, "Creating the Validation Plan with a
+Validation Requirements Matrix", Table E-1, pp. 203–204.
 
 \[2\] A. Kossiakoff, W. N. Sweet, S. J. Seymour, and S. M. Biemer,
 *Systems Engineering: Principles and Practice*, 2nd ed. Hoboken, NJ,
