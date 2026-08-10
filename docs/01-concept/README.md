@@ -24,18 +24,26 @@ Clarify the problem, users, needs, objectives, constraints, scope and key usage 
 
 ## Outputs / Artefacts
 
-Capture the agreed needs, objectives, constraints, scenarios, scope, assumptions and unresolved questions for later engineering work.
+Capture the agreed problem, needs, objectives, constraints, scenarios, scope,
+assumptions and unresolved questions for later engineering work.
+
+Maintain identified benefits in `BenefitsRegister.xlsx`, giving each benefit a
+stable `BEN-###` identifier and recording how its realisation will be assessed.
+
+The Benefits Register is informed by NASA’s treatment of stakeholder
+expectations and operational benefits, Kossiakoff et al.’s treatment of
+needs analysis and operational objectives, and Sommerville’s treatment of
+early-stage requirements engineering and system benefits.
 
 ## Traceability
 
-- Give important concept-stage items stable IDs, for example:
-  - stakeholder needs (`NEED-001`), objectives (`OBJ-001`), constraints (`CON-001`), operational scenarios (`SCN-001`)
-- Reference these IDs when creating requirements.
-- Reference the relevant requirements in later design decisions, risks and V&V activities.
-- Maintain enough linkage to trace:
-  - forward: need → requirement → design → V&V evidence
-  - backward: V&V evidence → design → requirement → original need
-- The purpose is to contextualise **why each important engineering requirement, decision and test exists**.
+- Give identified benefits stable IDs, for example `BEN-001`.
+- Reference benefits when deriving requirements and planning validation.
+- Maintain enough linkage to trace benefits through requirements, validation
+  activities and supporting evidence.
+- Other concept-stage information may be given stable identifiers where useful.
+- The purpose is to show **why important requirements and validation activities
+  exist, and what value they are intended to support**.
 
 ## References
 
@@ -43,4 +51,7 @@ Capture the agreed needs, objectives, constraints, scenarios, scope, assumptions
 
 \[2\] A. Kossiakoff, W. N. Sweet, S. J. Seymour, and S. M. Biemer, *Systems Engineering: Principles and Practice*, 2nd ed. Hoboken, NJ, USA: John Wiley & Sons, 2011, Chapter 6, "Needs Analysis", pp. 139--164.
 
-\[3\] I. Sommerville, *Software Engineering*, 10th ed. Boston, MA, USA: Pearson, 2016, Section 19.2, "Conceptual design", pp. 563--566.
+[3] I. Sommerville, *Software Engineering*, 10th ed. Boston, MA, USA:
+Pearson, 2016, Chapter 4, "Requirements engineering", pp. 101--137,
+in particular the discussion of early-stage requirements engineering and
+system benefits, p. 105; Section 19.2, "Conceptual design", pp. 563--566.
