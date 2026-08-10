@@ -105,11 +105,18 @@ Important engineering information should be given stable identifiers and linked 
 
 For example:
 
-`NEED-001` → `REQ-003` → `DEC-002` → design → `VER-004` → `EVID-004`
+`NEED-001` → `REQ-003` → `DEC-002` → `ADD-001` → `VER-004` → `EVID-005`
+
+(Stakeholder Need 1 was expressed as Requirement 3, which led through Decision 2
+to Architecture and Design Description 1. Verification Activity 4 was used to
+verify the requirement, with the result recorded as Evidence 5.)
 
 A risk may introduce additional links:
 
-`RISK-003` → control → `VER-007` → `EVID-007`
+`RISK-003` → `CTRL-003` → `VER-007` → `EVID-016`
+
+(Risk 3 was mitigated through Control 3. Verification Activity 7 was used to
+verify the control, with the result recorded as Evidence 16.)
 
 The exact identifiers matter less than maintaining enough linkage to answer questions such as:
 
@@ -135,7 +142,7 @@ RISK → CTRL → VER → EVID
 
 DATA → MODEL → VER → EVID
 
-CI   → CHG
+CFG   → CHG
 ```
 
 The upper path represents verification: requirements are linked to planned verification activities and the evidence demonstrating whether they were satisfied. The lower path represents validation: stakeholder needs, intended benefits or intended use are linked to validation activities and the resulting evidence.
@@ -192,6 +199,7 @@ ai-ml-engineering-framework separates the design of V&V from the resulting evide
 > **What did we actually do, what happened, and what does the evidence support?**
 
 Keeping these separate reduces the temptation to choose success criteria after seeing the results.
+Evidence can of course be captured directly from test systems and preserved in an evidence log.
 
 ---
 

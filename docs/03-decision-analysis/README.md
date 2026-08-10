@@ -28,8 +28,9 @@ Record the alternatives, criteria, analysis, evidence, uncertainties and recomme
 
 ## Traceability
 
--   Give each material analysis a stable ID, for example: decision
-    analyses (`DA-001`) and evaluated alternatives (`ALT-001`).
+-   Give important engineering decisions stable IDs, for example (`DEC-001`).
+-   Link each decision to the alternatives considered, evaluation criteria,
+    analysis performed and evidence supporting the choice.
 -   Reference the requirements, constraints, risks and assumptions that
     establish the decision criteria.
 -   Record the alternatives considered, evaluation criteria, evidence,

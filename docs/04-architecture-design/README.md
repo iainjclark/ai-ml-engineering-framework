@@ -28,9 +28,8 @@ Produce architecture diagrams and design descriptions showing components, interf
 
 ## Traceability
 
--   Give important architectural and design elements stable IDs, for
-    example: architecture elements (`ARCH-001`), components (`COMP-001`)
-    and interfaces (`INT-001`).
+-   Give important architecture and design descriptions stable IDs,
+    for example (`ADD-001`).
 -   Trace architecture and design elements back to the requirements they
     satisfy and the decisions that selected them.
 -   Trace derived requirements and interface constraints to the design

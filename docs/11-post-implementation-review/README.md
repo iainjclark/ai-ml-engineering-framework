@@ -28,9 +28,8 @@ Record findings, lessons and improvement actions, including links to new require
 
 ## Traceability
 
--   Give material operational findings, incidents, lessons and
-    improvement actions stable IDs where useful, for example: findings
-    (`FIND-001`) and lessons (`LESSON-001`).
+-   Link important operational findings and lessons to the requirements,
+    risks, decisions, evidence and changes they affect.
 -   Compare actual operational outcomes with the concept-stage
     objectives, stakeholder needs, requirements and expected benefits.
 -   Link incidents, defects, drift, control failures and unexpected
