@@ -54,7 +54,7 @@ Verification and validation should be planned before the final evidence is avail
 
 ### Maintain traceability
 
-Important needs should be traceable through requirements, design decisions, risks, verification activities and evidence.
+Important needs should be traceable through requirements, design decisions, risks, verification and validation activities, and evidence.
 
 ### Treat mathematics as engineered content
 
@@ -121,6 +121,16 @@ The exact identifiers matter less than maintaining enough linkage to answer ques
 - What evidence supported the release decision?
 
 Traceability should help engineering work, not become paperwork for its own sake.
+
+The verification and validation (V&V) of such an engineered system can be represented diagrammatically.
+
+```
+            ┌── REQ ── VER ── EVID
+BEN / NEED ─┤
+            └── VAL ──────── EVID
+```
+
+The upper path represents verification: requirements are linked to planned verification activities and the evidence demonstrating whether they were satisfied. The lower path represents validation: stakeholder needs, intended benefits or intended use are linked to validation activities and the resulting evidence.
 
 ---
 
