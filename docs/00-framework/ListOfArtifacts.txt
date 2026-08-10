@@ -1,12 +1,12 @@
 Lean ML/AI Engineering Practice Pack
 
 Core working artefact	Absorbs
-Concept & Benefits Brief	CONOPS + Needs + Benefits
+Concept & Benefits Brief	Concept + Needs + Benefits
 1	Benefits Register	BEN-
 2	System / ML Requirements Specification	REQ-
 3	Requirements Traceability Matrix	BEN ↔ REQ ↔ VER ↔ EVID
 Design & Decision Record	Trade Study + Architecture + ADR
-4	Architecture & Design Description	ARCH-, IF-
+4	Architecture & Design Description	ADD-
 Data & Model Record	Data Provenance + DQA + Features + Model/Training
 5	Data Provenance Record	DATA-
 6	Data Quality Assessment	DQA-
@@ -14,7 +14,7 @@ Data & Model Record	Data Provenance + DQA + Features + Model/Training
 Risk & Assurance Register	Risks + Controls + Assurance Claims
 8	Risk Register	RISK-
 V&V Pack	V&V Plan + Procedures + Evidence + Summary
-9	V&V Plan	VER-
+9	V&V Plan	VER-, VAL-
 10	V&V Evidence / Test Record	EVID-
 Operational Assurance Record	Monitoring/Drift/Intervention + PIR
 Production & operation		
@@ -33,8 +33,8 @@ Concept & requirements
 2	System / ML Requirements Specification	REQ-
 3	Requirements Traceability Matrix	NEED ↔ BEN ↔ REQ ↔ VER ↔ EVID
 Decision & design		
-3a	Decision Analysis / Trade Study		DA-
-4	Architecture & Design Description	ARCH-, IF-
+3a	Decision Analysis / Trade Study		DEC-
+4	Architecture & Design Description	ADD-
 4a	Engineering Decision Record / ADR	DEC-
 Data & model engineering		
 5	Data Provenance Record	DATA-
@@ -46,7 +46,7 @@ Risk & assurance
 8a	Control Register	CTRL-
 8b	Assurance Claims Register / Assurance Case	ASSUR-
 Verification & validation		
-9	V&V Plan	VER-
+9	V&V Plan	VER-, VAL-
 9a	V&V Procedure / Test Specification	TEST-
 10	V&V Evidence / Test Record	EVID-
 10a	V&V Summary Report	VVSR-

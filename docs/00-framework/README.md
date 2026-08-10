@@ -122,12 +122,20 @@ The exact identifiers matter less than maintaining enough linkage to answer ques
 
 Traceability should help engineering work, not become paperwork for its own sake.
 
-The verification and validation (V&V) of such an engineered system can be represented diagrammatically.
+The verification and validation (V&V) of such an engineered system can be represented diagrammatically in the first part of this diagram. Other chains of linkage are shown also.
 
 ```
             ┌── REQ ── VER ── EVID
 BEN / NEED ─┤
             └── VAL ──────── EVID
+
+REQ  → DEC  → ADD
+
+RISK → CTRL → VER → EVID
+
+DATA → MODEL → VER → EVID
+
+CI   → CHG
 ```
 
 The upper path represents verification: requirements are linked to planned verification activities and the evidence demonstrating whether they were satisfied. The lower path represents validation: stakeholder needs, intended benefits or intended use are linked to validation activities and the resulting evidence.
