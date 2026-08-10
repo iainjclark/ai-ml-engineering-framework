@@ -26,6 +26,11 @@ Write clear, testable requirements. Remove ambiguity, resolve conflicts, separat
 
 Produce an agreed set of stakeholder, system and non-functional requirements, with IDs, sources, priorities and acceptance criteria.
 
+The structure of `RequirementsTraceabilityMatrix.xlsx` is adapted from the
+Requirements Verification Matrix in Appendix D, Table D-1 of the NASA
+*Systems Engineering Handbook*, with additional lifecycle traceability informed
+by systems and software engineering practice.
+
 ## Traceability
 
 -   Give each requirement a stable ID, for example: stakeholder
@@ -47,7 +52,8 @@ Produce an agreed set of stakeholder, system and non-functional requirements, wi
 \[1\] National Aeronautics and Space Administration, *NASA Systems
 Engineering Handbook*, Rev. 2, NASA/SP-2016-6105 Rev. 2. Washington, DC,
 USA: NASA, 2016, Section 4.2, "Technical Requirements Definition",
-pp. 54--62; Section 6.2, "Requirements Management", pp. 130--135.
+pp. 54--62; Section 6.2, "Requirements Management", pp. 130--135; 
+Appendix D, "Requirements Verification Matrix", Table D-1, pp. 201–202.
 
 \[2\] A. Kossiakoff, W. N. Sweet, S. J. Seymour, and S. M. Biemer,
 *Systems Engineering: Principles and Practice*, 2nd ed. Hoboken, NJ,
