@@ -8,11 +8,11 @@ Define exactly what makes up a controlled system version and manage changes so d
 
 ## When Should It Be Created
 
-Create this once system items need controlled versions, and before a baseline is relied on for formal testing or release.
+Create this once system items need controlled versions, and before a baseline is relied on for formal testing or release. When do you need a controlled version? Probably earlier than you think.
 
 ## When Should It Be Updated
 
-Update it whenever controlled code, models, data, dependencies, configuration, infrastructure or documentation change.
+Update it whenever controlled code, models, data, dependencies, configuration, infrastructure or documentation change materially. Review it at a cadence appropriate to the project’s scale, risk and rate of change.
 
 ## Inputs
 
@@ -25,6 +25,9 @@ Identify controlled items and baselines. Assess proposed changes, their impacts 
 ## Outputs / Artefacts
 
 Maintain configuration records, baselines and change records that show what changed, why, who approved it and what checks were required.
+
+The configuration and change management artefacts are informed by Sommerville’s treatment of configuration management (Chapter 25), with the 
+structure of `MilestoneChangeLog.xlsx` informed in part by the example change request form in Figure 25.15.
 
 ## Traceability
 
