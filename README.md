@@ -11,24 +11,26 @@ control, production release and post-implementation review.
 
 ## Proof of Concept I - Petrol Price Predictor
 
-It will be illustrated using a live petrol-price prediction model, with
+**PoC I:** *Demonstrates application of the framework across the operational ML lifecycle.*
+
+The framework will be illustrated using a live petrol-price prediction model, with
 GitHub Actions supporting automated inference, monitoring, drift detection
 and controlled rollback.
 
 ## Proof of Concept II - Interactive Assurance Demonstrator
 
+**PoC II:** *Demonstrates interrogation and traceability of the resulting engineering evidence.*
+
 A web interface is planned over the end-to-end petrol-price example, including its production monitoring and model-drift evidence.
 
-This evidence-grounded AI assistant allows users to ask engineering and project management questions about the system in natural language. In effect, it provides a lightweight form of “management as a service” (MaaS) over the engineering evidence.
+This evidence-grounded AI assistant allows users to ask engineering and project-management questions about the system in natural language. In effect, it provides a lightweight management interface over the engineering evidence, giving users direct access to the current status of the project together with its evidenced history.
 
-Example questions might include:
+Example questions one might ask the AI assistant:
 
-- What are the highest current risks?
-- Why was this model approved for release?
-- What changed in the latest baseline?
-- Which requirements have not yet been verified?
-- Is the model currently showing evidence of drift?
-- What evidence supports a particular requirement or control?
+- "What are the highest current risks?"
+- "Which requirements have not yet been verified?"
+- "Is the model currently showing evidence of drift?"
+- "What evidence supports a particular requirement or control?"
 
 ### Candidate Technologies Under Consideration
 
@@ -45,3 +47,11 @@ engineering artefacts rather than acting as an independent source of truth.
 
 The interactive layer is optional; the underlying engineering framework remains 
 usable independently of any AI assistant.
+
+# Foundational References
+
+\[1\] National Aeronautics and Space Administration, *NASA Systems Engineering Handbook*, Rev. 2, NASA/SP-2016-6105 Rev. 2. Washington, DC, USA: NASA, 2016.
+
+\[2\] A. Kossiakoff, W. N. Sweet, S. J. Seymour, and S. M. Biemer, *Systems Engineering: Principles and Practice*, 2nd ed. Hoboken, NJ, USA: John Wiley & Sons, 2011.
+
+\[3\] I. Sommerville, *Software Engineering*, 10th ed. Boston, MA, USA: Pearson, 2016
