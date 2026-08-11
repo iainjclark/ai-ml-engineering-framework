@@ -1,4 +1,4 @@
-Note: the sequential indices describing the 12 or more engineering management artifacts maintained throughough the project are *not* the same as the 11 stage indices in /docs
+Note: the sequential indices describing the 12 or more engineering management artifacts maintained throughout the project are *not* the same as the 11 stage indices in /docs
 
 Lean ML/AI Engineering Practice Pack
 

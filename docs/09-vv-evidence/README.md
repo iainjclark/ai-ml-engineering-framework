@@ -27,6 +27,11 @@ Perform the planned checks and record actual results, conditions, deviations, fa
 Produce V&V evidence records showing what was tested or validated, what happened,
 whether it passed and what remains unresolved.
 
+Maintain executed verification and validation evidence in `VVEvidenceRegister.xlsx`,
+giving each evidence item a stable `EVID-###` identifier and recording the
+corresponding V&V activity, configuration, actual conditions, results,
+acceptance outcome, deviations, supporting artefacts and disposition.
+
 Use `RequirementsTraceabilityMatrix.xlsx` to maintain verification traceability
 from requirements through planned verification activities to evidence
 (`REQ ↔ VER ↔ EVID`).
@@ -40,11 +45,17 @@ Validation Requirements Matrix in Appendix E, Table E-1 of the NASA
 *Systems Engineering Handbook*, with additional lifecycle traceability informed
 by systems and software engineering practice.
 
+The structure of the V&V Evidence Register is adapted primarily from
+Table 5.3-1, "Example information in Verification Procedures and Reports",
+of the NASA *Systems Engineering Handbook*, simplified for lightweight
+AI/ML engineering practice. Kossiakoff et al. provide supporting guidance
+on test reporting, analysis, deficiencies and evaluation.
+
 ## Traceability
 
-- Give each evidence item or executed V&V record a stable ID, for
-  example: evidence (`EVID-001`) or retain the corresponding `VER-###`
-  / `VAL-###` identifier.
+- Give each evidence item a stable `EVID-###` identifier.
+- Link each `EVID-###` item to the corresponding `VER-###` or `VAL-###`
+  activity defined in `06-v&v-design`.
 - Trace verification evidence back through `VER-###` to the requirement
   being verified.
 - Trace validation evidence back through `VAL-###` to the stakeholder
@@ -62,10 +73,11 @@ by systems and software engineering practice.
 ## References
 
 \[1\] National Aeronautics and Space Administration, *NASA Systems
-Engineering Handbook*, Rev. 2, NASA/SP-2016-6105 Rev. 2. Washington, DC,
+Engineering Handbook*, Rev. 2, NASA/SP-2016-6105 Rev. 2. Washington, DC,
 USA: NASA, 2016, Sections 5.3--5.4, "Product Verification" and "Product
-Validation", pp. 88--106; Appendix E, "Creating the Validation Plan with a
-Validation Requirements Matrix", Table E-1, pp. 203–204.
+Validation", pp. 88--106; Table 5.3-1, "Example information in Verification
+Procedures and Reports", p. 94; Appendix E, "Creating the Validation Plan
+with a Validation Requirements Matrix", Table E-1, pp. 203--204.
 
 \[2\] A. Kossiakoff, W. N. Sweet, S. J. Seymour, and S. M. Biemer,
 *Systems Engineering: Principles and Practice*, 2nd ed. Hoboken, NJ,

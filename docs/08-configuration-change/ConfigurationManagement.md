@@ -15,6 +15,8 @@ Released baselines are identified using Git tags.
 
 ## Current Released Baseline
 
+**Example configuration baseline (placeholder values only):**
+
 Release: `v1.0.0`  
 Git commit: `abc1234`  
 Git tag: `v1.0.0`  
