@@ -129,7 +129,7 @@ is required.
 ## 9. Evidence and Traceability
 
 Record executed results in the V&V evidence artefacts under
-`09-v&v-evidence`.
+`09-vv-evidence`.
 
 Maintain traceability sufficient to answer questions such as:
 

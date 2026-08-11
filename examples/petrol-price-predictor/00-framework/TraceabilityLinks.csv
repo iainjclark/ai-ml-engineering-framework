@@ -1,0 +1,24 @@
+source_id,relationship,target_id,rationale
+TAILOR-001,governs,CFG-001,The tailoring decision defines the controls required for the demonstration baseline
+CON-001,identifies,BEN-001,The concept brief defines the intended planning benefit
+BEN-001,realised_by,SYS-REQ-001,A timely forecast is required to support weekly planning
+NEED-001,satisfied_by,SYS-REQ-001,The forecast addresses the analyst need
+SYS-REQ-001,supported_by,DEC-001,The method selection evaluates how to produce the weekly forecast
+DEC-001,implemented_by,ADD-001,The selected regularised linear method is embodied in the design
+ADD-001,satisfies,SYS-REQ-001,The scheduled prediction pipeline produces the required report
+ML-REQ-001,verified_by,VER-001,Rolling-origin backtesting checks the predefined error threshold
+VER-001,supported_by,EVID-001,The evidence record preserves the performance result
+RISK-001,mitigated_by,CTRL-001,The freshness gate prevents forecasts using stale input
+CTRL-001,verified_by,VER-002,The stale-input test checks that publication is blocked
+VER-002,supported_by,EVID-002,The evidence record preserves the freshness-control result
+NFR-001,verified_by,VER-003,The repeatability test checks the controlled baseline
+VER-003,supported_by,EVID-003,The evidence record preserves the repeatability result
+BEN-001,validated_by,VAL-001,Analyst walkthrough assesses whether the report supports planning
+VAL-001,supported_by,EVID-004,The evidence record preserves the walkthrough result
+REL-001,releases,CFG-001,The readiness decision approves the exact demonstration baseline
+REL-001,supported_by,EVID-001,Performance evidence supports the fictional release decision
+REL-001,supported_by,EVID-002,Control evidence supports the fictional release decision
+REL-001,supported_by,EVID-003,Repeatability evidence supports the fictional release decision
+CFG-001,monitored_by,MON-001,The monitoring plan applies to the approved baseline
+MON-001,reviewed_by,PIR-001,The post-implementation review assesses monitoring and operational outcomes
+PIR-001,triggers,CHG-001,The review requests clearer uncertainty wording in the next example revision

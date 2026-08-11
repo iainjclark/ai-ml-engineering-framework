@@ -17,6 +17,11 @@ The framework will be illustrated using a live petrol-price prediction model, wi
 GitHub Actions supporting automated inference, monitoring, drift detection
 and controlled rollback.
 
+A fully populated, fictional engineering-record example is available in
+[`examples/petrol-price-predictor`](examples/petrol-price-predictor/README.md).
+It demonstrates tailoring, typed traceability, release evidence and operational
+feedback before the live implementation is introduced.
+
 ## Proof of Concept II - Interactive Assurance Demonstrator
 
 **PoC II:** *Demonstrates interrogation and traceability of the resulting engineering evidence.*
@@ -45,7 +50,7 @@ Example questions one might ask the AI assistant:
 Assistant responses should be grounded in, and traceable to, the controlled
 engineering artefacts rather than acting as an independent source of truth.
 
-The interactive layer is optional; the underlying engineering framework remains 
+The interactive layer is optional; the underlying engineering framework remains
 usable independently of any AI assistant.
 
 # Foundational References

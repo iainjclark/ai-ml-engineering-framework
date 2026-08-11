@@ -1,0 +1,36 @@
+schema_version: 1
+catalogue:
+  catalogue_id: CAT-###
+  project: TODO
+  profile: TODO
+  baseline: TODO
+  owner: TODO
+  status: draft
+  version: 0.1
+  approved_by: null
+  approved_date: null
+  source_of_truth: TODO
+  last_updated: YYYY-MM-DD
+
+# Replace the example with one entry for every controlled project artefact.
+# Use a lowercase hexadecimal SHA-256 value after the artefact is finalised.
+artifacts:
+  - artifact_id: EXAMPLE-001
+    artifact_type: example-artifact
+    title: EXAMPLE - replace this entry
+    path: relative/path/to/artifact
+    owner: TODO
+    status: draft
+    version: 0.1
+    baseline: TODO
+    approval:
+      approved_by: null
+      approved_date: null
+      decision: pending
+    source_of_truth: repository
+    integrity:
+      algorithm: sha256
+      value: null
+      verified_at: null
+    supersedes: null
+    superseded_by: null

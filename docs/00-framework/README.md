@@ -94,7 +94,7 @@ ai-ml-engineering-framework organises engineering work into eleven areas. They h
 
 The stages are numbered to provide a natural engineering sequence, but they are not a strict waterfall.
 
-Engineering is often iterative. New evidence may change a requirement, expose a risk, invalidate a decision or require a design change. Subject to your organisational constraints and the 
+Engineering is often iterative. New evidence may change a requirement, expose a risk, invalidate a decision or require a design change. Subject to your organisational constraints and the
 constraints of each particular project, return to earlier stages whenever necessary.
 
 ---
@@ -128,6 +128,13 @@ The exact identifiers matter less than maintaining enough linkage to answer ques
 - What evidence supported the release decision?
 
 Traceability should help engineering work, not become paperwork for its own sake.
+
+For a machine-readable record, maintain the selected artefacts in
+`ArtefactCatalogue.yaml` and the relationships between their stable IDs in
+`TraceabilityLinks.csv`. Markdown artefacts may use YAML front matter for their
+own identity, status, baseline, approval and links. The separate edge list makes
+the evidence graph explicit instead of requiring tools to infer every
+relationship from prose.
 
 The verification and validation (V&V) of such an engineered system can be represented diagrammatically in the first part of this diagram. Other chains of linkage are shown also.
 
@@ -165,6 +172,11 @@ Sections that are not relevant may be marked **Not Applicable**, with a short ex
 
 Do not create documentation merely to fill every template.
 
+Record the proportionality decision in `FrameworkTailoringRecord.md`. It captures
+system type, consequence, reversibility, effects on people, data sensitivity,
+autonomy, dependencies and applicable context, then identifies the selected
+pack, required artefacts, justified exclusions, approval and review triggers.
+
 ---
 
 ## Starting a Project
@@ -172,15 +184,16 @@ Do not create documentation merely to fill every template.
 For a new project:
 
 1. Copy or instantiate the ai-ml-engineering-framework project structure.
-2. Start with **01 — Concept** and establish the problem, stakeholders, objectives, constraints and intended use.
-3. Develop measurable requirements in **02 — Requirements**. This can be done as BDUF (Big Design Up Front), incrementally through Agile stories, or somewhere in between. Your project, your rules.
-4. Record important alternatives and engineering choices as the design develops.
-5. Identify risks early rather than waiting until release.
-6. Decide how important claims and requirements will be verified or validated.
-7. Maintain configuration, decisions and traceability as the system changes.
-8. Collect V&V evidence against the methods and criteria previously defined.
-9. Make an explicit release decision based on the controlled system, available evidence and remaining risk.
-10. Review operational outcomes and feed what was learned back into the engineering lifecycle.
+2. Complete a framework tailoring record and initialise the artefact catalogue and traceability links.
+3. Start with **01 — Concept** and establish the problem, stakeholders, objectives, constraints and intended use.
+4. Develop measurable requirements in **02 — Requirements**. This can be done as BDUF (Big Design Up Front), incrementally through Agile stories, or somewhere in between. Your project, your rules.
+5. Record important alternatives and engineering choices as the design develops.
+6. Identify risks early rather than waiting until release.
+7. Decide how important claims and requirements will be verified or validated.
+8. Maintain configuration, decisions and traceability as the system changes.
+9. Collect V&V evidence against the methods and criteria previously defined.
+10. Make an explicit release decision based on the controlled system, available evidence and remaining risk.
+11. Review operational outcomes and feed what was learned back into the engineering lifecycle.
 
 Do not wait until the system is finished before creating its engineering record.
 
@@ -286,6 +299,10 @@ The README for each stage explains:
 - **References** — sources supporting the engineering practice.
 
 The templates are starting points. Adapt them when the project requires it.
+
+The human-readable pack overview is in `ArtefactCatalogue.md`. The worked
+petrol-price example shows how the framework-level templates can be tailored and
+connected into one evidence record.
 
 ---
 

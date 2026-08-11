@@ -1,0 +1,68 @@
+schema_version: 1
+example_only: true
+release:
+  release_id: REL-001
+  baseline_id: CFG-001
+  system: petrol-price-predictor-worked-example
+  version: petrol-demo-v0.1.0
+  status: approved-example
+  environment: fictional-static-demonstration
+  created_at: 2026-07-15T09:00:00Z
+  source_repository: this-repository
+  source_commit: EXAMPLE-NOT-A-GIT-COMMIT
+  source_tag: EXAMPLE-NOT-A-GIT-TAG
+
+components:
+  code:
+    - id: CFG-CODE-001
+      name: example-forecast-pipeline
+      version: v0.1.0
+      uri: example://controlled-items/forecast-pipeline-v0.1.0
+      sha256: aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
+  models:
+    - id: MODEL-001
+      name: regularised-linear-autoregression
+      version: v1
+      uri: example://controlled-items/model-v1
+      sha256: bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb
+      training_record: TRAIN-001
+  data:
+    - id: DATA-001
+      name: synthetic-weekly-petrol-series
+      version: v1
+      uri: example://controlled-items/synthetic-series-v1
+      sha256: cccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccccc
+      permitted_use: demonstration-and-testing-only
+  configuration:
+    - id: CFG-RUN-001
+      name: batch-and-report-config
+      version: v1
+      uri: example://controlled-items/run-config-v1
+      sha256: dddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddddd
+  infrastructure:
+    - id: CFG-INFRA-001
+      name: fictional-ci-static-report-environment
+      version: v1
+      uri: example://controlled-items/infra-v1
+      sha256: eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee
+  dependencies:
+    lockfile: example://controlled-items/dependencies-v1.lock
+    runtime: EXAMPLE-python-3.x-locked
+    sha256: ffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffff
+
+evidence:
+  - {evidence_id: EVID-001, valid_for_baseline: CFG-001, uri: ../09-vv-evidence/VVEvidenceRecord.md, sha256: '1111111111111111111111111111111111111111111111111111111111111111'}
+  - {evidence_id: EVID-002, valid_for_baseline: CFG-001, uri: ../09-vv-evidence/VVEvidenceRecord.md, sha256: '2222222222222222222222222222222222222222222222222222222222222222'}
+  - {evidence_id: EVID-003, valid_for_baseline: CFG-001, uri: ../09-vv-evidence/VVEvidenceRecord.md, sha256: '3333333333333333333333333333333333333333333333333333333333333333'}
+  - {evidence_id: EVID-004, valid_for_baseline: CFG-001, uri: ../09-vv-evidence/VVEvidenceRecord.md, sha256: '4444444444444444444444444444444444444444444444444444444444444444'}
+
+operations:
+  deployment_procedure: example://controlled-items/deploy-static-report-v1
+  rollback_procedure: example://controlled-items/restore-prior-report-v1
+  monitoring_plan: MON-001
+  incident_route: fictional-service-owner
+
+approval:
+  decision: approved-example
+  release_authority: demonstration-release-authority
+  approved_at: 2026-07-15T10:00:00Z

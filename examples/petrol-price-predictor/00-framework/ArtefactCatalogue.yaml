@@ -1,0 +1,195 @@
+schema_version: 1
+catalogue:
+  catalogue_id: CAT-001
+  project: petrol-price-predictor-worked-example
+  profile: lean-predictive-ml
+  baseline: petrol-demo-v0.1.0
+  owner: engineering-lead
+  status: approved
+  version: 1.0
+  approved_by: demonstration-release-authority
+  approved_date: 2026-08-11
+  source_of_truth: this-repository
+  last_updated: 2026-08-11
+
+artifacts:
+  - artifact_id: CAT-001
+    artifact_type: artefact-catalogue
+    title: Petrol Price Predictor Artefact Catalogue
+    path: 00-framework/ArtefactCatalogue.yaml
+    owner: engineering-lead
+    status: approved
+    version: 1.0
+    baseline: petrol-demo-v0.1.0
+    approval: {approved_by: demonstration-release-authority, approved_date: 2026-08-11, decision: approved}
+    source_of_truth: this-repository
+    integrity:
+      algorithm: sha256
+      value: null
+      verified_at: null
+      rationale: The catalogue cannot contain its own hash without changing it; the containing Git commit provides self-integrity.
+  - artifact_id: TRACE-001
+    artifact_type: traceability-edge-list
+    title: Petrol Price Predictor Traceability Links
+    path: 00-framework/TraceabilityLinks.csv
+    owner: engineering-lead
+    status: approved
+    version: 1.0
+    baseline: petrol-demo-v0.1.0
+    approval: {approved_by: demonstration-release-authority, approved_date: 2026-08-11, decision: approved}
+    source_of_truth: this-repository
+    integrity: {algorithm: sha256, value: ab19fe095e98a896dbbf8e3267f4ed32715bd5a76c176b94e26e24685b309447, verified_at: 2026-08-11}
+  - artifact_id: TAILOR-001
+    artifact_type: framework-tailoring-record
+    title: Petrol Price Predictor Framework Tailoring
+    path: 00-framework/FrameworkTailoringRecord.md
+    owner: engineering-lead
+    status: approved
+    version: 1.0
+    baseline: petrol-demo-v0.1.0
+    approval: {approved_by: demonstration-release-authority, approved_date: 2026-07-01, decision: approved}
+    source_of_truth: this-repository
+    integrity: {algorithm: sha256, value: 07d43cea835d98a4441caa178d056436ce4d898cac783f75ac6132c53df25f9d, verified_at: 2026-08-11}
+  - artifact_id: CON-001
+    artifact_type: concept-benefits-brief
+    title: Petrol Price Predictor Concept and Benefits
+    path: 01-concept/ConceptAndBenefitsBrief.md
+    owner: product-owner
+    status: approved
+    version: 1.0
+    baseline: petrol-demo-v0.1.0
+    approval: {approved_by: engineering-lead, approved_date: 2026-07-02, decision: approved}
+    source_of_truth: this-repository
+    integrity: {algorithm: sha256, value: ae0520ff93244e87e2a13c327929b8d6d2c9910849935e024fa3dee5be9a44a2, verified_at: 2026-08-11}
+  - artifact_id: SRS-001
+    artifact_type: system-requirements-specification
+    title: Petrol Price Predictor Requirements
+    path: 02-requirements/SystemRequirementsSpecification.md
+    owner: engineering-lead
+    status: approved
+    version: 1.0
+    baseline: petrol-demo-v0.1.0
+    approval: {approved_by: product-owner, approved_date: 2026-07-03, decision: approved}
+    source_of_truth: this-repository
+    integrity: {algorithm: sha256, value: a8ca53e387f45bb6033022900e4d124593b92af6d1e8fc3be00773b8efd8e36d, verified_at: 2026-08-11}
+  - artifact_id: DEC-001
+    artifact_type: decision-analysis
+    title: Forecast Method Selection
+    path: 03-decision-analysis/DecisionAnalysis.md
+    owner: engineering-lead
+    status: approved
+    version: 1.0
+    baseline: petrol-demo-v0.1.0
+    approval: {approved_by: demonstration-release-authority, approved_date: 2026-07-05, decision: approved}
+    source_of_truth: this-repository
+    integrity: {algorithm: sha256, value: 55a0fb0d58678d701fe7c97fa44f09791fd20c15c36be65235da423c037a435c, verified_at: 2026-08-11}
+  - artifact_id: ADD-001
+    artifact_type: architecture-design-description
+    title: Petrol Price Predictor Architecture
+    path: 04-architecture-design/ArchitectureDesignDescription.md
+    owner: engineering-lead
+    status: approved
+    version: 1.0
+    baseline: petrol-demo-v0.1.0
+    approval: {approved_by: test-lead, approved_date: 2026-07-06, decision: approved}
+    source_of_truth: this-repository
+    integrity: {algorithm: sha256, value: 62e29f6b7bc28c62eeeb5ff526bb5f55186e94bc8052a19d55217dfe95ff35da, verified_at: 2026-08-11}
+  - artifact_id: RISKREG-001
+    artifact_type: risk-control-register
+    title: Petrol Price Predictor Risk and Control Register
+    path: 05-risk-assurance/RiskAndControlRegister.csv
+    owner: risk-owner
+    status: approved
+    version: 1.0
+    baseline: petrol-demo-v0.1.0
+    approval: {approved_by: demonstration-release-authority, approved_date: 2026-07-07, decision: approved}
+    source_of_truth: this-repository
+    integrity: {algorithm: sha256, value: 4a02bf6abedcbcc762080fb4e59151e0d9b6dc973741f56614ee64cd2b5212e7, verified_at: 2026-08-11}
+  - artifact_id: VVPLAN-001
+    artifact_type: vv-plan
+    title: Petrol Price Predictor V&V Plan
+    path: 06-vv-design/VVPlan.md
+    owner: test-lead
+    status: approved
+    version: 1.0
+    baseline: petrol-demo-v0.1.0
+    approval: {approved_by: engineering-lead, approved_date: 2026-07-08, decision: approved}
+    source_of_truth: this-repository
+    integrity: {algorithm: sha256, value: 83bd97242ef7f91d1db19799808ae03fd473ba1422276e1e72cd75437fd887ca, verified_at: 2026-08-11}
+  - artifact_id: DECLOG-001
+    artifact_type: decision-record
+    title: Forecast Method Decision Record
+    path: 07-decision-log/DecisionRecord.md
+    owner: engineering-lead
+    status: approved
+    version: 1.0
+    baseline: petrol-demo-v0.1.0
+    approval: {approved_by: demonstration-release-authority, approved_date: 2026-07-05, decision: approved}
+    source_of_truth: this-repository
+    integrity: {algorithm: sha256, value: 7ffd05398a5390d5f025349144213cfbd2f90e85d7c25d46a90343a41ae5b7d9, verified_at: 2026-08-11}
+  - artifact_id: CFG-001
+    artifact_type: configuration-record
+    title: Petrol Price Predictor Configuration
+    path: 08-configuration-change/ConfigurationManagement.md
+    owner: release-owner
+    status: approved
+    version: 1.0
+    baseline: petrol-demo-v0.1.0
+    approval: {approved_by: demonstration-release-authority, approved_date: 2026-07-15, decision: approved}
+    source_of_truth: this-repository
+    integrity: {algorithm: sha256, value: 3076716f9ce3dbd1e700717d9568baf5b7fc8903c4d94a1a77571c99c859c637, verified_at: 2026-08-11}
+  - artifact_id: EVIDREC-001
+    artifact_type: vv-evidence-record
+    title: Petrol Price Predictor V&V Evidence
+    path: 09-vv-evidence/VVEvidenceRecord.md
+    owner: test-lead
+    status: approved
+    version: 1.0
+    baseline: petrol-demo-v0.1.0
+    approval: {approved_by: peer-reviewer, approved_date: 2026-07-14, decision: approved}
+    source_of_truth: this-repository
+    integrity: {algorithm: sha256, value: 1293aee6edc112392782cf74d2271493aef815c05cf45f9c6a818397b67284de, verified_at: 2026-08-11}
+  - artifact_id: REL-001
+    artifact_type: release-readiness-record
+    title: Petrol Price Predictor Release Readiness
+    path: 10-release-to-production/ReleaseReadinessRecord.md
+    owner: release-owner
+    status: approved
+    version: 1.0
+    baseline: petrol-demo-v0.1.0
+    approval: {approved_by: demonstration-release-authority, approved_date: 2026-07-15, decision: approved}
+    source_of_truth: this-repository
+    integrity: {algorithm: sha256, value: 5dd4db58e553be54e3f7fb51b0ca55b023439255a272e93c655cc8014f5ee35c, verified_at: 2026-08-11}
+  - artifact_id: MANIFEST-001
+    artifact_type: release-manifest
+    title: Petrol Price Predictor Release Manifest
+    path: 10-release-to-production/ReleaseManifest.yaml
+    owner: release-owner
+    status: approved
+    version: 1.0
+    baseline: petrol-demo-v0.1.0
+    approval: {approved_by: demonstration-release-authority, approved_date: 2026-07-15, decision: approved}
+    source_of_truth: this-repository
+    integrity: {algorithm: sha256, value: a946bf858c77fd7d2f7a7ec142694606df51799c1f163f6555fafabc9ada9060, verified_at: 2026-08-11}
+  - artifact_id: MON-001
+    artifact_type: monitoring-drift-intervention-plan
+    title: Petrol Price Predictor Monitoring Plan
+    path: 11-post-implementation-review/MonitoringDriftInterventionPlan.md
+    owner: service-owner
+    status: approved
+    version: 1.0
+    baseline: petrol-demo-v0.1.0
+    approval: {approved_by: demonstration-release-authority, approved_date: 2026-07-15, decision: approved}
+    source_of_truth: this-repository
+    integrity: {algorithm: sha256, value: 6d9aa274f55e5a405cc0114893f2c1e45af568f701b233cb068dbf852e51a21a, verified_at: 2026-08-11}
+  - artifact_id: PIR-001
+    artifact_type: post-implementation-review
+    title: Petrol Price Predictor Post-Implementation Review
+    path: 11-post-implementation-review/PostImplementationReview.md
+    owner: product-owner
+    status: approved
+    version: 1.0
+    baseline: petrol-demo-v0.1.0
+    approval: {approved_by: demonstration-release-authority, approved_date: 2026-08-11, decision: approved}
+    source_of_truth: this-repository
+    integrity: {algorithm: sha256, value: 2dcdb1917739cf1a012ba988c5be3aa2c7a937270e704cfe63e0a28b1749e2b4, verified_at: 2026-08-11}
