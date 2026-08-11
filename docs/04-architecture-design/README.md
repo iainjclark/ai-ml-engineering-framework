@@ -26,6 +26,10 @@ Define components, responsibilities, interfaces and data flows. Check that the d
 
 Produce architecture diagrams and design descriptions showing components, interfaces, data flows, dependencies and key design choices.
 
+Use `ArchitectureDesignDescription.md` to record the boundary, components,
+interfaces, human actors, data and model flows, trust boundaries, failure modes,
+observability, fallback and recovery for an `ADD-###` artefact.
+
 ## Traceability
 
 -   Give important architecture and design descriptions stable IDs,

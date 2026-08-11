@@ -29,7 +29,7 @@ Produce a V&V Plan describing the V&V strategy, scope, methods, responsibilities
 Maintain planned verification and validation activities in `VVRegister.xlsx`,
 including their targets, methods, conditions, data, acceptance criteria and
 planned evidence. Actual evidence is linked when activities are executed in
-`09-v&v-evidence`.
+`09-vv-evidence`.
 
 The structure of the V&V Plan used in this framework is adapted from the
 Verification and Validation Plan Outline in Appendix I of the NASA Systems
@@ -49,7 +49,7 @@ and software testing respectively.
 -   Distinguish verification of specified requirements from validation
     of stakeholder needs and intended use.
 -   Link executed activities and results to the corresponding records in
-    `09-v&v-evidence`.
+    `09-vv-evidence`.
 -   The purpose is to show **what evidence will count as adequate proof
     before the results are known**.
 
@@ -72,11 +72,11 @@ Pearson, 2016, Chapter 8, "Software testing", pp. 226--254.
 
 \[4\] INCOSE, *Systems Engineering Handbook: A Guide for System Life Cycle
 Processes and Activities*, 5th ed. Hoboken, NJ, USA: John Wiley & Sons,
-2023. 
+2023.
 
 \[5\] H. Washizaki, ed., *Guide to the Software Engineering Body of
 Knowledge (SWEBOK Guide)*, Version 4.0a. Los Alamitos, CA, USA: IEEE
-Computer Society, 2025. 
+Computer Society, 2025.
 
 ## References - Optional / Specialist
 
@@ -88,4 +88,3 @@ of Validation Experiments,” pp. 409–465.
 
 \[7\] B. J. Taylor, ed., *Methods and Procedures for the Verification and
 Validation of Artificial Neural Networks*. New York, NY, USA: Springer, 2006.
-

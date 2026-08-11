@@ -27,6 +27,11 @@ Review readiness, evidence and open issues. Confirm deployment and rollback arra
 
 Produce a release record identifying the approved baseline, supporting evidence, remaining risks, conditions, authority and decision.
 
+Use `ReleaseReadinessRecord.md` for the review and accountable decision. Use
+`ReleaseManifest.yaml` to identify the exact code, models, data, configuration,
+infrastructure, dependencies, evidence and operational procedures included in
+the candidate baseline.
+
 ## Traceability
 
 -   Give each production release a stable ID, for example: releases

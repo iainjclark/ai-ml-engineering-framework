@@ -26,6 +26,12 @@ Compare actual outcomes with expectations. Investigate gaps, successes and failu
 
 Record findings, lessons and improvement actions, including links to new requirements, risks, decisions or changes where needed.
 
+Use `MonitoringDriftInterventionPlan.md` before release to define operational
+signals, thresholds, ownership and permitted interventions. Use
+`PostImplementationReview.md` after sufficient operation or a material event to
+compare actual outcomes with expectations and feed evidence-backed changes into
+the lifecycle.
+
 ## Traceability
 
 -   Link important operational findings and lessons to the requirements,

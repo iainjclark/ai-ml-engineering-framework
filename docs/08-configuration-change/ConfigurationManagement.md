@@ -15,10 +15,12 @@ Released baselines are identified using Git tags.
 
 ## Current Released Baseline
 
-Release: `v1.0.0`  
-Git commit: `abc1234`  
-Git tag: `v1.0.0`  
-Date: YYYY-MM-DD
+| Field | Controlled value |
+|---|---|
+| Release | `TODO` (example format: `EXAMPLE-v1.0.0`) |
+| Git commit | `TODO` (example format: `EXAMPLE-abc1234`) |
+| Git tag | `TODO` (example format: `EXAMPLE-v1.0.0`) |
+| Date | `TODO` (YYYY-MM-DD) |
 
 ## Branching and Change Control
 

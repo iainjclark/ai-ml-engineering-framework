@@ -1,0 +1,67 @@
+schema_version: 1
+release:
+  release_id: REL-###
+  baseline_id: CFG-###
+  system: TODO
+  version: TODO
+  status: candidate
+  environment: TODO
+  created_at: YYYY-MM-DDThh:mm:ssZ
+  source_repository: TODO
+  source_commit: TODO
+  source_tag: TODO
+
+components:
+  code:
+    - id: CFG-###
+      name: TODO
+      version: TODO
+      uri: TODO
+      sha256: TODO
+  models:
+    - id: MODEL-###
+      name: TODO
+      version: TODO
+      uri: TODO
+      sha256: TODO
+      training_record: TRAIN-###
+  data:
+    - id: DATA-###
+      name: TODO
+      version: TODO
+      uri: TODO
+      sha256: TODO
+      permitted_use: TODO
+  configuration:
+    - id: CFG-###
+      name: TODO
+      version: TODO
+      uri: TODO
+      sha256: TODO
+  infrastructure:
+    - id: CFG-###
+      name: TODO
+      version: TODO
+      uri: TODO
+      sha256: TODO
+  dependencies:
+    lockfile: TODO
+    runtime: TODO
+    sha256: TODO
+
+evidence:
+  - evidence_id: EVID-###
+    valid_for_baseline: CFG-###
+    uri: TODO
+    sha256: TODO
+
+operations:
+  deployment_procedure: TODO
+  rollback_procedure: TODO
+  monitoring_plan: MON-###
+  incident_route: TODO
+
+approval:
+  decision: pending
+  release_authority: TODO
+  approved_at: null

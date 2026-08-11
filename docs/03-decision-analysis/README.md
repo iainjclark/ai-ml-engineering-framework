@@ -26,6 +26,10 @@ Identify realistic alternatives and decision criteria. Compare evidence, assumpt
 
 Record the alternatives, criteria, analysis, evidence, uncertainties and recommendation, ready for the final decision to be logged.
 
+Use `DecisionAnalysisTemplate.md` as a starting point for a controlled
+`DEC-###` analysis. Preserve the authoritative outcome and supersession history
+in `07-decision-log`.
+
 ## Traceability
 
 -   Give important engineering decisions stable IDs, for example (`DEC-001`).
@@ -59,6 +63,6 @@ pp. 171--173.
 
 ## References - Optional / Specialist
 
-\[4\] S. D. Howison, *Practical Applied Mathematics: Modelling, Analysis, 
+\[4\] S. D. Howison, *Practical Applied Mathematics: Modelling, Analysis,
 Approximation*. Cambridge, UK: Cambridge University Press, 2005,
 Part I, “Modelling techniques,” Chapters 1–3, pp. 3–49.
