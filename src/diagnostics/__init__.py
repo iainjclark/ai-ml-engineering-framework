@@ -26,6 +26,8 @@ from .runtime import (
     get_system_usage,
 )
 
+from .capture import capture_diagnostics
+
 __all__ = [
     "get_architecture_info",
     "get_cpu_info",
@@ -42,4 +44,5 @@ __all__ = [
     "get_process_usage",
     "get_runtime_diagnostics",
     "get_system_usage",
+    "capture_diagnostics",
 ]
