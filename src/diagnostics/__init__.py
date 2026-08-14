@@ -19,6 +19,13 @@ from .hardware import (
     get_system_model,
 )
 
+from .runtime import (
+    TaskMonitor,
+    get_process_usage,
+    get_runtime_diagnostics,
+    get_system_usage,
+)
+
 __all__ = [
     "get_architecture_info",
     "get_cpu_info",
@@ -31,4 +38,8 @@ __all__ = [
     "get_ram_info",
     "get_storage_info",
     "get_system_model",
+    "TaskMonitor",
+    "get_process_usage",
+    "get_runtime_diagnostics",
+    "get_system_usage",
 ]
