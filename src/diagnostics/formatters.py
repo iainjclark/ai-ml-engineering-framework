@@ -38,18 +38,19 @@ def _first_storage_device(
 def _first_gpu(
     diagnostics: dict[str, Any],
 ) -> dict[str, Any]:
-    """Return the first detected GPU, if available."""
-    gpus = (
+    """Return the first detected GPU device, if available."""
+    gpu_info = (
         diagnostics
         .get("Hardware", {})
-        .get("GPU", [])
+        .get("GPU", {})
     )
 
-    if gpus:
-        return gpus[0]
+    devices = gpu_info.get("Devices", [])
+
+    if devices:
+        return devices[0]
 
     return {}
-
 
 def format_diagnostics(
     diagnostics: dict[str, Any],
@@ -114,7 +115,6 @@ def _format_concise(
     )
 
     storage = _first_storage_device(diagnostics)
-    gpu = _first_gpu(diagnostics)
 
     manufacturer = system.get("Manufacturer", "Unknown")
     model = system.get("Model", "Unknown")
@@ -139,14 +139,36 @@ def _format_concise(
 
     ram_gb = ram.get("Total RAM (GB)", "?")
 
-    gpu_name = gpu.get("Name", "GPU not detected")
-    gpu_memory = gpu.get("Memory Total (MB)")
+    gpu_info = hardware.get("GPU", {})
+    gpu_devices = gpu_info.get("Devices", [])
+    gpu_status = gpu_info.get("Status", "Unknown")
 
-    if gpu_memory is not None:
-        gpu_text = f"{gpu_name} | {gpu_memory / 1024:.1f} GB VRAM"
+    if gpu_devices:
+        gpu = gpu_devices[0]
+
+        gpu_name = gpu.get("Name", "Unknown GPU")
+        gpu_memory = gpu.get("Memory Total (MB)")
+
+        if gpu_memory is not None:
+            gpu_text = (
+                f"{gpu_name} | "
+                f"{gpu_memory / 1024:.1f} GB VRAM"
+            )
+        else:
+            gpu_text = gpu_name
+
+    elif gpu_status == "Unavailable":
+        gpu_text = (
+            "GPU detection unavailable "
+            "(GPUtil not installed; install with pip or conda)"
+        )
+
+    elif gpu_status == "Failed":
+        gpu_text = "GPU detection failed"
+
     else:
-        gpu_text = gpu_name
-
+        gpu_text = "GPU not detected"
+        
     storage_model = storage.get("Model", "Unknown storage")
 
     storage_size = (

@@ -397,30 +397,48 @@ def get_storage_info() -> list[dict[str, Any]]:
     return drives
 
 
-def get_gpu_info() -> list[dict[str, Any]]:
+def get_gpu_info():
     """
-    Return GPUs visible through GPUtil.
+    Return GPU information and GPU detection status.
 
-    Returns an empty list if GPUtil is unavailable or no supported GPU
-    can be detected.
+    GPUtil is treated as an optional dependency. Failure to import or execute
+    GPUtil must not prevent the wider hardware diagnostic capture from
+    completing.
     """
+
     if GPUtil is None:
-        return []
+        return {
+            "Status": "Unavailable",
+            "Detector": "GPUtil",
+            "Reason": "Package not installed",
+            "Devices": [],
+        }
 
     try:
         gpus = GPUtil.getGPUs()
-    except Exception:
-        return []
+    except Exception as exc:
+        return {
+            "Status": "Failed",
+            "Detector": "GPUtil",
+            "Reason": str(exc),
+            "Devices": [],
+        }
 
-    return [
+    devices = [
         {
             "Name": gpu.name,
             "ID": gpu.id,
-            "Memory Total (MB)": gpu.memoryTotal,
+            "Memory Total (MB)": round(gpu.memoryTotal, 2),
         }
         for gpu in gpus
     ]
 
+    return {
+        "Status": "Detected" if devices else "Not detected",
+        "Detector": "GPUtil",
+        "Reason": None,
+        "Devices": devices,
+    }
 
 def get_hardware_diagnostics() -> dict[str, Any]:
     """
