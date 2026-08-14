@@ -2,7 +2,7 @@
 
 A practical lightweight framework for the development, assurance, deployment and operational review of AI/ML systems.
 
-The framework adapts established practice from systems engineering, software engineering
+The framework adapts established practice [1, 2, 3] from systems engineering, software engineering
 and applied mathematics to AI/ML development, providing a
 traceable lifecycle from stakeholder need and requirements through decision
 analysis, architecture, risk, verification and validation, configuration
