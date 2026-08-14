@@ -41,6 +41,40 @@ Runtime:   CPython 3.12.13 | AMD64 | 64-bit
 AI Stack:  scikit-learn 1.9.0 | PyTorch 2.12.1+cu126 | TensorFlow 2.21.0
 ```
 
+
+<!--
+Planned diagnostic capabilities:
+
+### Leakage Diagnostics
+- train/test leakage
+- temporal leakage
+- target leakage
+- feature leakage
+
+### Data Quality Diagnostics
+- missingness
+- schema violations
+- distribution anomalies
+
+### Model Diagnostics
+- performance
+- calibration
+- residual/error behaviour
+
+### Drift Diagnostics
+- input drift
+- prediction drift
+- outcome/performance drift
+
+### Operational Diagnostics
+- inference health
+- latency
+- failures
+
+Add sections to the rendered README only when executable functionality exists.
+-->
+
+
 ## Proof of Concept I - Petrol Price Predictor
 
 **PoC I:** *Demonstrates application of the framework across the operational ML lifecycle.*
