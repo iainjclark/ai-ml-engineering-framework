@@ -28,6 +28,8 @@ from .runtime import (
 
 from .capture import capture_diagnostics
 
+from .formatters import format_diagnostics
+
 __all__ = [
     "get_architecture_info",
     "get_cpu_info",
@@ -45,4 +47,5 @@ __all__ = [
     "get_runtime_diagnostics",
     "get_system_usage",
     "capture_diagnostics",
+    "format_diagnostics",
 ]

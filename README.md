@@ -7,7 +7,23 @@ The framework adapts established systems engineering, software engineering
 and applied mathematical practice to AI/ML development, providing a
 traceable lifecycle from stakeholder need and requirements through decision
 analysis, architecture, risk, verification and validation, configuration
-control, production release and post-implementation review.
+control, production release and post-implementation review. 
+
+The repository combines a staged set of engineering artefacts with suggested
+executable Python utilities for evidence capture, diagnostics and operational assurance.
+
+```python
+from src.diagnostics import capture_diagnostics, format_diagnostics
+print(format_diagnostics(capture_diagnostics()))
+```
+
+```text
+System:   LENOVO 20L8S4CA00
+OS:       Windows 10 (10.0.19045)
+Compute:  Intel Core i7-8650 (8th Gen) | 4 cores / 8 threads | NVIDIA GeForce MX150 | 2.0 GB VRAM
+Memory:   40 GB RAM | Storage: WDC PC SN720 SDAQNTW-512G-1001 | 512 GB | NVMe
+Runtime:  CPython 3.11.13 | AMD64 | 64bit
+```
 
 ## Proof of Concept I - Petrol Price Predictor
 
@@ -23,7 +39,8 @@ and controlled rollback.
 
 A web interface is planned over the end-to-end petrol-price example, including its production monitoring and model-drift evidence.
 
-This evidence-grounded AI assistant allows users to ask engineering and project-management questions about the system in natural language. In effect, it provides a lightweight management interface over the engineering evidence, giving users direct access to the current status of the project together with its evidenced history.
+The planned evidence-grounded AI assistant will allow users to ask engineering and project-management questions about the system in natural language. 
+In effect, this will provide a lightweight management interface over the engineering evidence, giving users direct access to the current status of the project together with its evidenced history.
 
 Example questions one might ask the AI assistant:
 
@@ -48,7 +65,7 @@ engineering artefacts rather than acting as an independent source of truth.
 The interactive layer is optional; the underlying engineering framework remains 
 usable independently of any AI assistant.
 
-# Foundational References
+## Foundational References
 
 \[1\] National Aeronautics and Space Administration, *NASA Systems Engineering Handbook*, Rev. 2, NASA/SP-2016-6105 Rev. 2. Washington, DC, USA: NASA, 2016.
 
