@@ -11,10 +11,26 @@ control, production release and post-implementation review.
 The repository combines a staged set of technical artefacts with suggested
 Python utilities for evidence capture, diagnostics and operational assurance.
 
+
+### System Diagnostics
+
+The framework includes lightweight utilities for capturing execution-environment
+and software provenance.
+
+From the command line:
+
+```bash
+python -m src.diagnostics
+```
+
+or from Python/Jupyter:
+
 ```python
 from src.diagnostics import capture_diagnostics, format_diagnostics
 print(format_diagnostics(capture_diagnostics()))
 ```
+
+Example output:
 
 ```text
 System:    LENOVO 20L8S4CA00
