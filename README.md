@@ -1,16 +1,15 @@
 # AI/ML Engineering Framework
 
-A lightweight engineering framework for the development, assurance,
-deployment and operational review of AI/ML systems.
+A practical lightweight framework for the development, assurance, deployment and operational review of AI/ML systems, informed by industry practice.
 
-The framework adapts established systems engineering, software engineering
-and applied mathematical practice to AI/ML development, providing a
+The framework adapts established practice from systems engineering, software engineering
+and applied mathematics to AI/ML development, providing a
 traceable lifecycle from stakeholder need and requirements through decision
 analysis, architecture, risk, verification and validation, configuration
 control, production release and post-implementation review. 
 
-The repository combines a staged set of engineering artefacts with suggested
-executable Python utilities for evidence capture, diagnostics and operational assurance.
+The repository combines a staged set of technical artefacts with suggested
+Python utilities for evidence capture, diagnostics and operational assurance.
 
 ```python
 from src.diagnostics import capture_diagnostics, format_diagnostics
@@ -41,7 +40,7 @@ and controlled rollback.
 A web interface is planned over the end-to-end petrol-price example, including its production monitoring and model-drift evidence.
 
 The planned evidence-grounded AI assistant will allow users to ask engineering and project-management questions about the system in natural language. 
-In effect, this will provide a lightweight management interface over the engineering evidence, giving users direct access to the current status of the project together with its evidenced history.
+In effect, this will provide a lightweight management interface over the engineering evidence, giving users direct access to the current status of the project together with supporting evidence and history.
 
 Example questions one might ask the AI assistant:
 
