@@ -11,38 +11,31 @@ executing Python interpreter.
 
 from __future__ import annotations
 
-import importlib
+from importlib.metadata import PackageNotFoundError, version
 from typing import Any
-
 
 # Display name -> Python import name
 DEFAULT_PACKAGES = {
     "NumPy": "numpy",
     "SciPy": "scipy",
     "pandas": "pandas",
-    "scikit-learn": "sklearn",
+    "scikit-learn": "scikit-learn",
     "PyTorch": "torch",
     "TensorFlow": "tensorflow",
 }
 
-
-def get_package_version(
-    module_name: str,
-) -> str | None:
+def get_package_version(package_name: str) -> Optional[str]:
     """
-    Return the version reported by an importable Python module.
+    Return the installed version of a package without importing it.
 
-    Returns None if the module cannot be imported or does not expose
-    a __version__ attribute.
+    This avoids import-time side effects from heavyweight packages such as
+    TensorFlow and PyTorch.
     """
     try:
-        module = importlib.import_module(module_name)
-        version = getattr(module, "__version__", None)
-        return str(version) if version is not None else None
-
-    except Exception:
+        return version(package_name)
+    except PackageNotFoundError:
         return None
-
+        
 def get_package_versions(
     packages: dict[str, str] | None = None,
 ) -> dict[str, str | None]:
