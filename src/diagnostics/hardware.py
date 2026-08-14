@@ -1,0 +1,441 @@
+"""
+Hardware diagnostics.
+
+Collects relatively static information about the physical machine on which a workload is executing.
+
+Initial implementation refactored from Iain Clark's MachineDiagnostics.ipynb notebook.
+
+Currently supports:
+    - Windows
+    - Linux
+
+Diagnostics include:
+    - system manufacturer and model
+    - CPU identity
+    - physical and logical CPU counts
+    - CPU clock frequency
+    - installed RAM
+    - RAM speed where available
+    - physical storage devices
+    - GPU identity where available
+"""
+
+from __future__ import annotations
+
+import platform
+import re
+import subprocess
+from typing import Any
+
+import psutil
+
+try:
+    import GPUtil
+except ImportError:
+    GPUtil = None
+
+
+def _run_command(command: list[str]) -> str:
+    """
+    Run a system command and return stripped stdout.
+
+    Returns an empty string if the command cannot be executed.
+    """
+    try:
+        return subprocess.check_output(
+            command,
+            stderr=subprocess.DEVNULL,
+            text=True,
+        ).strip()
+    except Exception:
+        return ""
+
+
+def make_friendly_cpu_name(raw_name: str) -> str:
+    """
+    Convert a raw CPU description into a cleaner human-readable name.
+
+    The raw CPU name is retained separately in the diagnostic record, so
+    this function is intended for display rather than machine identification.
+    """
+    if not raw_name:
+        return "Unknown CPU"
+
+    name = re.sub(
+        r"\(R\)|\(TM\)|CPU|@.*GHz",
+        "",
+        raw_name,
+        flags=re.IGNORECASE,
+    )
+    name = re.sub(r"\s+", " ", name).strip()
+
+    # Intel Core naming
+    match = re.search(r"(i3|i5|i7|i9)-(\d{3,5})", name, re.IGNORECASE)
+
+    if match:
+        family, model_number = match.groups()
+        model_number_int = int(model_number)
+
+        if model_number_int < 1000:
+            generation = "1st Gen"
+        elif model_number_int < 10000:
+            generation = f"{str(model_number_int)[0]}th Gen"
+        else:
+            generation = f"{str(model_number_int)[:2]}th Gen"
+
+        return (
+            f"Intel Core {family.lower()}-{model_number_int} "
+            f"({generation})"
+        )
+
+    # Ryzen names are generally already readable.
+    if "Ryzen" in name:
+        return name
+
+    return name
+
+
+def get_system_model() -> dict[str, str]:
+    """
+    Return machine manufacturer and model where available.
+    """
+    system = platform.system()
+
+    manufacturer = ""
+    model = ""
+
+    if system == "Windows":
+        # PowerShell/CIM is preferred over WMIC.
+        manufacturer = _run_command(
+            [
+                "powershell",
+                "-Command",
+                "(Get-CimInstance Win32_ComputerSystem).Manufacturer",
+            ]
+        )
+
+        model = _run_command(
+            [
+                "powershell",
+                "-Command",
+                "(Get-CimInstance Win32_ComputerSystem).Model",
+            ]
+        )
+
+        # WMIC fallback.
+        if not manufacturer:
+            output = _run_command(
+                ["wmic", "computersystem", "get", "manufacturer"]
+            )
+            lines = [
+                line.strip()
+                for line in output.splitlines()
+                if line.strip()
+            ]
+            if len(lines) > 1:
+                manufacturer = lines[1]
+
+        if not model:
+            output = _run_command(
+                ["wmic", "computersystem", "get", "model"]
+            )
+            lines = [
+                line.strip()
+                for line in output.splitlines()
+                if line.strip()
+            ]
+            if len(lines) > 1:
+                model = lines[1]
+
+    elif system == "Linux":
+        manufacturer = _run_command(
+            ["cat", "/sys/devices/virtual/dmi/id/sys_vendor"]
+        )
+
+        model = _run_command(
+            ["cat", "/sys/devices/virtual/dmi/id/product_name"]
+        )
+
+    return {
+        "Manufacturer": manufacturer or "Unknown",
+        "Model": model or "Unknown",
+    }
+
+
+def get_cpu_info() -> dict[str, Any]:
+    """
+    Return CPU identity, topology and clock information.
+    """
+    system = platform.system()
+    raw_name = ""
+
+    if system == "Windows":
+        # PowerShell/CIM first.
+        raw_name = _run_command(
+            [
+                "powershell",
+                "-Command",
+                "(Get-CimInstance Win32_Processor).Name",
+            ]
+        )
+
+        # WMIC fallback.
+        if not raw_name:
+            output = _run_command(
+                ["wmic", "cpu", "get", "Name"]
+            )
+
+            lines = [
+                line.strip()
+                for line in output.splitlines()
+                if line.strip()
+            ]
+
+            if len(lines) > 1:
+                raw_name = lines[1]
+
+    elif system == "Linux":
+        try:
+            with open(
+                "/proc/cpuinfo",
+                encoding="utf-8",
+            ) as cpuinfo:
+                for line in cpuinfo:
+                    if "model name" in line:
+                        raw_name = line.split(":", 1)[1].strip()
+                        break
+        except Exception:
+            pass
+
+    # Generic fallback.
+    if not raw_name:
+        raw_name = platform.processor()
+
+    frequency = psutil.cpu_freq()
+
+    if frequency:
+        clock_speed = {
+            "Min (MHz)": round(frequency.min, 2),
+            "Max (MHz)": round(frequency.max, 2),
+            "Current (MHz)": round(frequency.current, 2),
+        }
+    else:
+        clock_speed = None
+
+    return {
+        "CPU Name (Raw)": raw_name or "Unknown",
+        "CPU Name (Friendly)": make_friendly_cpu_name(raw_name),
+        "Cores (Physical)": psutil.cpu_count(logical=False),
+        "Threads (Logical)": psutil.cpu_count(logical=True),
+        "Clock Speed": clock_speed,
+    }
+
+
+def get_ram_info() -> dict[str, Any]:
+    """
+    Return installed RAM capacity and configured memory speed.
+
+    Memory-speed detection is platform dependent and may require elevated
+    privileges on Linux.
+    """
+    virtual_memory = psutil.virtual_memory()
+
+    total_gb = round(
+        virtual_memory.total / (1024 ** 3)
+    )
+
+    ram_speed = None
+    system = platform.system()
+
+    if system == "Windows":
+        output = _run_command(
+            [
+                "powershell",
+                "-Command",
+                (
+                    "Get-CimInstance Win32_PhysicalMemory | "
+                    "Select-Object -ExpandProperty Speed"
+                ),
+            ]
+        )
+
+        speeds = [
+            int(value)
+            for value in output.splitlines()
+            if value.strip().isdigit()
+        ]
+
+        if speeds:
+            ram_speed = sorted(set(speeds))
+
+    elif system == "Linux":
+        output = _run_command(
+            ["dmidecode", "-t", "memory"]
+        )
+
+        speeds = re.findall(
+            r"Configured Clock Speed: (\d+) MT/s",
+            output,
+        )
+
+        if not speeds:
+            speeds = re.findall(
+                r"Speed: (\d+) MT/s",
+                output,
+            )
+
+        if speeds:
+            ram_speed = sorted(
+                set(int(value) for value in speeds)
+            )
+
+    return {
+        "Total RAM (GB)": int(total_gb),
+        "Memory Speed": ram_speed,
+    }
+
+
+def get_storage_info() -> list[dict[str, Any]]:
+    """
+    Return information about physical storage devices.
+    """
+    system = platform.system()
+    drives: list[dict[str, Any]] = []
+
+    if system == "Windows":
+        output = _run_command(
+            [
+                "powershell",
+                "-Command",
+                (
+                    "Get-PhysicalDisk | "
+                    "Select-Object "
+                    "FriendlyName,Manufacturer,SerialNumber,"
+                    "Size,BusType | Format-List"
+                ),
+            ]
+        )
+
+        if output:
+            blocks = re.split(r"\n\s*\n", output)
+
+            for block in blocks:
+                drive_info: dict[str, str] = {}
+
+                for line in block.splitlines():
+                    if ":" not in line:
+                        continue
+
+                    key, value = line.split(":", 1)
+                    drive_info[key.strip()] = value.strip()
+
+                if not drive_info:
+                    continue
+
+                size = drive_info.get("Size")
+
+                drives.append(
+                    {
+                        "Model": drive_info.get(
+                            "FriendlyName"
+                        ),
+                        "Manufacturer": drive_info.get(
+                            "Manufacturer"
+                        ),
+                        "Serial": drive_info.get(
+                            "SerialNumber"
+                        ),
+                        "Size (GB)": (
+                            round(
+                                int(size) / (1000 ** 3),
+                                2,
+                            )
+                            if size and size.isdigit()
+                            else None
+                        ),
+                        "BusType": drive_info.get(
+                            "BusType"
+                        ),
+                    }
+                )
+
+    elif system == "Linux":
+        output = _run_command(
+            [
+                "lsblk",
+                "-d",
+                "-o",
+                "NAME,MODEL,VENDOR,SERIAL,SIZE,TRAN",
+            ]
+        )
+
+        lines = output.splitlines()
+
+        if len(lines) > 1:
+            headers = lines[0].split()
+
+            for line in lines[1:]:
+                parts = line.split(
+                    None,
+                    len(headers) - 1,
+                )
+
+                if len(parts) >= 6:
+                    name, model, vendor, serial, size, transport = parts
+
+                    drives.append(
+                        {
+                            "Device": f"/dev/{name}",
+                            "Model": model,
+                            "Manufacturer": vendor,
+                            "Serial": serial,
+                            "Size": size,
+                            "BusType": transport,
+                        }
+                    )
+
+    return drives
+
+
+def get_gpu_info() -> list[dict[str, Any]]:
+    """
+    Return GPUs visible through GPUtil.
+
+    Returns an empty list if GPUtil is unavailable or no supported GPU
+    can be detected.
+    """
+    if GPUtil is None:
+        return []
+
+    try:
+        gpus = GPUtil.getGPUs()
+    except Exception:
+        return []
+
+    return [
+        {
+            "Name": gpu.name,
+            "ID": gpu.id,
+            "Memory Total (MB)": gpu.memoryTotal,
+        }
+        for gpu in gpus
+    ]
+
+
+def get_hardware_diagnostics() -> dict[str, Any]:
+    """
+    Capture a complete static hardware diagnostic snapshot.
+    """
+    return {
+        "System": get_system_model(),
+        "CPU": get_cpu_info(),
+        "RAM": get_ram_info(),
+        "Storage": get_storage_info(),
+        "GPU": get_gpu_info(),
+    }
+
+
+if __name__ == "__main__":
+    from pprint import pprint
+
+    pprint(get_hardware_diagnostics())
