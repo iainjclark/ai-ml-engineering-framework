@@ -22,7 +22,7 @@ from typing import Any
 from .environment import get_environment_diagnostics
 from .hardware import get_hardware_diagnostics
 from .runtime import get_runtime_diagnostics
-
+from .software import get_software_diagnostics
 
 def capture_diagnostics() -> dict[str, Any]:
     """
@@ -41,9 +41,9 @@ def capture_diagnostics() -> dict[str, Any]:
         "Captured At (UTC)": captured_at.isoformat(),
         "Hardware": get_hardware_diagnostics(),
         "Environment": get_environment_diagnostics(),
+        "Software": get_software_diagnostics(),
         "Runtime": get_runtime_diagnostics(),
     }
-
 
 if __name__ == "__main__":
     from pprint import pprint

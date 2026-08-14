@@ -18,11 +18,12 @@ print(format_diagnostics(capture_diagnostics()))
 ```
 
 ```text
-System:   LENOVO 20L8S4CA00
-OS:       Windows 10 (10.0.19045)
-Compute:  Intel Core i7-8650 (8th Gen) | 4 cores / 8 threads | NVIDIA GeForce MX150 | 2.0 GB VRAM
-Memory:   40 GB RAM | Storage: WDC PC SN720 SDAQNTW-512G-1001 | 512 GB | NVMe
-Runtime:  CPython 3.11.13 | AMD64 | 64bit
+System:    LENOVO 20L8S4CA00
+Compute:   Intel Core i7-8650 (8th Gen) | 4 cores / 8 threads | NVIDIA GeForce MX150 | 2.0 GB VRAM
+Memory:    40 GB RAM | Storage: WDC PC SN720 SDAQNTW-512G-1001 | 512 GB | NVMe
+OS:        Windows 10 (10.0.19045)
+Runtime:   CPython 3.12.12 | AMD64 | 64-bit
+AI Stack:  scikit-learn 1.6.1 | PyTorch 2.5.1+cu121
 ```
 
 ## Proof of Concept I - Petrol Price Predictor

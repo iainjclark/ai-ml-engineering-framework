@@ -19,6 +19,12 @@ from .hardware import (
     get_system_model,
 )
 
+from .software import (
+    get_package_version,
+    get_package_versions,
+    get_software_diagnostics,
+)
+
 from .runtime import (
     TaskMonitor,
     get_process_usage,
@@ -42,6 +48,9 @@ __all__ = [
     "get_ram_info",
     "get_storage_info",
     "get_system_model",
+    "get_package_version",
+    "get_package_versions",
+    "get_software_diagnostics",
     "TaskMonitor",
     "get_process_usage",
     "get_runtime_diagnostics",

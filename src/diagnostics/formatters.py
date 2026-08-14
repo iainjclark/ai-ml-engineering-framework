@@ -139,7 +139,7 @@ def _format_concise(
 
     ram_gb = ram.get("Total RAM (GB)", "?")
 
-    gpu_name = gpu.get("Name", "No GPU")
+    gpu_name = gpu.get("Name", "GPU not detected")
     gpu_memory = gpu.get("Memory Total (MB)")
 
     if gpu_memory is not None:
@@ -189,25 +189,42 @@ def _format_concise(
         "Unknown",
     )
 
+    software = diagnostics.get("Software", {})
+    packages = software.get("Packages", {})
+
+    ai_packages = []
+
+    for name in ("scikit-learn", "PyTorch", "TensorFlow"):
+        version = packages.get(name)
+
+        if version:
+            ai_packages.append(f"{name} {version}")
+
+    ai_stack_text = (
+        " | ".join(ai_packages)
+        if ai_packages
+        else "No tracked AI/ML packages detected"
+    )
     lines = [
-        f"System:   {manufacturer} {model}",
-        f"OS:       {os_text}",
+        f"System:    {manufacturer} {model}",
         (
-            f"Compute:  {cpu_name} | "
+            f"Compute:   {cpu_name} | "
             f"{physical_cores} cores / "
             f"{logical_threads} threads | "
             f"{gpu_text}"
         ),
         (
-            f"Memory:   {ram_gb} GB RAM | "
+            f"Memory:    {ram_gb} GB RAM | "
             f"Storage: {storage_text}"
         ),
+        f"OS:        {os_text}",
         (
-            f"Runtime:  {python_implementation} "
+            f"Runtime:   {python_implementation} "
             f"{python_version} | "
             f"{machine_architecture} | "
-            f"{bitness}"
+            f"{bitness.replace('bit', '-bit')}"
         ),
+        f"AI Stack:  {ai_stack_text}",
     ]
-
+    
     return "\n".join(lines)
