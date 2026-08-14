@@ -1,6 +1,6 @@
 # AI/ML Engineering Framework
 
-A practical lightweight framework for the development, assurance, deployment and operational review of AI/ML systems, informed by industry practice.
+A practical lightweight framework for the development, assurance, deployment and operational review of AI/ML systems.
 
 The framework adapts established practice from systems engineering, software engineering
 and applied mathematics to AI/ML development, providing a
