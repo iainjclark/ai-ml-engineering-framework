@@ -75,14 +75,15 @@ Add sections to the rendered README only when executable functionality exists.
 -->
 
 
-## Proof of Concept I - Petrol Price Predictor
+## Proof of Concept - Petrol Price Predictor
 
-**PoC I:** *Demonstrates application of the framework across the operational ML lifecycle.*
+**PoC:** *Demonstrates application of the framework across the operational ML lifecycle.*
 
 The framework will be illustrated using a live petrol-price prediction model, with
 GitHub Actions supporting automated inference, monitoring, drift detection
 and controlled rollback.
 
+<!--
 ## Proof of Concept II - Interactive Assurance Demonstrator
 
 **PoC II:** *Demonstrates interrogation and traceability of the resulting engineering evidence.*
@@ -114,6 +115,7 @@ engineering artefacts rather than acting as an independent source of truth.
 
 The interactive layer is optional; the underlying engineering framework remains 
 usable independently of any AI assistant.
+-->
 
 ## Foundational References
 
