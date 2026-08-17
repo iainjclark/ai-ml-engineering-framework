@@ -145,13 +145,24 @@ def _format_concise(
 
     os_name = operating_system.get("System", "Unknown")
     os_release = operating_system.get("Release", "Unknown")
-    os_version = operating_system.get("Version")
 
-    if os_version:
-        os_text = f"{os_name} {os_release} ({os_version})"
+    if os_name == "Linux":
+        os_text = operating_system.get(
+            "Distribution",
+            "Linux",
+        )
+        kernel_text = f"Linux {os_release}"
     else:
-        os_text = f"{os_name} {os_release}"
+        os_version = operating_system.get("Version")
 
+        if os_version:
+            os_text = f"{os_name} {os_release} ({os_version})"
+        else:
+            os_text = f"{os_name} {os_release}"
+
+        kernel_text = None
+        
+        
     cpu_name = (
         cpu.get("CPU Name (Friendly)")
         or cpu.get("CPU Name (Raw)")
@@ -289,6 +300,7 @@ def _format_concise(
         if ai_packages
         else "No tracked AI/ML packages detected"
     )
+
     lines = [
         f"System:    {manufacturer} {model}",
         (
@@ -300,10 +312,15 @@ def _format_concise(
         f"Memory:    {ram_gb} GB RAM",
     ]
 
+    # Preserve the physical/logical storage formatting
     lines.extend(storage_lines)
 
+    lines.append(f"OS:        {os_text}")
+
+    if kernel_text:
+        lines.append(f"Kernel:    {kernel_text}")
+
     lines.extend([
-        f"OS:        {os_text}",
         (
             f"Runtime:   {python_implementation} "
             f"{python_version} | "
@@ -312,5 +329,6 @@ def _format_concise(
         ),
         f"AI Stack:  {ai_stack_text}",
     ])
-    
+
+    return "\n".join(lines)    
     return "\n".join(lines)

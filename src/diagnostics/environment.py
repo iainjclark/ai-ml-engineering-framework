@@ -22,15 +22,26 @@ import platform
 import socket
 from typing import Any
 
+def _get_linux_distribution() -> str:
+    """Return the Linux distribution name using freedesktop os-release."""
+    try:
+        os_release = platform.freedesktop_os_release()
 
+        return os_release.get(
+            "PRETTY_NAME",
+            os_release.get("NAME", "Linux"),
+        )
+
+    except OSError:
+        return "Linux"
+        
 def get_os_info() -> dict[str, Any]:
-    """
-    Return operating system and kernel/platform information.
-    """
+    """Return operating-system and platform information."""
     uname = platform.uname()
+    system = platform.system()
 
-    return {
-        "System": platform.system(),
+    info = {
+        "System": system,
         "Release": platform.release(),
         "Version": platform.version(),
         "Machine": platform.machine(),
@@ -38,6 +49,10 @@ def get_os_info() -> dict[str, Any]:
         "Node": uname.node,
     }
 
+    if system == "Linux":
+        info["Distribution"] = _get_linux_distribution()
+
+    return info
 
 def get_host_info() -> dict[str, Any]:
     """
