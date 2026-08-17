@@ -22,6 +22,7 @@ Diagnostics include:
 
 from __future__ import annotations
 
+import json
 import platform
 import re
 import subprocess
@@ -306,59 +307,110 @@ def get_storage_info() -> list[dict[str, Any]]:
         output = _run_command(
             [
                 "powershell",
+                "-NoProfile",
                 "-Command",
-                (
-                    "Get-PhysicalDisk | "
-                    "Select-Object "
-                    "FriendlyName,Manufacturer,SerialNumber,"
-                    "Size,BusType | Format-List"
-                ),
+                r"""
+                $result = Get-Disk | ForEach-Object {
+                    $disk = $_
+
+                    $volumes = @(
+                        Get-Partition -DiskNumber $disk.Number -ErrorAction SilentlyContinue |
+                        ForEach-Object {
+                            $partition = $_
+                            $volume = $partition |
+                                Get-Volume -ErrorAction SilentlyContinue
+
+                            [PSCustomObject]@{
+                                PartitionNumber = $partition.PartitionNumber
+                                DriveLetter     = if ($volume.DriveLetter) {
+                                    "$($volume.DriveLetter):"
+                                } else {
+                                    $null
+                                }
+                                Label           = $volume.FileSystemLabel
+                                FileSystem      = $volume.FileSystem
+                                Size            = $partition.Size
+                                MountPoint      = if ($volume.DriveLetter) {
+                                    "$($volume.DriveLetter):\"
+                                } else {
+                                    $null
+                                }
+                            }
+                        }
+                    )
+
+                    [PSCustomObject]@{
+                        Number         = $disk.Number
+                        Model          = $disk.FriendlyName
+                        Manufacturer   = $disk.Manufacturer
+                        Serial         = $disk.SerialNumber
+                        Size           = $disk.Size
+                        BusType        = "$($disk.BusType)"
+                        LogicalVolumes = $volumes
+                    }
+                }
+
+                $result | ConvertTo-Json -Depth 5 -Compress
+                """,
             ]
         )
 
         if output:
-            blocks = re.split(r"\n\s*\n", output)
+            import json
 
-            for block in blocks:
-                drive_info: dict[str, str] = {}
+            try:
+                parsed = json.loads(output)
 
-                for line in block.splitlines():
-                    if ":" not in line:
-                        continue
+                if isinstance(parsed, dict):
+                    parsed = [parsed]
 
-                    key, value = line.split(":", 1)
-                    drive_info[key.strip()] = value.strip()
+                for disk in parsed:
+                    logical_volumes = []
 
-                if not drive_info:
-                    continue
+                    volumes = disk.get("LogicalVolumes") or []
 
-                size = drive_info.get("Size")
+                    if isinstance(volumes, dict):
+                        volumes = [volumes]
 
-                drives.append(
-                    {
-                        "Model": drive_info.get(
-                            "FriendlyName"
-                        ),
-                        "Manufacturer": drive_info.get(
-                            "Manufacturer"
-                        ),
-                        "Serial": drive_info.get(
-                            "SerialNumber"
-                        ),
-                        "Size (GB)": (
-                            round(
-                                int(size) / (1000 ** 3),
-                                2,
-                            )
-                            if size and size.isdigit()
-                            else None
-                        ),
-                        "BusType": drive_info.get(
-                            "BusType"
-                        ),
-                    }
-                )
+                    for volume in volumes:
+                        size = volume.get("Size")
 
+                        logical_volumes.append(
+                            {
+                                "Partition": volume.get("PartitionNumber"),
+                                "Drive": volume.get("DriveLetter"),
+                                "Label": volume.get("Label"),
+                                "File System": volume.get("FileSystem"),
+                                "Size (GB)": (
+                                    round(size / (1000 ** 3), 2)
+                                    if isinstance(size, (int, float))
+                                    else None
+                                ),
+                                "Mount Point": volume.get("MountPoint"),
+                            }
+                        )
+
+                    size = disk.get("Size")
+
+                    drives.append(
+                        {
+                            "Device": f"Disk {disk.get('Number')}",
+                            "Model": disk.get("Model"),
+                            "Manufacturer": disk.get("Manufacturer"),
+                            "Serial": disk.get("Serial"),
+                            "Size (GB)": (
+                                round(size / (1000 ** 3), 2)
+                                if isinstance(size, (int, float))
+                                else None
+                            ),
+                            "BusType": disk.get("BusType"),
+                            "Logical Volumes": logical_volumes,
+                        }
+                    )
+
+            except (json.JSONDecodeError, TypeError, ValueError):
+                pass
+                
     elif system == "Linux":
         output = _run_command(
             [

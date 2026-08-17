@@ -30,6 +30,35 @@ def _storage_devices(
 
     return storage if isinstance(storage, list) else []
 
+def _format_logical_volume(volume: dict[str, Any]) -> str:
+    """Return a concise description of a mounted logical volume."""
+    parts = []
+
+    drive = volume.get("Drive")
+    mount_point = volume.get("Mount Point")
+    label = volume.get("Label")
+    size = volume.get("Size (GB)")
+    file_system = volume.get("File System")
+
+    identifier = drive or mount_point
+
+    if identifier:
+        parts.append(str(identifier))
+
+    if label:
+        parts.append(str(label))
+
+    if size is not None:
+        if isinstance(size, (int, float)):
+            parts.append(f"{size:.0f} GB")
+        else:
+            parts.append(str(size))
+
+    if file_system:
+        parts.append(str(file_system))
+
+    return " | ".join(parts)
+
 def _first_gpu(
     diagnostics: dict[str, Any],
 ) -> dict[str, Any]:
@@ -166,7 +195,7 @@ def _format_concise(
         
     storage_lines = []
 
-    for index, storage in enumerate(storage_devices):
+    for storage_index, storage in enumerate(storage_devices):
         storage_model = storage.get("Model", "Unknown storage")
 
         storage_size = (
@@ -189,12 +218,41 @@ def _format_concise(
 
         storage_text = " | ".join(storage_parts)
 
-        prefix = "Storage:   " if index == 0 else "           "
-        storage_lines.append(f"{prefix}{storage_text}")
+        # Only mounted/addressable logical volumes belong in concise output.
+        logical_volumes = [
+            volume
+            for volume in storage.get("Logical Volumes", [])
+            if volume.get("Drive") or volume.get("Mount Point")
+        ]
+        
+        prefix = "Storage:   " if storage_index == 0 else "           "
+        
+        if len(logical_volumes) == 1:
+            volume_text = _format_logical_volume(logical_volumes[0])
+
+            storage_lines.append(
+                f"{prefix}{storage_text} | {volume_text}"
+            )
+
+        elif len(logical_volumes) > 1:
+            storage_lines.append(
+                f"Storage:   {storage_text}"
+            )
+
+            for volume in logical_volumes:
+                volume_text = _format_logical_volume(volume)
+
+                storage_lines.append(
+                    f"             {volume_text}"
+                )
+
+        else:
+            storage_lines.append(
+                f"Storage:   {storage_text}"
+            )
 
     if not storage_lines:
         storage_lines.append("Storage:   Storage not detected")
-
     python_version = python_runtime.get(
         "Version",
         "Unknown",
