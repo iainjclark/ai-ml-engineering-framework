@@ -18,22 +18,17 @@ from __future__ import annotations
 
 from typing import Any
 
-
-def _first_storage_device(
+def _storage_devices(
     diagnostics: dict[str, Any],
-) -> dict[str, Any]:
-    """Return the first detected storage device, if available."""
+) -> list[dict[str, Any]]:
+    """Return all detected storage devices."""
     storage = (
         diagnostics
         .get("Hardware", {})
         .get("Storage", [])
     )
 
-    if storage:
-        return storage[0]
-
-    return {}
-
+    return storage if isinstance(storage, list) else []
 
 def _first_gpu(
     diagnostics: dict[str, Any],
@@ -114,8 +109,8 @@ def _format_concise(
         {},
     )
 
-    storage = _first_storage_device(diagnostics)
-
+    storage_devices = _storage_devices(diagnostics)
+    
     manufacturer = system.get("Manufacturer", "Unknown")
     model = system.get("Model", "Unknown")
 
@@ -169,27 +164,36 @@ def _format_concise(
     else:
         gpu_text = "GPU not detected"
         
-    storage_model = storage.get("Model", "Unknown storage")
+    storage_lines = []
 
-    storage_size = (
-        storage.get("Size (GB)")
-        or storage.get("Size")
-    )
+    for index, storage in enumerate(storage_devices):
+        storage_model = storage.get("Model", "Unknown storage")
 
-    storage_bus = storage.get("BusType")
+        storage_size = (
+            storage.get("Size (GB)")
+            or storage.get("Size")
+        )
 
-    storage_parts = [str(storage_model)]
+        storage_bus = storage.get("BusType")
 
-    if storage_size is not None:
-        if isinstance(storage_size, (int, float)):
-            storage_parts.append(f"{storage_size:.0f} GB")
-        else:
-            storage_parts.append(str(storage_size))
+        storage_parts = [str(storage_model)]
 
-    if storage_bus:
-        storage_parts.append(str(storage_bus))
+        if storage_size is not None:
+            if isinstance(storage_size, (int, float)):
+                storage_parts.append(f"{storage_size:.0f} GB")
+            else:
+                storage_parts.append(str(storage_size))
 
-    storage_text = " | ".join(storage_parts)
+        if storage_bus:
+            storage_parts.append(str(storage_bus))
+
+        storage_text = " | ".join(storage_parts)
+
+        prefix = "Storage:   " if index == 0 else "           "
+        storage_lines.append(f"{prefix}{storage_text}")
+
+    if not storage_lines:
+        storage_lines.append("Storage:   Storage not detected")
 
     python_version = python_runtime.get(
         "Version",
@@ -235,10 +239,12 @@ def _format_concise(
             f"{logical_threads} threads | "
             f"{gpu_text}"
         ),
-        (
-            f"Memory:    {ram_gb} GB RAM | "
-            f"Storage: {storage_text}"
-        ),
+        f"Memory:    {ram_gb} GB RAM",
+    ]
+
+    lines.extend(storage_lines)
+
+    lines.extend([
         f"OS:        {os_text}",
         (
             f"Runtime:   {python_implementation} "
@@ -247,6 +253,6 @@ def _format_concise(
             f"{bitness.replace('bit', '-bit')}"
         ),
         f"AI Stack:  {ai_stack_text}",
-    ]
+    ])
     
     return "\n".join(lines)
