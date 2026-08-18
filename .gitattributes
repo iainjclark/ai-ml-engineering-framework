@@ -1,0 +1,58 @@
+# ---------------------------------------------------------------------------
+# Line-ending and content-type policy.
+#
+# Rationale specific to this repository: the framework asserts that a
+# baseline must be reproducible and that evidence must be verifiable. If a
+# text file is stored with platform-dependent line endings, its hash is
+# platform-dependent too, so integrity checks over controlled artefacts
+# (md5/sha of a register or a source file) return different answers on
+# different machines. Normalising here makes the checked-out working tree
+# byte-identical across Windows, Linux and macOS.
+# ---------------------------------------------------------------------------
+
+# Default: detect text, store LF in the index, check out LF everywhere.
+* text=auto eol=lf
+
+# --- Source and configuration -----------------------------------------------
+*.py     text eol=lf diff=python
+*.md     text eol=lf
+*.txt    text eol=lf
+*.cfg    text eol=lf
+*.ini    text eol=lf
+*.toml   text eol=lf
+*.json   text eol=lf
+*.yml    text eol=lf
+*.yaml   text eol=lf
+*.sh     text eol=lf
+.gitattributes text eol=lf
+.gitignore     text eol=lf
+
+# Windows shells require CRLF or they fail to execute.
+*.bat    text eol=crlf
+*.cmd    text eol=crlf
+*.ps1    text eol=crlf
+
+# --- Controlled binary artefacts --------------------------------------------
+# `binary` expands to `-text -diff -merge`. The merge suppression is the
+# important part: .xlsx is a zip container, and a textual three-way merge of
+# two versions of a register produces a corrupt workbook that still opens
+# far enough to look plausible. Conflicts on these must be resolved by
+# choosing a version, never by merging hunks.
+*.xlsx   binary
+*.xlsm   binary
+*.xls    binary
+*.docx   binary
+*.pptx   binary
+*.pdf    binary
+*.png    binary
+*.jpg    binary
+*.jpeg   binary
+*.gif    binary
+*.zip    binary
+*.pyc    binary
+
+# --- Distribution -----------------------------------------------------------
+# Excluded from `git archive` output so a released tarball contains the
+# controlled artefacts and nothing else.
+.gitattributes export-ignore
+.gitignore     export-ignore

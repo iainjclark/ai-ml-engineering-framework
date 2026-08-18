@@ -16,6 +16,8 @@ state of the system as it can
 
 from __future__ import annotations
 
+from .software import get_packages_in_category
+
 from typing import Any
 
 def _storage_devices(
@@ -111,13 +113,15 @@ def _format_concise(
     diagnostics: dict[str, Any],
 ) -> str:
     """
-    Return a compact five-line diagnostic summary.
+    Return a compact diagnostic summary.
 
     Intended for README files, console output, model cards and other
     contexts where a full diagnostic record would be unnecessarily verbose.
     """
     hardware = diagnostics.get("Hardware", {})
     environment = diagnostics.get("Environment", {})
+    container = environment.get("Container", {})
+    container_storage = environment.get("Container Storage")
 
     system = hardware.get("System", {})
     cpu = hardware.get("CPU", {})
@@ -142,6 +146,18 @@ def _format_concise(
     
     manufacturer = system.get("Manufacturer", "Unknown")
     model = system.get("Model", "Unknown")
+    
+    system_parts = [
+        value
+        for value in (manufacturer, model)
+        if value and value != "Unknown"
+    ]
+
+    system_text = (
+        " ".join(system_parts)
+        if system_parts
+        else "System information not detected"
+    )
 
     os_name = operating_system.get("System", "Unknown")
     os_release = operating_system.get("Release", "Unknown")
@@ -263,7 +279,35 @@ def _format_concise(
             )
 
     if not storage_lines:
-        storage_lines.append("Storage:   Storage not detected")
+        if container.get("Detected") and container_storage:
+            storage_parts = ["container"]
+
+            mount_point = container_storage.get("Mount Point", "/")
+            size = container_storage.get("Size (GB)")
+            available = container_storage.get("Available (GB)")
+            file_system = container_storage.get("File System")
+
+
+            if mount_point:
+                storage_parts.append(str(mount_point))
+
+            if isinstance(size, (int, float)):
+                storage_parts.append(f"{size:.0f} GB total")
+
+            if isinstance(available, (int, float)):
+                storage_parts.append(f"{available:.0f} GB free")
+
+            if file_system:
+                storage_parts.append(str(file_system))
+
+            storage_lines.append(
+                "Storage:   " + " | ".join(storage_parts)
+            )
+        else:
+            storage_lines.append(
+                "Storage:   Storage not detected"
+            )        
+            
     python_version = python_runtime.get(
         "Version",
         "Unknown",
@@ -287,30 +331,48 @@ def _format_concise(
     software = diagnostics.get("Software", {})
     packages = software.get("Packages", {})
 
-    ai_packages = []
+    def _stack_text(category: str, absent: str) -> str:
+        """Render one category of tracked packages as a summary line."""
+        detected = [
+            f"{name} {packages[name]}"
+            for name in get_packages_in_category(category)
+            if packages.get(name)
+        ]
 
-    for name in ("scikit-learn", "PyTorch", "TensorFlow"):
-        version = packages.get(name)
+        return " | ".join(detected) if detected else absent
 
-        if version:
-            ai_packages.append(f"{name} {version}")
-
-    ai_stack_text = (
-        " | ".join(ai_packages)
-        if ai_packages
-        else "No tracked AI/ML packages detected"
+    numerics_text = _stack_text(
+        "numerics",
+        "No tracked numerical packages detected",
     )
 
+    ai_stack_text = _stack_text(
+        "ml",
+        "No tracked AI/ML packages detected",
+    )
+
+    core_label = "core" if physical_cores == 1 else "cores"
+    thread_label = "thread" if logical_threads == 1 else "threads"
+
     lines = [
-        f"System:    {manufacturer} {model}",
+        f"System:    {system_text}",
+    ]
+
+    if container.get("Detected"):
+        container_type = container.get("Type") or "Container"
+        lines.append(
+            f"Container: {container_type}"
+        )
+
+    lines.extend([
         (
             f"Compute:   {cpu_name} | "
-            f"{physical_cores} cores / "
-            f"{logical_threads} threads | "
+            f"{physical_cores} {core_label} / "
+            f"{logical_threads} {thread_label} | "
             f"{gpu_text}"
         ),
         f"Memory:    {ram_gb} GB RAM",
-    ]
+    ])
 
     # Preserve the physical/logical storage formatting
     lines.extend(storage_lines)
@@ -327,8 +389,8 @@ def _format_concise(
             f"{machine_architecture} | "
             f"{bitness.replace('bit', '-bit')}"
         ),
+        f"Numerics:  {numerics_text}",
         f"AI Stack:  {ai_stack_text}",
     ])
 
-    return "\n".join(lines)    
     return "\n".join(lines)

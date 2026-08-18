@@ -19,8 +19,138 @@ from __future__ import annotations
 
 import os
 import platform
+import psutil
 import socket
+import subprocess
+
 from typing import Any
+
+def _run_command(command: list[str]) -> str:
+    try:
+        return subprocess.check_output(
+            command,
+            stderr=subprocess.DEVNULL,
+            text=True,
+        ).strip()
+    except Exception:
+        return ""
+
+
+def get_container_info() -> dict[str, object]:
+    """
+    Detect whether the current process is running inside a container.
+
+    Returns container/orchestrator information where it can be determined.
+    """
+    if platform.system() != "Linux":
+        return {
+            "Detected": False,
+            "Type": None,
+        }
+
+    # Kubernetes is an orchestrator rather than a container runtime,
+    # so detect it first and report it as such.
+    kubernetes = (
+        "KUBERNETES_SERVICE_HOST" in os.environ
+        or os.path.exists(
+            "/var/run/secrets/kubernetes.io/serviceaccount"
+        )
+    )
+
+    container_type = None
+
+    # Preferred Linux/systemd mechanism when available.
+    detected = _run_command(
+        ["systemd-detect-virt", "--container"]
+    )
+
+    if detected and detected != "none":
+        container_type = detected
+
+    # Additional fallbacks.
+    if container_type is None and os.path.exists("/.dockerenv"):
+        container_type = "docker"
+
+    if container_type is None:
+        try:
+            with open(
+                "/proc/1/cgroup",
+                encoding="utf-8",
+            ) as cgroup_file:
+                cgroup = cgroup_file.read().lower()
+
+            if "docker" in cgroup:
+                container_type = "docker"
+            elif "kubepods" in cgroup:
+                container_type = "container"
+            elif "containerd" in cgroup:
+                container_type = "containerd"
+            elif "lxc" in cgroup:
+                container_type = "lxc"
+
+        except OSError:
+            pass
+
+    is_container = container_type is not None or kubernetes
+
+    if kubernetes:
+        display_type = (
+            f"Kubernetes ({container_type})"
+            if container_type
+            else "Kubernetes"
+        )
+    else:
+        display_type = container_type
+
+    return {
+        "Detected": is_container,
+        "Type": display_type,
+    }
+
+def get_container_storage_info() -> dict[str, object] | None:
+    """Return the root filesystem visible to a container."""
+    container = get_container_info()
+
+    if not container["Detected"]:
+        return None
+
+    try:
+        usage = psutil.disk_usage("/")
+        partitions = psutil.disk_partitions(all=True)
+
+        root_partition = next(
+            (
+                partition
+                for partition in partitions
+                if partition.mountpoint == "/"
+            ),
+            None,
+        )
+
+        return {
+            "Mount Point": "/",
+            "Device": (
+                root_partition.device
+                if root_partition
+                else None
+            ),
+            "File System": (
+                root_partition.fstype
+                if root_partition
+                else None
+            ),
+            "Size (GB)": round(
+                usage.total / (1000 ** 3),
+                2,
+            ),
+            "Available (GB)": round(
+                usage.free / (1000 ** 3),
+                2,
+            ),
+        }
+
+    except (OSError, PermissionError):
+        return None
 
 def _get_linux_distribution() -> str:
     """Return the Linux distribution name using freedesktop os-release."""
@@ -106,17 +236,15 @@ def get_python_runtime_info() -> dict[str, Any]:
     }
 
 
-def get_environment_diagnostics() -> dict[str, Any]:
-    """
-    Capture a structured execution-environment diagnostic snapshot.
-    """
+def get_environment_diagnostics() -> dict[str, object]:
     return {
         "Host": get_host_info(),
         "Operating System": get_os_info(),
         "Architecture": get_architecture_info(),
         "Python Runtime": get_python_runtime_info(),
+        "Container": get_container_info(),
+        "Container Storage": get_container_storage_info(),
     }
-
 
 if __name__ == "__main__":
     from pprint import pprint
