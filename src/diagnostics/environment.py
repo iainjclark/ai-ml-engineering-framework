@@ -107,11 +107,12 @@ def get_container_info() -> dict[str, object]:
         "Type": display_type,
     }
 
-def get_container_storage_info() -> dict[str, object] | None:
-    """Return the root filesystem visible to a container."""
-    container = get_container_info()
 
-    if not container["Detected"]:
+def get_container_storage_info(
+    container: dict[str, Any],
+) -> dict[str, Any] | None:
+    """Return the root filesystem visible to a container."""
+    if not container.get("Detected"):
         return None
 
     try:
@@ -126,7 +127,6 @@ def get_container_storage_info() -> dict[str, object] | None:
             ),
             None,
         )
-
         return {
             "Mount Point": "/",
             "Device": (
@@ -139,14 +139,8 @@ def get_container_storage_info() -> dict[str, object] | None:
                 if root_partition
                 else None
             ),
-            "Size (GB)": round(
-                usage.total / (1000 ** 3),
-                2,
-            ),
-            "Available (GB)": round(
-                usage.free / (1000 ** 3),
-                2,
-            ),
+            "Size (Bytes)": usage.total,
+            "Available (Bytes)": usage.free,
         }
 
     except (OSError, PermissionError):
@@ -235,15 +229,17 @@ def get_python_runtime_info() -> dict[str, Any]:
         "Executable": os.path.abspath(os.sys.executable),
     }
 
+def get_environment_diagnostics() -> dict[str, Any]:
+    """Capture execution-environment diagnostics."""
+    container = get_container_info()
 
-def get_environment_diagnostics() -> dict[str, object]:
     return {
         "Host": get_host_info(),
         "Operating System": get_os_info(),
         "Architecture": get_architecture_info(),
         "Python Runtime": get_python_runtime_info(),
-        "Container": get_container_info(),
-        "Container Storage": get_container_storage_info(),
+        "Container": container,
+        "Container Storage": get_container_storage_info(container),
     }
 
 if __name__ == "__main__":

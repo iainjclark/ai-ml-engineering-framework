@@ -167,10 +167,10 @@ def _format_concise(
     )
 
     storage_devices = _storage_devices(diagnostics)
-    
+
     manufacturer = system.get("Manufacturer", "Unknown")
     model = system.get("Model", "Unknown")
-    
+
     system_parts = [
         value
         for value in (manufacturer, model)
@@ -201,8 +201,7 @@ def _format_concise(
             os_text = f"{os_name} {os_release}"
 
         kernel_text = None
-        
-        
+
     cpu_name = (
         cpu.get("CPU Name (Friendly)")
         or cpu.get("CPU Name (Raw)")
@@ -243,93 +242,107 @@ def _format_concise(
 
     else:
         gpu_text = "GPU not detected"
-        
+
     storage_lines = []
 
-    for storage_index, storage in enumerate(storage_devices):
-        storage_model = storage.get("Model", "Unknown storage")
+    # In a container, prefer the filesystem/storage actually visible to
+    # the running workload rather than virtual block devices exposed by
+    # the container runtime.
+    if container.get("Detected") and container_storage:
+        storage_parts = ["container"]
 
-        storage_size = storage.get("Size (Bytes)")
-        storage_bus = storage.get("BusType")
+        mount_point = container_storage.get("Mount Point", "/")
+        size = container_storage.get("Size (Bytes)")
+        available = container_storage.get("Available (Bytes)")
+        file_system = container_storage.get("File System")
 
-        storage_parts = [str(storage_model)]
+        if mount_point:
+            storage_parts.append(str(mount_point))
 
-        storage_size_text = _format_size(storage_size)
-        if storage_size_text:
-            storage_parts.append(storage_size_text)
+        size_text = _format_size(size)
+        if size_text:
+            storage_parts.append(f"{size_text} total")
 
-        if storage_bus:
-            storage_parts.append(str(storage_bus))
+        available_text = _format_size(available)
+        if available_text:
+            storage_parts.append(f"{available_text} free")
 
-        storage_text = " | ".join(storage_parts)
+        if file_system:
+            storage_parts.append(str(file_system))
 
-        # Only mounted/addressable logical volumes belong in concise output.
-        logical_volumes = [
-            volume
-            for volume in storage.get("Logical Volumes", [])
-            if volume.get("Drive") or volume.get("Mount Point")
-        ]
+        storage_lines.append(
+            "Storage:   " + " | ".join(storage_parts)
+        )
 
-        prefix = "Storage:   " if storage_index == 0 else "           "
-
-        if len(logical_volumes) == 1:
-            volume_text = _format_logical_volume(logical_volumes[0])
-
-            storage_lines.append(
-                f"{prefix}{storage_text} | {volume_text}"
+    else:
+        # Bare-metal / host-visible physical storage.
+        for storage_index, storage in enumerate(storage_devices):
+            storage_model = (
+                storage.get("Model")
+                or "Unknown storage"
             )
 
-        elif len(logical_volumes) > 1:
-            # Physical device
-            storage_lines.append(
-                f"{prefix}{storage_text}"
+            storage_size = storage.get("Size (Bytes)")
+            storage_bus = storage.get("BusType")
+
+            storage_parts = [str(storage_model)]
+
+            storage_size_text = _format_size(storage_size)
+            if storage_size_text:
+                storage_parts.append(storage_size_text)
+
+            if storage_bus:
+                storage_parts.append(str(storage_bus))
+
+            storage_text = " | ".join(storage_parts)
+
+            # Only mounted/addressable logical volumes belong
+            # in concise output.
+            logical_volumes = [
+                volume
+                for volume in storage.get("Logical Volumes", [])
+                if volume.get("Drive") or volume.get("Mount Point")
+            ]
+
+            prefix = (
+                "Storage:   "
+                if storage_index == 0
+                else "           "
             )
 
-            # Logical volumes belonging to that device
-            for volume in logical_volumes:
-                volume_text = _format_logical_volume(volume)
-
-                storage_lines.append(
-                    f"             {volume_text}"
+            if len(logical_volumes) == 1:
+                volume_text = _format_logical_volume(
+                    logical_volumes[0]
                 )
 
-        else:
-            storage_lines.append(
-                f"{prefix}{storage_text}"
-            )
+                storage_lines.append(
+                    f"{prefix}{storage_text} | {volume_text}"
+                )
 
+            elif len(logical_volumes) > 1:
+                # Physical device
+                storage_lines.append(
+                    f"{prefix}{storage_text}"
+                )
 
-    if not storage_lines:
-        if container.get("Detected") and container_storage:
-            storage_parts = ["container"]
+                # Logical volumes belonging to that device
+                for volume in logical_volumes:
+                    volume_text = _format_logical_volume(volume)
 
-            mount_point = container_storage.get("Mount Point", "/")
-            size = container_storage.get("Size (Bytes)")
-            available = container_storage.get("Available (Bytes)")
-            file_system = container_storage.get("File System")
+                    storage_lines.append(
+                        f"             {volume_text}"
+                    )
 
-            if mount_point:
-                storage_parts.append(str(mount_point))
+            else:
+                storage_lines.append(
+                    f"{prefix}{storage_text}"
+                )
 
-            size_text = _format_size(size)
-            if size_text:
-                storage_parts.append(f"{size_text} total")
-
-            available_text = _format_size(available)
-            if available_text:
-                storage_parts.append(f"{available_text} free")
-
-            if file_system:
-                storage_parts.append(str(file_system))
-
-            storage_lines.append(
-                "Storage:   " + " | ".join(storage_parts)
-            )
-        else:
+        if not storage_lines:
             storage_lines.append(
                 "Storage:   Storage not detected"
-            )        
-            
+            )
+
     python_version = python_runtime.get(
         "Version",
         "Unknown",
@@ -396,7 +409,6 @@ def _format_concise(
         f"Memory:    {ram_gb} GB RAM",
     ])
 
-    # Preserve the physical/logical storage formatting
     lines.extend(storage_lines)
 
     lines.append(f"OS:        {os_text}")
