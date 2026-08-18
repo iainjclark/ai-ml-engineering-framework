@@ -29,13 +29,26 @@ from typing import Any
 #              in the record: NumPy ABI breaks and the pandas 3.0 copy-on-write
 #              default both change results from unchanged code.
 #   ml       - modelling frameworks, classical and deep learning.
+
 DEFAULT_PACKAGES = {
+    # Numerics / dataframe / statistical computing
     "NumPy": ("numpy", "numerics"),
     "SciPy": ("scipy", "numerics"),
     "pandas": ("pandas", "numerics"),
+    "pyarrow": ("pyarrow", "numerics"),
+    "polars": ("polars", "numerics"),
+    "statsmodels": ("statsmodels", "numerics"),
+    "JAX": ("jax", "numerics"),
+    "jaxlib": ("jaxlib", "numerics"),
+
+    # AI / ML frameworks and libraries
     "scikit-learn": ("scikit-learn", "ml"),
     "PyTorch": ("torch", "ml"),
     "TensorFlow": ("tensorflow", "ml"),
+    "Keras": ("keras", "ml"),
+    "XGBoost": ("xgboost", "ml"),
+    "LightGBM": ("lightgbm", "ml"),
+    "CatBoost": ("catboost", "ml"),
 }
 
 
