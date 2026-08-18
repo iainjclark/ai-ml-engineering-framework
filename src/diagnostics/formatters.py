@@ -20,6 +20,32 @@ from .software import get_packages_in_category
 
 from typing import Any
 
+def _format_size(size_bytes: int | float | None) -> str | None:
+    """Format a byte count using an appropriate human-readable unit."""
+    if not isinstance(size_bytes, (int, float)):
+        return None
+
+    size = max(0, size_bytes)
+
+    units = (
+        ("TB", 1000**4),
+        ("GB", 1000**3),
+        ("MB", 1000**2),
+        ("KB", 1000),
+        ("B", 1),
+    )
+
+    for unit, divisor in units:
+        if size >= divisor or unit == "B":
+            value = size / divisor
+
+            if unit in {"TB", "GB"} and value < 10:
+                return f"{value:.1f} {unit}"
+
+            return f"{value:.0f} {unit}"
+
+    return "0 B"
+    
 def _storage_devices(
     diagnostics: dict[str, Any],
 ) -> list[dict[str, Any]]:
@@ -39,7 +65,7 @@ def _format_logical_volume(volume: dict[str, Any]) -> str:
     drive = volume.get("Drive")
     mount_point = volume.get("Mount Point")
     label = volume.get("Label")
-    size = volume.get("Size (GB)")
+    size = volume.get("Size (Bytes)")
     file_system = volume.get("File System")
 
     identifier = drive or mount_point
@@ -50,11 +76,9 @@ def _format_logical_volume(volume: dict[str, Any]) -> str:
     if label:
         parts.append(str(label))
 
-    if size is not None:
-        if isinstance(size, (int, float)):
-            parts.append(f"{size:.0f} GB")
-        else:
-            parts.append(str(size))
+    size_text = _format_size(size)
+    if size_text:
+        parts.append(size_text)
 
     if file_system:
         parts.append(str(file_system))
@@ -225,20 +249,14 @@ def _format_concise(
     for storage_index, storage in enumerate(storage_devices):
         storage_model = storage.get("Model", "Unknown storage")
 
-        storage_size = (
-            storage.get("Size (GB)")
-            or storage.get("Size")
-        )
-
+        storage_size = storage.get("Size (Bytes)")
         storage_bus = storage.get("BusType")
 
         storage_parts = [str(storage_model)]
 
-        if storage_size is not None:
-            if isinstance(storage_size, (int, float)):
-                storage_parts.append(f"{storage_size:.0f} GB")
-            else:
-                storage_parts.append(str(storage_size))
+        storage_size_text = _format_size(storage_size)
+        if storage_size_text:
+            storage_parts.append(storage_size_text)
 
         if storage_bus:
             storage_parts.append(str(storage_bus))
@@ -251,9 +269,9 @@ def _format_concise(
             for volume in storage.get("Logical Volumes", [])
             if volume.get("Drive") or volume.get("Mount Point")
         ]
-        
+
         prefix = "Storage:   " if storage_index == 0 else "           "
-        
+
         if len(logical_volumes) == 1:
             volume_text = _format_logical_volume(logical_volumes[0])
 
@@ -262,10 +280,12 @@ def _format_concise(
             )
 
         elif len(logical_volumes) > 1:
+            # Physical device
             storage_lines.append(
-                f"Storage:   {storage_text}"
+                f"{prefix}{storage_text}"
             )
 
+            # Logical volumes belonging to that device
             for volume in logical_volumes:
                 volume_text = _format_logical_volume(volume)
 
@@ -275,27 +295,29 @@ def _format_concise(
 
         else:
             storage_lines.append(
-                f"Storage:   {storage_text}"
+                f"{prefix}{storage_text}"
             )
+
 
     if not storage_lines:
         if container.get("Detected") and container_storage:
             storage_parts = ["container"]
 
             mount_point = container_storage.get("Mount Point", "/")
-            size = container_storage.get("Size (GB)")
-            available = container_storage.get("Available (GB)")
+            size = container_storage.get("Size (Bytes)")
+            available = container_storage.get("Available (Bytes)")
             file_system = container_storage.get("File System")
-
 
             if mount_point:
                 storage_parts.append(str(mount_point))
 
-            if isinstance(size, (int, float)):
-                storage_parts.append(f"{size:.0f} GB total")
+            size_text = _format_size(size)
+            if size_text:
+                storage_parts.append(f"{size_text} total")
 
-            if isinstance(available, (int, float)):
-                storage_parts.append(f"{available:.0f} GB free")
+            available_text = _format_size(available)
+            if available_text:
+                storage_parts.append(f"{available_text} free")
 
             if file_system:
                 storage_parts.append(str(file_system))

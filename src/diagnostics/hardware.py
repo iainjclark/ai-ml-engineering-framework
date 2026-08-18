@@ -356,8 +356,6 @@ def get_storage_info() -> list[dict[str, Any]]:
         )
 
         if output:
-            import json
-
             try:
                 parsed = json.loads(output)
 
@@ -381,10 +379,8 @@ def get_storage_info() -> list[dict[str, Any]]:
                                 "Drive": volume.get("DriveLetter"),
                                 "Label": volume.get("Label"),
                                 "File System": volume.get("FileSystem"),
-                                "Size (GB)": (
-                                    round(size / (1000 ** 3), 2)
-                                    if isinstance(size, (int, float))
-                                    else None
+                                "Size (Bytes)": (
+                                    size if isinstance(size, (int, float)) else None
                                 ),
                                 "Mount Point": volume.get("MountPoint"),
                             }
@@ -398,10 +394,8 @@ def get_storage_info() -> list[dict[str, Any]]:
                             "Model": disk.get("Model"),
                             "Manufacturer": disk.get("Manufacturer"),
                             "Serial": disk.get("Serial"),
-                            "Size (GB)": (
-                                round(size / (1000 ** 3), 2)
-                                if isinstance(size, (int, float))
-                                else None
+                            "Size (Bytes)": (
+                                size if isinstance(size, (int, float)) else None
                             ),
                             "BusType": disk.get("BusType"),
                             "Logical Volumes": logical_volumes,
@@ -410,41 +404,91 @@ def get_storage_info() -> list[dict[str, Any]]:
 
             except (json.JSONDecodeError, TypeError, ValueError):
                 pass
-                
     elif system == "Linux":
         output = _run_command(
             [
                 "lsblk",
-                "-d",
+                "-J",
+                "-b",
                 "-o",
-                "NAME,MODEL,VENDOR,SERIAL,SIZE,TRAN",
+                (
+                    "NAME,TYPE,MODEL,VENDOR,SERIAL,SIZE,"
+                    "TRAN,FSTYPE,LABEL,MOUNTPOINTS"
+                ),
             ]
         )
 
-        lines = output.splitlines()
+        if output:
+            try:
+                parsed = json.loads(output)
 
-        if len(lines) > 1:
-            headers = lines[0].split()
+                for disk in parsed.get("blockdevices", []):
+                    if disk.get("type") != "disk":
+                        continue
 
-            for line in lines[1:]:
-                parts = line.split(
-                    None,
-                    len(headers) - 1,
-                )
+                    logical_volumes = []
 
-                if len(parts) >= 6:
-                    name, model, vendor, serial, size, transport = parts
+                    for child in disk.get("children") or []:
+                        child_type = child.get("type")
+
+                        if child_type not in {
+                            "part",
+                            "lvm",
+                            "crypt",
+                            "raid",
+                        }:
+                            continue
+
+                        size = child.get("size")
+                        mount_points = child.get("mountpoints") or []
+
+                        if isinstance(mount_points, str):
+                            mount_points = [mount_points]
+
+                        mount_point = next(
+                            (
+                                value
+                                for value in mount_points
+                                if value
+                            ),
+                            None,
+                        )
+
+                        logical_volumes.append(
+                            {
+                                "Partition": child.get("name"),
+                                "Drive": None,
+                                "Label": child.get("label"),
+                                "File System": child.get("fstype"),
+                                "Size (Bytes)": (
+                                    size if isinstance(size, (int, float)) else None
+                                ),
+                                "Mount Point": mount_point,
+                            }
+                        )
+
+                    size = disk.get("size")
 
                     drives.append(
                         {
-                            "Device": f"/dev/{name}",
-                            "Model": model,
-                            "Manufacturer": vendor,
-                            "Serial": serial,
-                            "Size": size,
-                            "BusType": transport,
+                            "Device": f"/dev/{disk.get('name')}",
+                            "Model": disk.get("model"),
+                            "Manufacturer": disk.get("vendor"),
+                            "Serial": disk.get("serial"),
+                            "Size (Bytes)": (
+                                size if isinstance(size, (int, float)) else None
+                            ),
+                            "BusType": disk.get("tran"),
+                            "Logical Volumes": logical_volumes,
                         }
                     )
+
+            except (
+                json.JSONDecodeError,
+                TypeError,
+                ValueError,
+            ):
+                pass                
 
     return drives
 
