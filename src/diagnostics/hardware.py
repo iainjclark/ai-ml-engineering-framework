@@ -241,9 +241,7 @@ def get_ram_info() -> dict[str, Any]:
     """
     virtual_memory = psutil.virtual_memory()
 
-    total_gb = round(
-        virtual_memory.total / (1024 ** 3)
-    )
+    total_ram = virtual_memory.total
 
     ram_speed = None
     system = platform.system()
@@ -291,7 +289,7 @@ def get_ram_info() -> dict[str, Any]:
             )
 
     return {
-        "Total RAM (GB)": int(total_gb),
+        "Total RAM (Bytes)": total_ram,
         "Memory Speed": ram_speed,
     }
 

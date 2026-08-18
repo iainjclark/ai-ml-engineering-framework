@@ -211,7 +211,20 @@ def _format_concise(
     physical_cores = cpu.get("Cores (Physical)", "?")
     logical_threads = cpu.get("Threads (Logical)", "?")
 
-    ram_gb = ram.get("Total RAM (GB)", "?")
+    ram_bytes = ram.get("Total RAM (Bytes)")
+    
+    if isinstance(ram_bytes, int):
+        gib = round(ram_bytes / 1024 ** 3)
+        
+        # Minimum power-of-two modules summing to this figure. Built machines
+        # are popcount 1-2 (64 = one stick; 48 = 32+16; 24 = 16+8). Three or
+        # more may indicate an OS-reported figure with firmware, kernel
+        # or GPU reservations already deducted. Values of popcount of 3 or
+        # more are not impossible but should be reported as *possibly* approximate
+       
+        ram_text = f"{'~' if bin(gib).count('1') > 2 else ''}{gib} GiB RAM"
+    else:
+        ram_text = "Memory not detected"
 
     gpu_info = hardware.get("GPU", {})
     gpu_devices = gpu_info.get("Devices", [])
@@ -226,7 +239,7 @@ def _format_concise(
         if gpu_memory is not None:
             gpu_text = (
                 f"{gpu_name} | "
-                f"{gpu_memory / 1024:.1f} GB VRAM"
+                f"{gpu_memory / 1024:.1f} GiB VRAM"
             )
         else:
             gpu_text = gpu_name
@@ -406,7 +419,7 @@ def _format_concise(
             f"{logical_threads} {thread_label} | "
             f"{gpu_text}"
         ),
-        f"Memory:    {ram_gb} GB RAM",
+        f"Memory:    {ram_text}",
     ])
 
     lines.extend(storage_lines)
