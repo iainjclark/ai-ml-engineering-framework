@@ -30,27 +30,12 @@ from typing import Any
 
 import psutil
 
+from ._shell import _run_command
+
 try:
     import GPUtil
 except ImportError:
     GPUtil = None
-
-
-def _run_command(command: list[str]) -> str:
-    """
-    Run a system command and return stripped stdout.
-
-    Returns an empty string if the command cannot be executed.
-    """
-    try:
-        return subprocess.check_output(
-            command,
-            stderr=subprocess.DEVNULL,
-            text=True,
-        ).strip()
-    except Exception:
-        return ""
-
 
 def make_friendly_cpu_name(raw_name: str) -> str:
     """
@@ -181,7 +166,7 @@ def get_system_model() -> dict[str, str]:
         if model_name and model_identifier:
             model = f"{model_name} ({model_identifier})"
         else:
-            model = model_name or model_identifier       
+            model = model_name or model_identifier
 
     return {
         "Manufacturer": manufacturer or "Unknown",
@@ -943,7 +928,7 @@ def _get_macos_storage_info() -> list[dict[str, Any]]:
         drives.append(drive)
 
     return drives
-    
+
 def get_storage_info() -> list[dict[str, Any]]:
     """
     Return information about physical storage devices.
@@ -1140,7 +1125,7 @@ def get_storage_info() -> list[dict[str, Any]]:
 
     elif system == "Darwin":
         drives.extend(_get_macos_storage_info())
-    
+
     return drives
 
 def get_gpu_info():

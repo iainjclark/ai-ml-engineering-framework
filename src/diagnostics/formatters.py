@@ -6,7 +6,7 @@ The formatter provides human-readable representations of diagnostic capture reco
     formatters.py
         Presents selected information for human consumption.
 
-The formatter is intentionally separate from capture.py which preserves as much of the full 
+The formatter is intentionally separate from capture.py which preserves as much of the full
 state of the system as it can
 
     capture.py
@@ -45,7 +45,7 @@ def _format_size(size_bytes: int | float | None) -> str | None:
             return f"{value:.0f} {unit}"
 
     return "0 B"
-    
+
 def _storage_devices(
     diagnostics: dict[str, Any],
 ) -> list[dict[str, Any]]:
@@ -240,16 +240,16 @@ def _format_concise(
     logical_threads = cpu.get("Threads (Logical)", "?")
 
     ram_bytes = ram.get("Total RAM (Bytes)")
-    
+
     if isinstance(ram_bytes, int):
         gib = round(ram_bytes / 1024 ** 3)
-        
+
         # Minimum power-of-two modules summing to this figure. Built machines
         # are popcount 1-2 (64 = one stick; 48 = 32+16; 24 = 16+8). Three or
         # more may indicate an OS-reported figure with firmware, kernel
         # or GPU reservations already deducted. Values of popcount of 3 or
         # more are not impossible but should be reported as *possibly* approximate
-       
+
         ram_text = f"{'~' if bin(gib).count('1') > 2 else ''}{gib} GiB RAM"
     else:
         ram_text = "Memory not detected"

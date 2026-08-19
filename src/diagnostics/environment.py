@@ -25,16 +25,7 @@ import subprocess
 
 from typing import Any
 
-def _run_command(command: list[str]) -> str:
-    try:
-        return subprocess.check_output(
-            command,
-            stderr=subprocess.DEVNULL,
-            text=True,
-        ).strip()
-    except Exception:
-        return ""
-
+from ._shell import _run_command
 
 def get_container_info() -> dict[str, object]:
     """
@@ -158,7 +149,7 @@ def _get_linux_distribution() -> str:
 
     except OSError:
         return "Linux"
-        
+
 def get_os_info() -> dict[str, Any]:
     """Return operating-system and platform information."""
     uname = platform.uname()
