@@ -175,6 +175,14 @@ def get_os_info() -> dict[str, Any]:
 
     if system == "Linux":
         info["Distribution"] = _get_linux_distribution()
+    elif system == "Darwin":
+        mac_version = platform.mac_ver()[0]
+        info["Distribution"] = (
+            f"macOS {mac_version}"
+            if mac_version
+            else "macOS"
+        )
+        info["Kernel"] = f"Darwin {platform.release()}"
 
     return info
 

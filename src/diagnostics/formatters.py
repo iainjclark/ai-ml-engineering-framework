@@ -102,6 +102,28 @@ def _first_gpu(
 
     return {}
 
+def _is_concise_logical_volume(
+    volume: dict[str, Any],
+) -> bool:
+    """Return True for logical volumes worth showing in concise output."""
+
+    drive = volume.get("Drive")
+    mount_point = volume.get("Mount Point")
+
+    if drive:
+        return True
+
+    if not mount_point:
+        return False
+
+    mount_point = str(mount_point)
+
+    # Hide macOS implementation-detail APFS volumes.
+    if mount_point.startswith("/System/Volumes/"):
+        return False
+
+    return True
+
 def format_diagnostics(
     diagnostics: dict[str, Any],
     style: str = "concise",
@@ -131,7 +153,6 @@ def format_diagnostics(
     raise ValueError(
         f"Unsupported diagnostic format style: {style!r}"
     )
-
 
 def _format_concise(
     diagnostics: dict[str, Any],
@@ -192,14 +213,21 @@ def _format_concise(
             "Linux",
         )
         kernel_text = f"Linux {os_release}"
+    elif os_name == "Darwin":
+        os_text = operating_system.get(
+            "Distribution",
+            "macOS",
+        )
+        kernel_text = operating_system.get(
+            "Kernel",
+            f"Darwin {os_release}",
+        )
     else:
         os_version = operating_system.get("Version")
-
         if os_version:
             os_text = f"{os_name} {os_release} ({os_version})"
         else:
             os_text = f"{os_name} {os_release}"
-
         kernel_text = None
 
     cpu_name = (
@@ -247,7 +275,7 @@ def _format_concise(
     elif gpu_status == "Unavailable":
         gpu_text = (
             "GPU detection unavailable "
-            "(GPUtil not installed; install with pip or conda)"
+            "(GPUtil not installed)"
         )
 
     elif gpu_status == "Failed":
@@ -314,7 +342,7 @@ def _format_concise(
             logical_volumes = [
                 volume
                 for volume in storage.get("Logical Volumes", [])
-                if volume.get("Drive") or volume.get("Mount Point")
+                if _is_concise_logical_volume(volume)
             ]
 
             prefix = (
