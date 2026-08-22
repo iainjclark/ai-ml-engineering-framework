@@ -14,7 +14,8 @@ Python utilities for evidence capture, diagnostics and operational assurance.
 
 ## Engineering Lifecycle
 
-The framework organises AI/ML engineering work into ten areas which I have found work well for my projects.
+The framework organises AI/ML engineering work into ten areas that I have found work well in my projects.
+I've trimmed it down a lot from [1, 2, 3] because it doesn't need to be rocket science.
 
 | Stage | Engineering question |
 |---|---|
@@ -29,14 +30,16 @@ The framework organises AI/ML engineering work into ten areas which I have found
 | **09 — Release to Production** | Is there sufficient evidence to release this version? |
 | **10 — Post-Implementation Review** | What happened in operation, and what should change as a result? |
 
+## AI-Assisted Project Management
+
 Sample LLM prompts under `/prompts` help you create and maintain the engineering artefacts with machine assistance. 
 Depending on the degree of LLM integration in your organisation, you may find this useful.
 This can remove much of the administrative burden while leaving the engineering judgement and oversight with you.
 
-Detailed guidance and reusable engineering artefacts for these stages are provided under `/docs` - 
-Stage **00 — Framework** is the best place to start.
+Detailed guidance and reusable engineering artefacts for these stages are provided under `/docs` though
+realistically, Stage **00 — Framework** is the best place to start.
 
-### System Diagnostics
+## System Diagnostics
 
 The framework also includes lightweight utilities for capturing execution-environment and software provenance.
 
