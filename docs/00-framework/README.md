@@ -76,21 +76,20 @@ Not every project needs the same amount of documentation or assurance. Use enoug
 
 ## Lifecycle
 
-ai-ml-engineering-framework organises engineering work into eleven areas. They have a natural sequence, but the focus of the engineering team may move backwards as well as forwards as the project develops.
+ai-ml-engineering-framework organises engineering work into ten areas. They have a natural sequence, but the focus of the engineering team may move backwards as well as forwards as the project develops.
 
 | Stage | Question |
 |---|---|
 | **01 — Concept** | Why are we building this and for whom? |
 | **02 — Requirements** | What must the system do, and how well must it do it? |
-| **03 — Decision Analysis** | Which approach should we choose, and why? |
+| **03 — Decision Records** | Which approach should we choose, what alternatives exist, what did we decide, and why? |
 | **04 — Architecture & Design** | How will the system be structured and implemented? |
 | **05 — Risk & Assurance** | What could go wrong, and how will we control it? |
 | **06 — V&V Design** | How will we establish that the system is fit for its intended use? |
-| **07 — Decision Log** | What important decisions have we made and why? |
-| **08 — Configuration & Change** | What exactly constitutes the system, and how are changes controlled? |
-| **09 — V&V Evidence** | What did verification and validation actually show? |
-| **10 — Release to Production** | Is there sufficient evidence to release this version? |
-| **11 — Post-Implementation Review** | What happened in operation, and what should change as a result? |
+| **07 — Configuration & Change** | What exactly constitutes the system, and how are changes controlled? |
+| **08 — V&V Evidence** | What did verification and validation actually show? |
+| **09 — Release to Production** | Is there sufficient evidence to release this version? |
+| **10 — Post-Implementation Review** | What happened in operation, and what should change as a result? |
 
 The stages are numbered to provide a natural engineering sequence, but they are not a strict waterfall.
 
@@ -194,7 +193,7 @@ ai-ml-engineering-framework separates the design of V&V from the resulting evide
 
 > **What evidence will we need, how will we obtain it, and what results will be acceptable?**
 
-**09 — V&V Evidence** asks:
+**08 — V&V Evidence** asks:
 
 > **What did we actually do, what happened, and what does the evidence support?**
 

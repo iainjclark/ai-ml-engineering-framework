@@ -27,7 +27,7 @@ Perform the planned checks and record actual results, conditions, deviations, fa
 Produce V&V evidence records showing what was tested or validated, what happened,
 whether it passed and what remains unresolved.
 
-Maintain executed verification and validation evidence in `VVEvidenceRegister.xlsx`,
+Maintain executed verification and validation evidence in `EvidenceRegister.xlsx`,
 giving each evidence item a stable `EVID-###` identifier and recording the
 corresponding V&V activity, configuration, actual conditions, results,
 acceptance outcome, deviations, supporting artefacts and disposition.
