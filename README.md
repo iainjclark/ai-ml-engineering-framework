@@ -2,15 +2,11 @@
 
 A practical lightweight framework for the development, assurance, deployment and operational review of AI/ML systems.
 
-The framework adapts established practice [1, 2, 3] from systems engineering, software engineering
-and applied mathematics to AI/ML development, providing a
-traceable lifecycle from stakeholder need and requirements through decision
-analysis and recording, architecture, risk, verification and validation, configuration
-control, production release and post-implementation review. 
+It adapts established practice [1, 2, 3] from systems engineering, software engineering and applied mathematics into a traceable AI/ML lifecycle.
+It lets you get on with the work while preserving enough information and context so that when you are asked any of the sample engineering questions below,
+you have the information at hand — **with evidence**.
 
-The repository combines a staged set of technical artefacts with suggested
-Python utilities for evidence capture, diagnostics and operational assurance.
-
+The repository combines a staged set of technical artefacts with suggested Python utilities for evidence capture, diagnostics and operational assurance.
 
 ## Engineering Lifecycle
 
@@ -36,7 +32,7 @@ Sample LLM prompts under `/prompts` help you create and maintain the engineering
 Depending on the degree of LLM integration in your organisation, you may find this useful.
 This can remove much of the administrative burden while leaving the engineering judgement and oversight with you.
 
-Detailed guidance and reusable engineering artefacts for these stages are provided under `/docs` though
+Detailed guidance and reusable engineering artefacts for these stages are in `/docs`, though
 realistically, Stage **00 — Framework** is the best place to start.
 
 ## System Diagnostics
