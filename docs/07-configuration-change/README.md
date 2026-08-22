@@ -1,4 +1,4 @@
-# 08 --- Configuration & Change
+# 07 --- Configuration & Change
 
 > **What exactly is the controlled system, and what has changed?**
 

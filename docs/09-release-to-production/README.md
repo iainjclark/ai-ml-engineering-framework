@@ -1,4 +1,4 @@
-# 10 --- Release to Production
+# 09 --- Release to Production
 
 > **Is there sufficient evidence to justify putting this version into
 > production?**
