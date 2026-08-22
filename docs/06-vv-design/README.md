@@ -29,7 +29,7 @@ Produce a V&V Plan describing the V&V strategy, scope, methods, responsibilities
 Maintain planned verification and validation activities in `VVRegister.xlsx`,
 including their targets, methods, conditions, data, acceptance criteria and
 planned evidence. Actual evidence is linked when activities are executed in
-`09-v&v-evidence`.
+`08-v&v-evidence`.
 
 The structure of the V&V Plan used in this framework is adapted from the
 Verification and Validation Plan Outline in Appendix I of the NASA Systems
@@ -49,7 +49,7 @@ and software testing respectively.
 -   Distinguish verification of specified requirements from validation
     of stakeholder needs and intended use.
 -   Link executed activities and results to the corresponding records in
-    `09-v&v-evidence`.
+    `08-v&v-evidence`.
 -   The purpose is to show **what evidence will count as adequate proof
     before the results are known**.
 

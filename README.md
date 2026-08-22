@@ -5,17 +5,40 @@ A practical lightweight framework for the development, assurance, deployment and
 The framework adapts established practice [1, 2, 3] from systems engineering, software engineering
 and applied mathematics to AI/ML development, providing a
 traceable lifecycle from stakeholder need and requirements through decision
-analysis, architecture, risk, verification and validation, configuration
+analysis and recording, architecture, risk, verification and validation, configuration
 control, production release and post-implementation review. 
 
 The repository combines a staged set of technical artefacts with suggested
 Python utilities for evidence capture, diagnostics and operational assurance.
 
 
+## Engineering Lifecycle
+
+The framework organises AI/ML engineering work into ten areas which I have found work well for my projects.
+
+| Stage | Engineering question |
+|---|---|
+| **01 — Concept** | Why are we building this and for whom? |
+| **02 — Requirements** | What must the system do, and how well must it do it? |
+| **03 — Decision Records** | Which approach should we choose, what alternatives exist, what did we decide, and why? |
+| **04 — Architecture & Design** | How will the system be structured and implemented? |
+| **05 — Risk & Assurance** | What could go wrong, and how will we control it? |
+| **06 — V&V Design** | How will we establish that the system is fit for its intended use? |
+| **07 — Configuration & Change** | What exactly constitutes the system, and how are changes controlled? |
+| **08 — V&V Evidence** | What did verification and validation actually show? |
+| **09 — Release to Production** | Is there sufficient evidence to release this version? |
+| **10 — Post-Implementation Review** | What happened in operation, and what should change as a result? |
+
+Sample LLM prompts under `/prompts` help you create and maintain the engineering artefacts with machine assistance. 
+Depending on the degree of LLM integration in your organisation, you may find this useful.
+This can remove much of the administrative burden while leaving the engineering judgement and oversight with you.
+
+Detailed guidance and reusable engineering artefacts for these stages are provided under `/docs` - 
+Stage **00 — Framework** is the best place to start.
+
 ### System Diagnostics
 
-The framework includes lightweight utilities for capturing execution-environment
-and software provenance.
+The framework also includes lightweight utilities for capturing execution-environment and software provenance.
 
 From the command line:
 

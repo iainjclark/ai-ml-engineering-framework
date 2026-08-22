@@ -42,9 +42,11 @@ by systems and software engineering practice.
 
 ## Traceability
 
--   Give each requirement a stable ID, for example: stakeholder
-    requirements (`STK-REQ-001`), system requirements (`SYS-REQ-001`),
-    non-functional requirements (`NFR-001`).
+-   Give each requirement a stable ID using the common `REQ-###`
+    namespace, for example `REQ-001`, `REQ-002`, `REQ-003`. Record the
+    requirement type separately, using categories such as Stakeholder,
+    System, Functional, Non-functional, Performance, Interface, Safety
+    or Security.
 -   Trace each requirement backward to the concept-stage need,
     objective, constraint or scenario that justifies it.
 -   Trace derived and lower-level requirements to their parent

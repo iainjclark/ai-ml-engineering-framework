@@ -50,7 +50,7 @@ Examples may include:
 
 ## Functional Requirements
 
-### SYS-REQ-001
+### REQ-xxx
 
 **Requirement:** The system shall ...
 
@@ -64,7 +64,7 @@ Examples may include:
 
 ## Performance Requirements
 
-### SYS-REQ-002
+### REQ-xxx
 
 **Requirement:** The system shall ...
 
@@ -78,7 +78,7 @@ Examples may include:
 
 ## Data and ML Requirements
 
-### ML-REQ-001
+### REQ-xxx
 
 **Requirement:** The model shall ...
 
@@ -92,7 +92,7 @@ Examples may include:
 
 ## Non-Functional Requirements
 
-### NFR-001
+### REQ-xxx
 
 **Requirement:** The system shall ...
 
@@ -109,7 +109,7 @@ Performance / Usability / Other
 
 ## Interface Requirements
 
-### IF-REQ-001
+### REQ-xxx
 
 **Requirement:** The system shall ...
 
@@ -123,7 +123,7 @@ Performance / Usability / Other
 
 ## Operational and Monitoring Requirements
 
-### OPS-REQ-001
+### REQ-xxx
 
 **Requirement:** The system shall ...
 
