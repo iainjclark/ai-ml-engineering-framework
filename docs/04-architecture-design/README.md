@@ -16,7 +16,8 @@ Update it when requirements, interfaces, components, data flows, dependencies or
 
 ## Inputs
 
-Use requirements, decision analyses, constraints, risks, existing systems, interface needs and relevant technical standards.
+Use requirements, decision analyses, constraints, risks, existing systems, interface needs and relevant technical standards, source data assets, 
+source systems and applicable data-use constraints.
 
 ## Activities
 
@@ -25,6 +26,8 @@ Define components, responsibilities, interfaces and data flows. Check that the d
 ## Outputs / Artefacts
 
 Produce architecture diagrams and design descriptions showing components, interfaces, data flows, dependencies and key design choices.
+Where significant external or source data is used, maintain a Data Provenance Record (DATA-###) identifying its origin, intended use,
+acquisition context, version, restrictions, classification and project ownership.
 
 ## Traceability
 
@@ -41,6 +44,9 @@ Produce architecture diagrams and design descriptions showing components, interf
 -   The purpose is to show **how the proposed technical solution
     satisfies the requirements and where each important design choice
     came from**.
+-   Trace significant source data assets (DATA-###) to the requirements, 
+    design elements, data-quality assessments and downstream models or 
+	analyses that depend on them.
 
 ## References
 
@@ -57,3 +63,6 @@ pp. 197--252; Chapter 12, "Engineering Design", pp. 409--442.
 \[3\] I. Sommerville, *Software Engineering*, 10th ed. Boston, MA, USA:
 Pearson, 2016, Chapter 5, "System modeling", pp. 138--166; Chapter 6,
 "Architectural design", pp. 167--195.
+
+\[4\] OASIS, *Data Provenance Metadata Version 1.0*, Committee Specification Draft 02,
+30 June 2026. https://docs.oasis-open.org/dps/prov-meta/v1.0/csd02/prov-meta-v1.0-csd02.html 
