@@ -27,7 +27,9 @@ Define components, responsibilities, interfaces and data flows. Check that the d
 
 Produce architecture diagrams and design descriptions showing components, interfaces, data flows, dependencies and key design choices.
 Where significant external or source data is used, maintain a Data Provenance Record (DATA-###) identifying its origin, intended use,
-acquisition context, version, restrictions, classification and project ownership.
+acquisition context, version, restrictions, classification and project ownership. Upon ingestion of data, 
+it is generally advisable to maintain Data Quality Assessment (DQA-###) records of relevant quality dimensions, checks, acceptance criteria, 
+findings and required actions.
 
 ## Traceability
 
@@ -66,3 +68,11 @@ Pearson, 2016, Chapter 5, "System modeling", pp. 138--166; Chapter 6,
 
 \[4\] OASIS, *Data Provenance Metadata Version 1.0*, Committee Specification Draft 02,
 30 June 2026. https://docs.oasis-open.org/dps/prov-meta/v1.0/csd02/prov-meta-v1.0-csd02.html 
+
+\[5\] World Health Organization, *Data Quality Assurance: Module 1 — Framework and Metrics*. 
+Geneva: World Health Organization, 2023. ISBN 978-92-4-004735-8.
+https://www.who.int/publications/i/item/9789240047365
+
+\[6\] World Health Organization, *Data Quality Assurance: Module 2 — Discrete Desk Review of Data Quality*. 
+Geneva: World Health Organization, 2023. ISBN 978-92-4-004737-2.
+https://www.who.int/publications/i/item/9789240047389
