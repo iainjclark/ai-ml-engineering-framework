@@ -45,8 +45,8 @@ Record:
 -   downstream consumers
 -   important runtime or platform dependencies
 
-Reference the applicable `ADD-###`, `DATA-###`, `DQA-###` and `FEAT-###`
-artefacts rather than duplicating their detailed content.
+Reference the applicable `ADD-###`, `DATA-###`, `DQA-###` and
+(if used) `FEAT-###` artefacts rather than duplicating their detailed content.
 
 ## 3. Model Definition
 
@@ -215,7 +215,7 @@ operational monitoring that establish and maintain fitness for use.
 
 A typical path is:
 
-`REQ-###` → `DEC-###` → `DATA-###` / `DQA-###` / `FEAT-###` →
+`REQ-###` → `DEC-###` → `DATA-###` / `DQA-###` / `FEAT-###` (if used) →
 `MODEL-###` / `TRAIN-###` → `VER-###` / `VAL-###` → `EVID-###` →
 `REL-###` → `MON-###`
 
