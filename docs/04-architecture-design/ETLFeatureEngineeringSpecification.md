@@ -1,14 +1,14 @@
-# Feature / Transformation Specification
+# Data Transformation (ETL) & Feature Engineering Specification
 
-Typical usage: `ETL-001.md`, `ETL-002.md`, ...
+Typical usage: `ETL-001.md`, `ETL-002.md`, `FEAT-001.md`, `FEAT-002.md`, ...
 
-Use this record for the data transformation definition and lifecycle history of
+Use `ETL-###` identifiers for the data transformation definition and lifecycle history of
 model precursors; use `FEAT-###` identifiers for feature engineering definition 
 and lifecycle history.
 
 ## Document Control
 
-Specification ID: `FEAT-###`\
+Specification ID: `ETL-###` / `FEAT-###`\
 System / Project:\
 Model / Pipeline:\
 Version / Baseline:\
@@ -41,17 +41,17 @@ Identify:
 -   downstream consumers
 -   transformations explicitly outside scope
 
-## 3. Feature / Transformation Register
+## 3. Transformation / Feature Engineering Register
 
 Give each material engineered feature or transformation a stable
-`FEAT-###` identifier where individual traceability is useful.
+`ETL-###` / `FEAT-###` identifier where individual traceability is useful.
 
   -------------------------------------------------------------------------------------------
-  FEAT-ID      Feature /        Source       Definition / Output     Purpose    Related IDs
+  ID      Feature /        Source       Definition / Output     Purpose    Related IDs
                Transformation   Field(s) /   Logic        Type /                
                                 Data                      Unit                  
   ------------ ---------------- ------------ ------------ ---------- ---------- -------------
-  `FEAT-###`                    `DATA-###`                                      `REQ-###` /
+  `ETL-###` / `FEAT-###`                    `DATA-###`                                      `REQ-###` /
                                                                                 `DEC-###` /
                                                                                 `MODEL-###`
 
@@ -148,10 +148,10 @@ Examples include:
 For each material fitted transformation, record:
 
   --------------------------------------------------------------------------
-  FEAT-ID        Fitted On      Parameters /   Version /      Application
+  ID        Fitted On      Parameters /   Version /      Application
                                 Artefact       Evidence       Rule
   -------------- -------------- -------------- -------------- --------------
-  `FEAT-###`                                                  
+  `ETL-###` / `FEAT-###`                                                  
 
   --------------------------------------------------------------------------
 
@@ -225,10 +225,10 @@ Record material changes that affect feature meaning, behaviour,
 assumptions or model compatibility.
 
   --------------------------------------------------------------------------
-  Version / Date FEAT-ID(s)     Change         Reason /       Impact /
+  Version / Date ID(s)     Change         Reason /       Impact /
                                                Decision       Related IDs
   -------------- -------------- -------------- -------------- --------------
-                 `FEAT-###`                    `DEC-###`      `MODEL-###` /
+                 `ETL-###` / `FEAT-###`                    `DEC-###`      `MODEL-###` /
                                                               `CHG-###`
 
   --------------------------------------------------------------------------
@@ -238,9 +238,9 @@ trained models, V&V evidence, release status and operational monitoring.
 
 ## 12. Traceability
 
-A typical feature-engineering traceability path is:
+A typical ETL and feature-engineering traceability path is:
 
-`REQ-###` / `DEC-###` → `DATA-###` / `DQA-###` → `FEAT-###` →
+`REQ-###` / `DEC-###` → `DATA-###` / `DQA-###` → `ETL-###` / `FEAT-###` →
 `MODEL-###` / `TRAIN-###` → `VER-###` / `VAL-###` → `EVID-###`
 
 Where feature changes affect a released system:
