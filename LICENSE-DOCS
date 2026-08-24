@@ -1,0 +1,64 @@
+AI/ML Engineering Framework
+Documentation and Framework Materials Licence
+
+Copyright © 2026 Iain J. Clark
+
+For the avoidance of doubt, the non-software materials described below
+are licensed separately from the software under this repository's MIT
+License. These non-software materials are licensed under CC BY 4.0 as
+set out below.
+
+Except where otherwise stated, the documentation, templates, report
+structures, workbook designs, diagrams, framework-authored visual assets,
+and other non-software materials in this repository are licensed under the:
+
+Creative Commons Attribution 4.0 International License (CC BY 4.0)
+
+You are free to share and adapt these materials for any purpose, including
+commercial purposes, subject to the terms of the CC BY 4.0 licence,
+including the requirement to provide appropriate attribution.
+
+A copy of the licence is available at:
+
+https://creativecommons.org/licenses/by/4.0/
+
+Machine-Generated Framework Artefacts
+
+Machine-generated Data Quality Assessment (DQA) workbooks and other
+Framework-generated reports may incorporate Framework-authored workbook
+structures, report layouts, labels, visual designs, and other materials
+licensed under CC BY 4.0.
+
+To the extent that a generated artefact incorporates such Framework-authored
+materials, appropriate attribution to the AI/ML Engineering Framework and
+Iain J. Clark must be retained when the artefact is reproduced, distributed,
+published, or otherwise shared.
+
+The standard attribution used in Framework-generated DQA workbooks is:
+
+Generated using the AI/ML Engineering Framework — Iain J. Clark, PhD. Attribution required; see NOTICE.md.
+https://github.com/iainjclark/ai-ml-engineering-framework
+
+This attribution should be retained in generated DQA workbooks where
+reasonably practicable. Equivalent attribution may be provided in another
+reasonable manner consistent with the requirements of CC BY 4.0.
+
+The attribution requirement applies to the Framework-authored portions of
+the generated artefact. It does not give the Framework author ownership of
+the user's underlying data, analytical results, model outputs, conclusions,
+or other independently created content.
+
+Suggested attribution for other Framework materials:
+
+AI/ML Engineering Framework — Iain J. Clark, PhD
+https://github.com/iainjclark/ai-ml-engineering-framework
+
+Software and source code are not licensed under this file. Unless otherwise
+stated, software and source code are licensed separately under the MIT
+License; see LICENSE.
+
+For additional information concerning attribution of generated reports,
+visualisations, templates, and adapted Framework materials, see NOTICE.md.
+
+Third-party materials, where present, remain subject to their respective
+licences and attribution requirements.
