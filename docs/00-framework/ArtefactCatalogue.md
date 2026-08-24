@@ -27,7 +27,7 @@ engineering activities are performed.
 | # | Artefact | Primary IDs / objects |
 |---:|---|---|
 | | **Concept & requirements** | |
-| 0a | Concept of Operations (CONOPS) | `NEED-`, `OBJ-`, `CON-`, scenarios |
+| 0a | Concept of Operations (CONOPS) | `NEED-`, `CON-`, scenarios |
 | 0b | Project Charter | Scope, stakeholders, constraints |
 | 0c | Stakeholder Needs Register | `NEED-` |
 | 1 | Benefits Register | `BEN-` |
