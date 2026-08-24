@@ -1,5 +1,18 @@
 # Configuration Management
 
+Typical usage: `CFG-001.md` (v1.0 baseline), `CFG-002.md` (v1.1 baseline), ...
+
+Each CFG-### record captures the controlled baseline at a specific release point.
+A new CFG-### record is created for each released baseline; earlier records are
+not overwritten.
+
+Each CFG-### record shall identify the Git commit and tag of the released baseline,
+and may additionally record:
+- software dependency information (`requirements.txt`, `pyproject.toml`, `environment.yml`, `renv.lock`)
+- model version and training configuration
+- data version
+- execution environment, where relevant to reproducibility
+
 ## Repository
 
 The authoritative source repository for this system is:
@@ -13,7 +26,7 @@ maintained under Git version control.
 
 Released baselines are identified using Git tags.
 
-## Current Released Baseline
+## Baseline Identity
 
 **Example configuration baseline (placeholder values only):**
 
