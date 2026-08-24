@@ -54,7 +54,7 @@ engineering activities are performed.
 | | **Production & operation** | |
 | 12 | Release / Deployment Record | `REL-` |
 | 12a | Configuration / Baseline Record | `CFG-` |
-| 12b | Change Request & Impact Assessment | `CHG-` |
+| 12b | Change Request / Bug Fix & Impact Assessment | `CHG-`, `BUG-` |
 | 12c | Milestone Change Log | `MCL-`, milestones, baseline/change history |
 | 13 | Monitoring, Drift & Intervention Record | `MON-` |
 | 13a | Post-Implementation Review / Operational Review | `PIR-` |

@@ -1,13 +1,16 @@
-# Change Request & Impact Assessment
+# Change Request / Bug Fix & Impact Assessment
 
-Typical usage: `CHG-001.md`, `CHG-002.md`, ...
+Typical usage: `CHG-001.md`, `CHG-002.md`, `BUG-001.md`, ...
 
-Use this record for a material proposed change to a controlled AI/ML
-system, model, data pipeline, configuration or engineering baseline.
+
+Use CHG-### identifiers for a material proposed change to a controlled AI/ML
+system, model, data pipeline, configuration or engineering baseline; and 
+use BUG-### identifiers for realised defects requiring corrective action,
+ideally in conjunction with a bug tracking system such as Jira.
 
 ## Document Control
 
-Change ID: `CHG-###`\
+Change ID: `CHG-###` / `BUG-###` \
 System / Project:\
 Status: Proposed / Under Assessment / Approved / Rejected / Implemented
 / Closed\
