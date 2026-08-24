@@ -44,7 +44,7 @@ engineering activities are performed.
 | | **Risk & assurance** | |
 | 9 | Risk Register | `RISK-`, `CTRL-` |
 | 9a | Control Register | `CTRL-` |
-| 9b | Assurance Claims Register / Assurance Case | `ASSUR-` |
+| 9b | Assurance Claims Register  | `ASSUR-`, Register of assurance claims from which assurance cases can be constructed |
 | | **Verification & validation** | |
 | 10 | V&V Plan & Register | `VER-`, `VAL-` |
 | 10a | V&V Procedure / Test Specification | `TEST-` |
