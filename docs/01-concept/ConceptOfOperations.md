@@ -1,11 +1,11 @@
 # Concept of Operations (CONOPS)
 
 Typical usage: `ConceptOfOperations.md` or, where multiple concepts are
-maintained, `CONOPS-001.md`, `CONOPS-002.md`, ...
+maintained, `CON-001.md`, `CON-002.md`, `OBJ-001.md`, `NEED-001.md`, ...
 
 ## Document Control
 
-CONOPS ID: `CONOPS-###`\
+CONOPS ID: `CON-###` / `OBJ-###` / `NEED-###`\
 System / Project:\
 Concept / Version:\
 Status: Draft / Under Review / Approved / Superseded\
@@ -238,8 +238,8 @@ Reference or identify:
 
 A typical traceability path is:
 
-`CONOPS / CON-###` → `NEED-###` → `BEN-###` → `REQ-###` → `DEC-###` →
-design → `VER-###` / `VAL-###` → `EVID-###`
+`CON-###` / `OBJ-###` → `NEED-###` → `BEN-###` → `REQ-###` → `DEC-###` →
+`ADD-###` → `VER-###` / `VAL-###` → `EVID-###`
 
 The CONOPS should establish **the operational problem, intended
 capability and operating context**. It should not attempt to replace the
