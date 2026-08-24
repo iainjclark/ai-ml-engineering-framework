@@ -27,12 +27,14 @@ Identify controlled items and baselines. Assess proposed changes, their impacts 
 Maintain configuration records, baselines and change records that show what changed, why, who approved it and what checks were required.
 
 The configuration and change management artefacts are informed by Sommerville’s treatment of configuration management (Chapter 25), with the 
-structure of `MilestoneChangeLog.xlsx` informed in part by the example change request form in Figure 25.15.
+structure of `MilestoneChangeLog.xlsx` informed in part by the example change request form in Figure 25.15. `BUG-###` records extend this 
+approach to realised defects requiring corrective action.
 
 ## Traceability
 
 -   Give controlled configuration items and change records stable IDs,
-    for example: configuration items (`CFG-001`) and changes (`CHG-001`).
+    for example: configuration items (`CFG-001`), changes (`CHG-001`)
+    and material defects (`BUG-001`).
 -   Identify the versions of code, models, data, dependencies,
     configuration, infrastructure and documentation that constitute a
     controlled baseline.
