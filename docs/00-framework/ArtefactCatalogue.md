@@ -19,7 +19,7 @@ engineering activities are performed.
 | 9 | Risk Register | `RISK-`, `CTRL-` | Risks + identified controls |
 | 10 | V&V Plan & Register | `VER-`, `VAL-` | V&V plan + planned activities |
 | 11 | V&V Evidence / Test Record | `EVID-` | Executed V&V evidence |
-| 12 | Release / Deployment Readiness Record | `REL-` | Release decision |
+| 12 | Release / Deployment Record | `REL-` | Release decision |
 | 13 | Monitoring, Drift & Intervention Record | `MON-` | Monitoring + drift + intervention |
 
 ## Full ML/AI Engineering Practice Pack
@@ -28,7 +28,8 @@ engineering activities are performed.
 |---:|---|---|
 | | **Concept & requirements** | |
 | 0a | Concept of Operations (CONOPS) | `NEED-`, `OBJ-`, `CON-`, scenarios |
-| 0b | Stakeholder & Operational Needs Register | `NEED-` |
+| 0b | Project Charter | `PC-`, scope, stakeholders, constraints |
+| 0c | Stakeholder & Operational Needs Register | `NEED-` |
 | 1 | Benefits Register | `BEN-` |
 | 2 | System / ML Requirements Specification | `REQ-` |
 | 3 | Requirements Traceability Matrix | `NEED ↔ BEN ↔ REQ ↔ VER ↔ EVID` |
@@ -50,7 +51,7 @@ engineering activities are performed.
 | 11 | V&V Evidence / Test Record | `EVID-` |
 | 11a | V&V Summary Report | `VVSR-` |
 | | **Production & operation** | |
-| 12 | Release / Deployment Readiness Record | `REL-` |
+| 12 | Release / Deployment Record | `REL-` |
 | 12a | Configuration / Baseline Record | `CFG-` |
 | 12b | Change Request & Impact Assessment | `CHG-` |
 | 13 | Monitoring, Drift & Intervention Record | `MON-` |
