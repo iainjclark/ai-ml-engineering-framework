@@ -29,7 +29,7 @@ engineering activities are performed.
 | | **Concept & requirements** | |
 | 0a | Concept of Operations (CONOPS) | `NEED-`, `OBJ-`, `CON-`, scenarios |
 | 0b | Project Charter | `PC-`, scope, stakeholders, constraints |
-| 0c | Stakeholder & Operational Needs Register | `NEED-` |
+| 0c | Stakeholder Needs Register | `NEED-` |
 | 1 | Benefits Register | `BEN-` |
 | 2 | System / ML Requirements Specification | `REQ-` |
 | 3 | Requirements Traceability Matrix | `NEED ↔ BEN ↔ REQ ↔ VER ↔ EVID` |
@@ -50,10 +50,12 @@ engineering activities are performed.
 | 10a | V&V Procedure / Test Specification | `TEST-` |
 | 11 | V&V Evidence / Test Record | `EVID-` |
 | 11a | V&V Summary Report | `VVSR-` |
+| 11b | Validation Traceability Matrix | `REQ ↔ VAL ↔ EVID` |
 | | **Production & operation** | |
 | 12 | Release / Deployment Record | `REL-` |
 | 12a | Configuration / Baseline Record | `CFG-` |
 | 12b | Change Request & Impact Assessment | `CHG-` |
+| 12c | Milestone Change Log | `MCL-`, milestones, baseline/change history |
 | 13 | Monitoring, Drift & Intervention Record | `MON-` |
 | 13a | Post-Implementation Review / Operational Review | `PIR-` |
 
