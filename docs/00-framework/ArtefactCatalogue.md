@@ -39,7 +39,7 @@ engineering activities are performed.
 | | **Data & model engineering** | |
 | 6 | Data Provenance Record | `DATA-` |
 | 7 | Data Quality Assessment | `DQA-` |
-| 7a | Feature / Transformation Specification | `FEAT-` |
+| 7a | Data Transformation (ETL) & Feature Engineering Specification | `ETL-`, `FEAT-` |
 | 8 | Model Engineering Record / Model Card | `MODEL-`, `TRAIN-` |
 | | **Risk & assurance** | |
 | 9 | Risk Register | `RISK-`, `CTRL-` |
