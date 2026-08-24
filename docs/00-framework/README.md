@@ -141,7 +141,7 @@ RISK → CTRL → VER → EVID
 
 DATA → MODEL → VER → EVID
 
-CFG   → CHG
+CFG   → CHG / BUG
 ```
 
 The upper path represents verification: requirements are linked to planned verification activities and the evidence demonstrating whether they were satisfied. The lower path represents validation: stakeholder needs, intended benefits or intended use are linked to validation activities and the resulting evidence.

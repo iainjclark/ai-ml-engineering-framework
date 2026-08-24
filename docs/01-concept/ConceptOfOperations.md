@@ -27,7 +27,7 @@ Explain:
 Keep this section focused on **what the system is for and how it is
 expected to be used**, rather than prescribing detailed design.
 
-Reference relevant `BEN-###`, `PC-###` and `NEED-###` records where they
+Reference the Project Charter and relevant `BEN-###` and `NEED-###` records where they
 already exist.
 
 ## 2. Operational Context

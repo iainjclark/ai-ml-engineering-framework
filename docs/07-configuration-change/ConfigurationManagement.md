@@ -40,7 +40,8 @@ Date: YYYY-MM-DD
 Changes are developed on branches and merged into the controlled main branch
 following review and verification.
 
-Significant engineering changes are recorded in `MilestoneChangeLog.xlsx`.
+Significant engineering changes are recorded sequentially in `MilestoneChangeLog.xlsx`.
+Not every change will need to be recorded, or should be. 
 
 ## Release Traceability
 

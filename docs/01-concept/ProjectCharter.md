@@ -1,11 +1,9 @@
 # Project Charter
 
-Typical usage: `ProjectCharter.md` or, where multiple project charters
-are maintained, `PC-001.md`, `PC-002.md`, ...
+This document is typically maintained as a single project-level document.
 
 ## Document Control
 
-Project Charter ID: `PC-###`\
 Project:\
 Status: Draft / Under Review / Approved / Superseded / Closed\
 Date:\

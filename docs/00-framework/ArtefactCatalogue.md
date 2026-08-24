@@ -28,7 +28,7 @@ engineering activities are performed.
 |---:|---|---|
 | | **Concept & requirements** | |
 | 0a | Concept of Operations (CONOPS) | `NEED-`, `OBJ-`, `CON-`, scenarios |
-| 0b | Project Charter | `PC-`, scope, stakeholders, constraints |
+| 0b | Project Charter | Scope, stakeholders, constraints |
 | 0c | Stakeholder Needs Register | `NEED-` |
 | 1 | Benefits Register | `BEN-` |
 | 2 | System / ML Requirements Specification | `REQ-` |
@@ -55,7 +55,7 @@ engineering activities are performed.
 | 12 | Release / Deployment Record | `REL-` |
 | 12a | Configuration / Baseline Record | `CFG-` |
 | 12b | Change Request / Bug Fix & Impact Assessment | `CHG-`, `BUG-` |
-| 12c | Milestone Change Log | `MCL-`, milestones, baseline/change history |
+| 12c | Milestone Change Log | Milestones, baseline/change history |
 | 13 | Monitoring, Drift & Intervention Record | `MON-` |
 | 13a | Post-Implementation Review / Operational Review | `PIR-` |
 
@@ -67,3 +67,10 @@ given stable `CTRL-###` identifiers where individual traceability is useful.
 A separate Control Register is not required for lightweight use of the framework.
 Where more extensive control management is warranted, a standalone Control
 Register is available in the Full Pack, should it be useful.
+
+### ETL and feature engineering
+
+In the Lean Pack, data transformation and feature engineering may be documented
+within `ADD-###` or `DATA-###` rather than a separate specification. A standalone
+ETL & Feature Engineering Specification is available in the Full Pack where
+pipeline complexity warrants it.
