@@ -52,7 +52,7 @@ from src.diagnostics import capture_diagnostics, format_diagnostics
 print(format_diagnostics(capture_diagnostics()))
 ```
 
-Example output:
+### Example output:
 
 ```text
 System:    LENOVO 20L8S4CA00
@@ -67,7 +67,7 @@ AI Stack:  scikit-learn 1.9.0 | PyTorch 2.12.1+cu126 | TensorFlow 2.21.0 | Keras
 
 ### Evidence of platform verification across diverse hardware and software configurations
 
-Representative hardware/OS configurations verified with `src.diagnostics`.
+Representative execution environments selected to verify operating-system, processor, accelerator and hardware-topology handling in `src.diagnostics`.
 
 <table>
 <tr>
