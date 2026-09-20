@@ -65,7 +65,9 @@ Numerics:  NumPy 2.5.2 | SciPy 1.18.0 | pandas 3.0.5
 AI Stack:  scikit-learn 1.9.0 | PyTorch 2.12.1+cu126 | TensorFlow 2.21.0 | Keras 3.15.1
 ```
 
-**Validated topologies**
+### Validated topologies
+
+Representative hardware/OS configurations verified with `src.diagnostics`.
 
 <table>
 <tr>
