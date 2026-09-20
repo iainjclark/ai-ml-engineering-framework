@@ -65,7 +65,24 @@ Numerics:  NumPy 2.5.2 | SciPy 1.18.0 | pandas 3.0.5
 AI Stack:  scikit-learn 1.9.0 | PyTorch 2.12.1+cu126 | TensorFlow 2.21.0 | Keras 3.15.1
 ```
 
-![AI/ML-EF diagnostics running on Lenovo Windows laptop with NVIDIA MX150](img/diagnostics/lenovo-mx150-win10.jpg)
+
+<table>
+<tr>
+<td align="center">
+<a href="img/diagnostics/lenovo-mx150-win10.jpg">
+<img src="img/diagnostics/lenovo-mx150-win10.jpg" width="320">
+</a><br>
+<sub>Windows 10 · Intel i7 · NVIDIA MX150</sub>
+</td>
+
+<td align="center">
+<a href="img/diagnostics/lenovo-mx150-win10.jpg">
+<img src="img/diagnostics/lenovo-mx150-win10.jpg" width="320">
+</a><br>
+<sub>Windows 10 · Intel i7 · NVIDIA MX150</sub>
+</td>
+</tr>
+</table>
 
 <!--
 Planned diagnostic capabilities:
