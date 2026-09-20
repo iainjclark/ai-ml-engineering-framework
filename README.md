@@ -70,14 +70,14 @@ AI Stack:  scikit-learn 1.9.0 | PyTorch 2.12.1+cu126 | TensorFlow 2.21.0 | Keras
 <tr>
 <td align="center">
 <a href="img/diagnostics/lenovo-mx150-win10.jpg">
-<img src="img/diagnostics/lenovo-mx150-win10.jpg" width="320">
+<img src="img/diagnostics/lenovo-mx150-win10.jpg" width="400">
 </a><br>
 <sub>Windows 10 · Intel i7 · NVIDIA MX150</sub>
 </td>
 
 <td align="center">
 <a href="img/diagnostics/lenovo-mx150-win10.jpg">
-<img src="img/diagnostics/lenovo-mx150-win10.jpg" width="320">
+<img src="img/diagnostics/lenovo-mx150-win10.jpg" width="400">
 </a><br>
 <sub>Windows 10 · Intel i7 · NVIDIA MX150</sub>
 </td>
