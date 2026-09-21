@@ -97,15 +97,167 @@ def get_package_versions(
         for display_name, (distribution_name, _) in packages.items()
     }
 
+def get_pytorch_gpu_diagnostics() -> dict[str, Any]:
+    """
+    Test whether the installed PyTorch runtime can execute on a CUDA GPU.
 
+    A successful result requires:
+        1. A CUDA-enabled PyTorch build.
+        2. At least one CUDA device visible to PyTorch.
+        3. A real tensor computation to complete successfully.
+
+    Failure is recorded rather than raised so that diagnostics remain usable
+    on CPU-only systems and systems with incomplete CUDA configuration.
+    """
+    result: dict[str, Any] = {
+        "GPU Build": False,
+        "GPU Detected": False,
+        "Smoke Test Passed": False,
+        "Backend": None,
+        "Device": None,
+    }
+
+    # Do not import PyTorch unless it is actually installed.
+    if get_package_version("torch") is None:
+        return result
+
+    try:
+        import torch
+
+        # A CPU-only PyTorch build has torch.version.cuda == None.
+        cuda_version = torch.version.cuda
+
+        if cuda_version is None:
+            return result
+
+        result["GPU Build"] = True
+        result["Backend"] = f"CUDA {cuda_version}"
+
+        # PyTorch itself must be able to see at least one CUDA device.
+        if not torch.cuda.is_available():
+            return result
+
+        if torch.cuda.device_count() < 1:
+            return result
+
+        result["GPU Detected"] = True
+        result["Device"] = torch.cuda.get_device_name(0)
+
+        # Actual GPU smoke test. This is deliberately tiny.
+        x = torch.tensor(
+            [1.0, 2.0],
+            dtype=torch.float32,
+            device="cuda",
+        )
+
+        y = (x * x).sum()
+
+        # Force completion of the CUDA work before declaring success.
+        torch.cuda.synchronize()
+
+        result["Smoke Test Passed"] = (y.item() == 5.0)
+
+    except Exception as exc:
+        # Diagnostics should describe a broken accelerator stack rather than
+        # causing the entire system diagnostic capture to fail.
+        result["Error"] = f"{type(exc).__name__}: {exc}"
+
+    return result
+
+import platform
+
+from packaging.version import Version
+
+def get_tensorflow_gpu_diagnostics() -> dict[str, Any]:
+    """
+    Test whether the installed TensorFlow runtime can execute on a GPU.
+    """
+
+    result: dict[str, Any] = {
+        "GPU Build": False,
+        "GPU Detected": False,
+        "Smoke Test Passed": False,
+        "Backend": None,
+        "Device": None,
+    }
+
+    tf_version = get_package_version("tensorflow")
+
+    if tf_version is None:
+        return result
+
+    # TensorFlow >= 2.11 does not support native-Windows CUDA.
+    # Avoid importing TensorFlow unnecessarily, which also avoids its
+    # verbose C++ startup messages in the diagnostic console output.
+    if (
+        platform.system() == "Windows"
+        and Version(tf_version) >= Version("2.11")
+    ):
+        result["Reason"] = "Native Windows CUDA unsupported by TensorFlow >= 2.11"
+        return result
+
+    import os
+    os.environ.setdefault("TF_CPP_MIN_LOG_LEVEL", "2")
+
+    try:
+        import tensorflow as tf
+
+        if not tf.test.is_built_with_cuda():
+            return result
+
+        result["GPU Build"] = True
+
+        build_info = tf.sysconfig.get_build_info()
+        cuda_version = build_info.get("cuda_version")
+
+        result["Backend"] = (
+            f"CUDA {cuda_version}"
+            if cuda_version
+            else "CUDA"
+        )
+
+        gpus = tf.config.list_physical_devices("GPU")
+
+        if not gpus:
+            return result
+
+        result["GPU Detected"] = True
+
+        details = tf.config.experimental.get_device_details(gpus[0])
+        result["Device"] = details.get("device_name") or gpus[0].name
+
+        with tf.device("/GPU:0"):
+            a = tf.constant(
+                [[1.0, 2.0], [3.0, 4.0]],
+                dtype=tf.float32,
+            )
+            b = tf.linalg.matmul(a, a)
+
+        value = float(tf.reduce_sum(b).numpy())
+        ran_on_gpu = "GPU" in b.device.upper()
+
+        result["Smoke Test Passed"] = (
+            ran_on_gpu
+            and abs(value - 54.0) < 1e-6
+        )
+
+    except Exception as exc:
+        result["Error"] = f"{type(exc).__name__}: {exc}"
+
+    return result
+    
 def get_software_diagnostics() -> dict[str, Any]:
     """
     Capture a structured software-stack diagnostic snapshot.
     """
     return {
         "Packages": get_package_versions(),
+        "Accelerators": {
+            "PyTorch": get_pytorch_gpu_diagnostics(),
+            "TensorFlow": get_tensorflow_gpu_diagnostics(),
+        },        
+        
     }
-
 
 if __name__ == "__main__":
     from pprint import pprint

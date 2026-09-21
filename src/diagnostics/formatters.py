@@ -418,11 +418,29 @@ def _format_concise(
 
     software = diagnostics.get("Software", {})
     packages = software.get("Packages", {})
+    accelerators = software.get("Accelerators", {})
+
+    def _format_package(name: str) -> str:
+        """Render one installed package, including verified capabilities."""
+        text = f"{name} {packages[name]}"
+
+        gpu_diagnostics = accelerators.get(name, {})
+
+        gpu_verified = (
+            gpu_diagnostics.get("GPU Build") is True
+            and gpu_diagnostics.get("GPU Detected") is True
+            and gpu_diagnostics.get("Smoke Test Passed") is True
+        )
+
+        if gpu_verified:
+            text += " (GPU OK)"
+
+        return text
 
     def _stack_text(category: str, absent: str) -> str:
         """Render one category of tracked packages as a summary line."""
         detected = [
-            f"{name} {packages[name]}"
+            _format_package(name)
             for name in get_packages_in_category(category)
             if packages.get(name)
         ]
