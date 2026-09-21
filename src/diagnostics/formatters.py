@@ -499,15 +499,23 @@ def _format_concise(
             f"Container: {container_type}"
         )
 
-    lines.extend([
-        (
-            f"Compute:   {cpu_name} | "
-            f"{cpu_topology} | "
-            f"{gpu_text}"
-        ),    
-        f"Memory:    {ram_text}",
-    ])
+    cpu_compute_text = f"{cpu_name} | {cpu_topology}"
+    combined_compute_line = (
+        f"Compute:   {cpu_compute_text} | {gpu_text}"
+    )
 
+    if len(combined_compute_line) > 100:
+        lines.extend([
+            f"CPU:       {cpu_compute_text}",
+            f"GPU:       {gpu_text}",
+            f"Memory:    {ram_text}",
+        ])
+    else:
+        lines.extend([
+            combined_compute_line,
+            f"Memory:    {ram_text}",
+        ])
+        
     lines.extend(storage_lines)
 
     lines.append(f"OS:        {os_text}")
