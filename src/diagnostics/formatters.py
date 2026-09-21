@@ -247,7 +247,28 @@ def _format_concise(
         or cpu.get("CPU Name (Raw)")
         or "Unknown CPU"
     )
+    cpu_packages = cpu.get("CPU Packages", [])
+    cpu_package_count = cpu.get(
+        "CPU Package Count",
+        len(cpu_packages),
+    )
+    is_multi_cpu = cpu_package_count > 1
 
+    if is_multi_cpu and cpu_packages:
+        package_names = [
+            (
+                package.get("CPU Name (Friendly)")
+                or package.get("CPU Name (Raw)")
+                or "Unknown CPU"
+            )
+            for package in cpu_packages
+        ]
+
+        cpu_name = " ".join(
+            f"({index}) {name}"
+            for index, name in enumerate(package_names, start=1)
+        )
+        
     physical_cores = cpu.get("Cores (Physical)", "?")
     logical_threads = cpu.get("Threads (Logical)", "?")
 
@@ -460,6 +481,14 @@ def _format_concise(
     core_label = "core" if physical_cores == 1 else "cores"
     thread_label = "thread" if logical_threads == 1 else "threads"
 
+    cpu_topology = (
+        f"{physical_cores} {core_label} / "
+        f"{logical_threads} {thread_label}"
+    )
+
+    if is_multi_cpu:
+        cpu_topology += " total"
+
     lines = [
         f"System:    {system_text}",
     ]
@@ -473,10 +502,9 @@ def _format_concise(
     lines.extend([
         (
             f"Compute:   {cpu_name} | "
-            f"{physical_cores} {core_label} / "
-            f"{logical_threads} {thread_label} | "
+            f"{cpu_topology} | "
             f"{gpu_text}"
-        ),
+        ),    
         f"Memory:    {ram_text}",
     ])
 

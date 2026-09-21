@@ -173,26 +173,36 @@ def get_system_model() -> dict[str, str]:
         "Model": model or "Unknown",
     }
 
-
 def get_cpu_info() -> dict[str, Any]:
     """
-    Return CPU identity, topology and clock information.
+    Return CPU identity, package topology and clock information.
     """
     system = platform.system()
-    raw_name = ""
+    raw_names: list[str] = []
 
     if system == "Windows":
-        # PowerShell/CIM first.
-        raw_name = _run_command(
+        # PowerShell/CIM first. Win32_Processor returns one object per
+        # physical processor package/socket.
+        output = _run_command(
             [
                 "powershell",
                 "-Command",
-                "(Get-CimInstance Win32_Processor).Name",
+                (
+                    "Get-CimInstance Win32_Processor | "
+                    "Sort-Object DeviceID | "
+                    "Select-Object -ExpandProperty Name"
+                ),
             ]
         )
 
+        raw_names = [
+            line.strip()
+            for line in output.splitlines()
+            if line.strip()
+        ]
+
         # WMIC fallback.
-        if not raw_name:
+        if not raw_names:
             output = _run_command(
                 ["wmic", "cpu", "get", "Name"]
             )
@@ -204,22 +214,63 @@ def get_cpu_info() -> dict[str, Any]:
             ]
 
             if len(lines) > 1:
-                raw_name = lines[1]
+                raw_names = lines[1:]
 
     elif system == "Linux":
+        # /proc/cpuinfo repeats information for every logical processor.
+        # Group by physical package ID so a dual-/quad-socket machine is
+        # represented once per physical CPU package.
+        packages: dict[int, str] = {}
+        fallback_name = ""
+
         try:
             with open(
                 "/proc/cpuinfo",
                 encoding="utf-8",
             ) as cpuinfo:
-                for line in cpuinfo:
-                    if "model name" in line:
-                        raw_name = line.split(":", 1)[1].strip()
-                        break
+                blocks = cpuinfo.read().strip().split("\n\n")
+
+            for block in blocks:
+                fields: dict[str, str] = {}
+
+                for line in block.splitlines():
+                    if ":" not in line:
+                        continue
+
+                    key, value = line.split(":", 1)
+                    fields[key.strip()] = value.strip()
+
+                model_name = fields.get("model name", "")
+
+                if model_name and not fallback_name:
+                    fallback_name = model_name
+
+                physical_id = fields.get("physical id")
+
+                if not model_name or physical_id is None:
+                    continue
+
+                try:
+                    package_id = int(physical_id)
+                except ValueError:
+                    continue
+
+                packages.setdefault(package_id, model_name)
+
+            if packages:
+                raw_names = [
+                    packages[package_id]
+                    for package_id in sorted(packages)
+                ]
+            elif fallback_name:
+                raw_names = [fallback_name]
+
         except Exception:
             pass
+
     elif system == "Darwin":
         machine = platform.machine()
+        raw_name = ""
 
         if machine == "arm64":
             output = _run_command(
@@ -245,10 +296,26 @@ def get_cpu_info() -> dict[str, Any]:
                 ]
             )
 
+        if raw_name:
+            raw_names = [raw_name]
 
     # Generic fallback.
-    if not raw_name:
+    if not raw_names:
         raw_name = platform.processor()
+
+        if raw_name:
+            raw_names = [raw_name]
+
+    raw_name = raw_names[0] if raw_names else ""
+
+    cpu_packages = [
+        {
+            "Index": index,
+            "CPU Name (Raw)": package_name,
+            "CPU Name (Friendly)": make_friendly_cpu_name(package_name),
+        }
+        for index, package_name in enumerate(raw_names, start=1)
+    ]
 
     frequency = psutil.cpu_freq()
 
@@ -264,11 +331,12 @@ def get_cpu_info() -> dict[str, Any]:
     return {
         "CPU Name (Raw)": raw_name or "Unknown",
         "CPU Name (Friendly)": make_friendly_cpu_name(raw_name),
+        "CPU Packages": cpu_packages,
+        "CPU Package Count": len(cpu_packages),
         "Cores (Physical)": psutil.cpu_count(logical=False),
         "Threads (Logical)": psutil.cpu_count(logical=True),
         "Clock Speed": clock_speed,
     }
-
 
 def get_ram_info() -> dict[str, Any]:
     """
