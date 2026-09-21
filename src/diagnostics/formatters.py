@@ -222,6 +222,18 @@ def _format_concise(
             "Kernel",
             f"Darwin {os_release}",
         )
+    elif os_name == "Windows":
+        os_distribution = operating_system.get(
+            "Distribution",
+            "Windows",
+        )
+        os_version = operating_system.get("Version")
+
+        if os_version:
+            os_text = f"{os_distribution} ({os_version})"
+        else:
+            os_text = os_distribution
+        kernel_text = None        
     else:
         os_version = operating_system.get("Version")
         if os_version:
