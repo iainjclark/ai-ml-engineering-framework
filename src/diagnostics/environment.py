@@ -22,6 +22,7 @@ import platform
 import psutil
 import socket
 import subprocess
+import sys
 
 from typing import Any
 
@@ -150,12 +151,42 @@ def _get_linux_distribution() -> str:
     except OSError:
         return "Linux"
 
+def _get_windows_distribution() -> dict[str, Any]:
+    """Return a human-readable Windows product name and build information."""
+    try:
+        version = sys.getwindowsversion()
+
+        build = version.build
+        product_type = version.product_type
+
+        # VER_NT_WORKSTATION == 1.
+        if product_type == 1:
+            product_name = (
+                "Windows 11"
+                if build >= 22000
+                else "Windows 10"
+            )
+        else:
+            # Do not misclassify Windows Server builds as Windows 11.
+            product_name = "Windows Server"
+
+        return {
+            "Distribution": product_name,
+            "Build": build,
+            "Product Type": product_type,
+        }
+
+    except (AttributeError, OSError):
+        return {
+            "Distribution": "Windows",
+        }
+
 def get_os_info() -> dict[str, Any]:
     """Return operating-system and platform information."""
     uname = platform.uname()
     system = platform.system()
 
-    info = {
+    info: dict[str, Any] = {
         "System": system,
         "Release": platform.release(),
         "Version": platform.version(),
@@ -164,8 +195,37 @@ def get_os_info() -> dict[str, Any]:
         "Node": uname.node,
     }
 
-    if system == "Linux":
+    if system == "Windows":
+        try:
+            windows_version = sys.getwindowsversion()
+
+            build = windows_version.build
+            product_type = windows_version.product_type
+
+            # product_type == 1 means a Windows workstation/client OS.
+            # Windows 11 retains kernel version 10.0, but client builds
+            # from 22000 onward are Windows 11.
+            if product_type == 1:
+                if build >= 22000:
+                    distribution = "Windows 11"
+                else:
+                    distribution = f"Windows {platform.release()}"
+            else:
+                # Avoid misclassifying Windows Server builds as Windows 11.
+                distribution = "Windows Server"
+
+            info["Distribution"] = distribution
+            info["Build"] = build
+            info["Product Type"] = product_type
+
+        except (AttributeError, OSError):
+            # Graceful fallback if detailed Windows version information
+            # cannot be obtained.
+            info["Distribution"] = f"Windows {platform.release()}"
+
+    elif system == "Linux":
         info["Distribution"] = _get_linux_distribution()
+
     elif system == "Darwin":
         mac_version = platform.mac_ver()[0]
         info["Distribution"] = (

@@ -5,7 +5,7 @@ from __future__ import annotations
 import subprocess
 
 
-def _run_command(command: list[str], timeout: float = 10.0) -> str:
+def _run_command(command: list[str], timeout: float = 30.0) -> str:
     """
     Run a system command and return stripped stdout.
 
