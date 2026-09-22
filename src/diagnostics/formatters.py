@@ -85,23 +85,6 @@ def _format_logical_volume(volume: dict[str, Any]) -> str:
 
     return " | ".join(parts)
 
-def _first_gpu(
-    diagnostics: dict[str, Any],
-) -> dict[str, Any]:
-    """Return the first detected GPU device, if available."""
-    gpu_info = (
-        diagnostics
-        .get("Hardware", {})
-        .get("GPU", {})
-    )
-
-    devices = gpu_info.get("Devices", [])
-
-    if devices:
-        return devices[0]
-
-    return {}
-
 def _is_concise_logical_volume(
     volume: dict[str, Any],
 ) -> bool:
@@ -292,18 +275,26 @@ def _format_concise(
     gpu_status = gpu_info.get("Status", "Unknown")
 
     if gpu_devices:
-        gpu = gpu_devices[0]
+        gpu_lines = []
 
-        gpu_name = gpu.get("Name", "Unknown GPU")
-        gpu_memory = gpu.get("Memory Total (MB)")
+        for index, gpu in enumerate(gpu_devices, start=1):
+            gpu_name = gpu.get("Name", "Unknown GPU")
+            gpu_memory = gpu.get("Memory Total (MB)")
 
-        if gpu_memory is not None:
-            gpu_text = (
-                f"{gpu_name} | "
-                f"{gpu_memory / 1024:.1f} GiB VRAM"
-            )
-        else:
-            gpu_text = gpu_name
+            if gpu_memory is not None:
+                device_text = (
+                    f"{gpu_name} | "
+                    f"{gpu_memory / 1024:.1f} GiB VRAM"
+                )
+            else:
+                device_text = gpu_name
+
+            if len(gpu_devices) > 1:
+                device_text = f"({index}) {device_text}"
+
+            gpu_lines.append(device_text)
+
+        gpu_text = "\n           ".join(gpu_lines)
 
     elif gpu_status == "Unavailable":
         gpu_text = (
@@ -316,7 +307,7 @@ def _format_concise(
 
     else:
         gpu_text = "GPU not detected"
-
+        
     storage_lines = []
 
     # In a container, prefer the filesystem/storage actually visible to
