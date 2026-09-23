@@ -2,16 +2,17 @@
 
 A practical lightweight framework for the development, assurance, deployment and operational review of AI/ML systems.
 
-It adapts established practice [1, 2, 3] from systems engineering, software engineering and applied mathematics into a traceable AI/ML lifecycle.
-It lets you get on with the work while preserving enough information and context so that when you are asked any of the sample engineering questions below,
-you have the information at hand — **with evidence**.
+It adapts established practice [1, 2, 3] from systems engineering, software engineering and applied mathematics into 
+a traceable lifecycle that works in the context of AI/ML systems [4]. It lets you get on with the work while preserving 
+enough information and context so that when you are asked any of the sample engineering questions below, you have the 
+information at hand — **with evidence**.
 
 The repository combines a staged set of technical artefacts with suggested Python utilities for evidence capture, diagnostics and operational assurance.
 
 ## Engineering Lifecycle
 
-The framework organises AI/ML engineering work into ten areas that I have found work well in my projects.
-I've trimmed it down a lot from [1, 2, 3] because it doesn't need to be rocket science.
+The framework organises AI/ML engineering work into ten Stages that I have found work well in my projects.
+I've trimmed it down a lot from [1–3] because it doesn't need to be rocket science.
 
 | Stage | Engineering question |
 |---|---|

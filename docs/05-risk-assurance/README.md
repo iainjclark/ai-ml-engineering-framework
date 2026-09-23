@@ -22,6 +22,11 @@ Use requirements, architecture, assumptions, operational scenarios, prior incide
 
 Identify and assess material risks. Choose controls, assign owners, define evidence of control effectiveness, and assess remaining risk.
 
+For AI/ML systems, consider risks arising from the data, model and its use,
+including training-data and model vulnerabilities, performance differences
+across relevant populations or conditions, privacy, fairness and other
+responsible-ML concerns [1].
+
 ## Outputs / Artefacts
 
 Maintain the risk register, controls and assurance claims, including owners, evidence needs, status and accepted residual risks.
@@ -45,16 +50,23 @@ Maintain the risk register, controls and assurance claims, including owners, evi
 
 ## References
 
-\[1\] National Aeronautics and Space Administration, *NASA Systems
+\[1\] C. Chen, N. R. Murphy, K. Parisa, D. Sculley, and T. Underwood,
+*Reliable Machine Learning: Applying SRE Principles to ML in Production*.
+Sebastopol, CA, USA: O'Reilly Media, 2022, Chapter 3, "Basic Introduction
+to Models", pp. 43--63, in particular the discussion of model and training
+vulnerabilities; Chapter 6, "Fairness, Privacy, and Ethical ML Systems",
+pp. 107--135.
+
+\[2\] National Aeronautics and Space Administration, *NASA Systems
 Engineering Handbook*, Rev. 2, NASA/SP-2016-6105 Rev. 2. Washington, DC,
 USA: NASA, 2016, Section 6.4, "Technical Risk Management", pp. 138--143.
 
-\[2\] A. Kossiakoff, W. N. Sweet, S. J. Seymour, and S. M. Biemer,
+\[3\] A. Kossiakoff, W. N. Sweet, S. J. Seymour, and S. M. Biemer,
 *Systems Engineering: Principles and Practice*, 2nd ed. Hoboken, NJ,
 USA: John Wiley & Sons, 2011, Section 5.4, "Risk Management",
 pp. 120--128; Chapter 10, "Advanced Development", pp. 317--354.
 
-\[3\] I. Sommerville, *Software Engineering*, 10th ed. Boston, MA, USA:
+\[4\] I. Sommerville, *Software Engineering*, 10th ed. Boston, MA, USA:
 Pearson, 2016, Section 22.1, "Risk management", pp. 644--651; Chapters
 10--14, pp. 285--434, as applicable to dependability, safety, security
 and resilience.

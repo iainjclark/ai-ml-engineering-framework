@@ -23,6 +23,11 @@ Use the approved baseline, V&V evidence, open risks, accepted residual risks, op
 
 Review readiness, evidence and open issues. Confirm deployment and rollback arrangements, then approve, conditionally approve or reject release.
 
+For AI/ML systems, confirm that the model and its serving dependencies are
+ready for operational use, including model versioning, deployment and rollback
+arrangements, validation before rollout, and the monitoring needed to detect
+material degradation after release [1].
+
 ## Outputs / Artefacts
 
 Produce a release record identifying the approved baseline, supporting evidence, remaining risks, conditions, authority and decision.
@@ -45,14 +50,21 @@ Produce a release record identifying the approved baseline, supporting evidence,
 
 ## References
 
-\[1\] National Aeronautics and Space Administration, *NASA Systems
+\[1\] C. Chen, N. R. Murphy, K. Parisa, D. Sculley, and T. Underwood,
+*Reliable Machine Learning: Applying SRE Principles to ML in Production*.
+Sebastopol, CA, USA: O'Reilly Media, 2022, Chapter 8, "Serving",
+pp. 163--188; Chapter 9, "Monitoring and Observability for Models",
+pp. 189--223, in particular the discussion of model versioning and updating,
+validation before rollout, and monitoring of deployed models.
+
+\[2\] National Aeronautics and Space Administration, *NASA Systems
 Engineering Handbook*, Rev. 2, NASA/SP-2016-6105 Rev. 2. Washington, DC,
 USA: NASA, 2016, Section 5.5, "Product Transition", pp. 106--112.
 
-\[2\] A. Kossiakoff, W. N. Sweet, S. J. Seymour, and S. M. Biemer,
+\[3\] A. Kossiakoff, W. N. Sweet, S. J. Seymour, and S. M. Biemer,
 *Systems Engineering: Principles and Practice*, 2nd ed. Hoboken, NJ,
 USA: John Wiley & Sons, 2011, Chapter 14, "Production", pp. 483--503.
 
-\[3\] I. Sommerville, *Software Engineering*, 10th ed. Boston, MA, USA:
+\[4\] I. Sommerville, *Software Engineering*, 10th ed. Boston, MA, USA:
 Pearson, 2016, Sections 8.3--8.4, "Release testing" and "User testing",
 pp. 245--254; Section 25.4, "Release management", pp. 750--756.

@@ -22,6 +22,11 @@ Use versioned code, models, data, dependencies, configuration, infrastructure, d
 
 Identify controlled items and baselines. Assess proposed changes, their impacts and required checks, then record approval and implementation.
 
+For AI/ML systems, control the model together with the data, features,
+training configuration and dependencies needed to reproduce it, and maintain
+the relationships between model versions and the systems in which they are
+trained and served [1].
+
 ## Outputs / Artefacts
 
 Maintain configuration records, baselines and change records that show what changed, why, who approved it and what checks were required.
@@ -51,13 +56,20 @@ approach to realised defects requiring corrective action.
 
 ## References
 
-\[1\] National Aeronautics and Space Administration, *NASA Systems
+\[1\] C. Chen, N. R. Murphy, K. Parisa, D. Sculley, and T. Underwood,
+*Reliable Machine Learning: Applying SRE Principles to ML in Production*.
+Sebastopol, CA, USA: O'Reilly Media, 2022, Chapter 7, "Training Systems",
+pp. 137--162; Chapter 8, "Serving", pp. 163--188, in particular the
+discussion of reproducibility, model management, model storage, versioning
+and updating.
+
+\[2\] National Aeronautics and Space Administration, *NASA Systems
 Engineering Handbook*, Rev. 2, NASA/SP-2016-6105 Rev. 2. Washington, DC,
 USA: NASA, 2016, Section 6.5, "Configuration Management", pp. 143--150.
 
-\[2\] A. Kossiakoff, W. N. Sweet, S. J. Seymour, and S. M. Biemer,
+\[3\] A. Kossiakoff, W. N. Sweet, S. J. Seymour, and S. M. Biemer,
 *Systems Engineering: Principles and Practice*, 2nd ed. Hoboken, NJ,
 USA: John Wiley & Sons, 2011, Section 12.6, "CM", pp. 436--439.
 
-\[3\] I. Sommerville, *Software Engineering*, 10th ed. Boston, MA, USA:
+\[4\] I. Sommerville, *Software Engineering*, 10th ed. Boston, MA, USA:
 Pearson, 2016, Chapter 25, "Configuration management", pp. 730--756.

@@ -21,7 +21,12 @@ source systems and applicable data-use constraints.
 
 ## Activities
 
-Define components, responsibilities, interfaces and data flows. Check that the design covers requirements, risks and important failure modes.
+Define components, responsibilities, interfaces and data flows. Check that the
+design covers requirements, risks and important failure modes.
+
+For AI/ML systems, design the data, feature, training, model-management and
+serving components as parts of the overall system, including the interfaces and
+dependencies between them [1].
 
 ## Outputs / Artefacts
 
@@ -52,27 +57,33 @@ findings and required actions.
 
 ## References
 
-\[1\] National Aeronautics and Space Administration, *NASA Systems
+\[1\] C. Chen, N. R. Murphy, K. Parisa, D. Sculley, and T. Underwood,
+*Reliable Machine Learning: Applying SRE Principles to ML in Production*.
+Sebastopol, CA, USA: O'Reilly Media, 2022, Chapter 4, "Feature and Training
+Data", pp. 65--87; Chapter 7, "Training Systems", pp. 137--162; Chapter 8,
+"Serving", pp. 163--188.
+
+\[2\] National Aeronautics and Space Administration, *NASA Systems
 Engineering Handbook*, Rev. 2, NASA/SP-2016-6105 Rev. 2. Washington, DC,
 USA: NASA, 2016, Sections 4.3--4.4, "Logical Decomposition" and "Design
 Solution Definition", pp. 62--76.
 
-\[2\] A. Kossiakoff, W. N. Sweet, S. J. Seymour, and S. M. Biemer,
+\[3\] A. Kossiakoff, W. N. Sweet, S. J. Seymour, and S. M. Biemer,
 *Systems Engineering: Principles and Practice*, 2nd ed. Hoboken, NJ,
 USA: John Wiley & Sons, 2011, Chapter 8, "Concept Definition",
 pp. 197--252; Chapter 12, "Engineering Design", pp. 409--442.
 
-\[3\] I. Sommerville, *Software Engineering*, 10th ed. Boston, MA, USA:
+\[4\] I. Sommerville, *Software Engineering*, 10th ed. Boston, MA, USA:
 Pearson, 2016, Chapter 5, "System modeling", pp. 138--166; Chapter 6,
 "Architectural design", pp. 167--195.
 
-\[4\] OASIS, *Data Provenance Metadata Version 1.0*, Committee Specification Draft 02,
+\[5\] OASIS, *Data Provenance Metadata Version 1.0*, Committee Specification Draft 02,
 30 June 2026. https://docs.oasis-open.org/dps/prov-meta/v1.0/csd02/prov-meta-v1.0-csd02.html 
 
-\[5\] World Health Organization, *Data Quality Assurance: Module 1 — Framework and Metrics*. 
+\[6\] World Health Organization, *Data Quality Assurance: Module 1 — Framework and Metrics*. 
 Geneva: World Health Organization, 2023. ISBN 978-92-4-004735-8.
 https://www.who.int/publications/i/item/9789240047365
 
-\[6\] World Health Organization, *Data Quality Assurance: Module 2 — Discrete Desk Review of Data Quality*. 
+\[7\] World Health Organization, *Data Quality Assurance: Module 2 — Discrete Desk Review of Data Quality*. 
 Geneva: World Health Organization, 2023. ISBN 978-92-4-004737-2.
 https://www.who.int/publications/i/item/9789240047389

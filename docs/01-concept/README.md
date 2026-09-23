@@ -22,6 +22,11 @@ Use records of stakeholder discussions, business goals, current processes, known
 
 Clarify the problem, users, needs, objectives, constraints, scope and key usage scenarios. Challenge assumptions and record open questions.
 
+For AI/ML systems, consider the intended use of data, model training,
+evaluation, deployment, monitoring and feedback from the concept stage.
+This helps ensure that the problem and intended outcome are framed in
+terms of the complete ML lifecycle rather than model development alone [1].
+
 ## Outputs / Artefacts
 
 Capture the agreed problem, needs, objectives, constraints, scenarios, scope,
@@ -31,9 +36,9 @@ Maintain identified benefits in `BenefitsRegister.xlsx`, giving each benefit a
 stable `BEN-###` identifier and recording how its realisation will be assessed.
 
 The Benefits Register is informed by NASA’s treatment of stakeholder
-expectations and operational benefits, Kossiakoff et al.’s treatment of
-needs analysis and operational objectives, and Sommerville’s treatment of
-early-stage requirements engineering and system benefits.
+expectations and operational benefits [2], Kossiakoff et al.’s treatment of
+needs analysis and operational objectives [3], and Sommerville’s treatment of
+early-stage requirements engineering and system benefits [4].
 
 ## Traceability
 
@@ -47,11 +52,25 @@ early-stage requirements engineering and system benefits.
 
 ## References
 
-\[1\] National Aeronautics and Space Administration, *NASA Systems Engineering Handbook*, Rev. 2, NASA/SP-2016-6105 Rev. 2. Washington, DC, USA: NASA, 2016, Section 2.2, "An Overview of the SE Engine by Project Phase", pp. 8--24; Section 4.1, "Stakeholder Expectations Definition", pp. 45--53; Appendix S, "Concept of Operations Annotated Outline", pp. 251--253.
+\[1\] C. Chen, N. R. Murphy, K. Parisa, D. Sculley, and T. Underwood,
+*Reliable Machine Learning: Applying SRE Principles to ML in Production*.
+Sebastopol, CA, USA: O'Reilly Media, 2022, Chapter 1, "The ML Lifecycle",
+pp. 1--12, in particular the discussion of data collection and analysis,
+ML training pipelines, quality and performance evaluation, and monitoring
+and feedback loops.
 
-\[2\] A. Kossiakoff, W. N. Sweet, S. J. Seymour, and S. M. Biemer, *Systems Engineering: Principles and Practice*, 2nd ed. Hoboken, NJ, USA: John Wiley & Sons, 2011, Chapter 6, "Needs Analysis", pp. 139--164.
+\[2\] National Aeronautics and Space Administration, *NASA Systems Engineering Handbook*, Rev. 2, 
+NASA/SP-2016-6105 Rev. 2. Washington, DC, USA: NASA, 2016, Section 2.2, 
+"An Overview of the SE Engine by Project Phase", pp. 8--24; Section 4.1, 
+"Stakeholder Expectations Definition", pp. 45--53; 
+Appendix S, "Concept of Operations Annotated Outline", pp. 251--253.
 
-[3] I. Sommerville, *Software Engineering*, 10th ed. Boston, MA, USA:
+\[3\] A. Kossiakoff, W. N. Sweet, S. J. Seymour, and S. M. Biemer, 
+*Systems Engineering: Principles and Practice*, 2nd ed. Hoboken, NJ, USA: 
+John Wiley & Sons, 2011, Chapter 6, "Needs Analysis", pp. 139--164.
+
+\[4\] I. Sommerville, *Software Engineering*, 10th ed. Boston, MA, USA:
 Pearson, 2016, Chapter 4, "Requirements engineering", pp. 101--137,
 in particular the discussion of early-stage requirements engineering and
 system benefits, p. 105; Section 19.2, "Conceptual design", pp. 563--566.
+

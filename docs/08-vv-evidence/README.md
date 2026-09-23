@@ -20,7 +20,13 @@ Use the V&V plan, controlled system baseline, approved data, test procedures, ac
 
 ## Activities
 
-Perform the planned checks and record actual results, conditions, deviations, failures and uncertainty. Compare results with acceptance criteria.
+Perform the planned checks and record actual results, conditions, deviations,
+failures and uncertainty. Compare results with acceptance criteria.
+
+For AI/ML systems, record evaluation results against the pre-defined evaluation
+data, distributions, metrics, slices and stress tests, including uncertainty,
+limitations and material differences in performance across relevant conditions,
+slices or subgroups [1].
 
 ## Outputs / Artefacts
 
@@ -42,13 +48,13 @@ stakeholder needs or benefits through planned validation activities to evidence
 
 The structure of `ValidationTraceabilityMatrix.xlsx` is adapted from the
 Validation Requirements Matrix in Appendix E, Table E-1 of the NASA
-*Systems Engineering Handbook*, with additional lifecycle traceability informed
+*Systems Engineering Handbook* [2], with additional lifecycle traceability informed
 by systems and software engineering practice.
 
 The structure of the V&V Evidence Register is adapted primarily from
 Table 5.3-1, "Example information in Verification Procedures and Reports",
-of the NASA *Systems Engineering Handbook*, simplified for lightweight
-AI/ML engineering practice. Kossiakoff et al. provide supporting guidance
+of the NASA *Systems Engineering Handbook* [2], simplified for lightweight
+AI/ML engineering practice. Kossiakoff et al. [3] provide supporting guidance
 on test reporting, analysis, deficiencies and evaluation.
 
 ## Traceability
@@ -72,24 +78,31 @@ on test reporting, analysis, deficiencies and evaluation.
 
 ## References
 
-\[1\] National Aeronautics and Space Administration, *NASA Systems
+\[1\] C. Chen, N. R. Murphy, K. Parisa, D. Sculley, and T. Underwood,
+*Reliable Machine Learning: Applying SRE Principles to ML in Production*.
+Sebastopol, CA, USA: O'Reilly Media, 2022, Chapter 5, "Evaluating Model
+Validity and Quality", pp. 89--106, in particular the discussion of offline
+evaluation, evaluation distributions, evaluation metrics, and operationalizing
+verification and evaluation.
+
+\[2\] National Aeronautics and Space Administration, *NASA Systems
 Engineering Handbook*, Rev. 2, NASA/SP-2016-6105 Rev. 2. Washington, DC,
 USA: NASA, 2016, Sections 5.3--5.4, "Product Verification" and "Product
 Validation", pp. 88--106; Table 5.3-1, "Example information in Verification
 Procedures and Reports", p. 94; Appendix E, "Creating the Validation Plan
 with a Validation Requirements Matrix", Table E-1, pp. 203--204.
 
-\[2\] A. Kossiakoff, W. N. Sweet, S. J. Seymour, and S. M. Biemer,
+\[3\] A. Kossiakoff, W. N. Sweet, S. J. Seymour, and S. M. Biemer,
 *Systems Engineering: Principles and Practice*, 2nd ed. Hoboken, NJ,
 USA: John Wiley & Sons, 2011, Chapter 13, "Integration and Evaluation",
 pp. 443--478.
 
-\[3\] I. Sommerville, *Software Engineering*, 10th ed. Boston, MA, USA:
+\[4\] I. Sommerville, *Software Engineering*, 10th ed. Boston, MA, USA:
 Pearson, 2016, Chapter 8, "Software testing", pp. 226--254.
 
 ## References - Optional / Specialist
 
-\[4\] W. L. Oberkampf and C. J. Roy, *Verification and Validation in Scientific
+\[5\] W. L. Oberkampf and C. J. Roy, *Verification and Validation in Scientific
 Computing*. Cambridge, UK: Cambridge University Press, 2010, Chapter 7,
 “Solution Verification,” pp. 250–284; Chapter 12, “Model Accuracy Assessment,”
 pp. 469–548; Chapter 13, “Predictive Capability,” pp. 555–665.

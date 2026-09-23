@@ -58,3 +58,9 @@ pp. 505--523.
 \[3\] I. Sommerville, *Software Engineering*, 10th ed. Boston, MA, USA:
 Pearson, 2016, Section 19.5, "System operation and evolution",
 pp. 574--579; Chapter 9, "Software evolution", pp. 255--282.
+
+\[4\] C. Chen, N. R. Murphy, K. Parisa, D. Sculley, and T. Underwood,
+*Reliable Machine Learning: Applying SRE Principles to ML in Production*.
+Sebastopol, CA, USA: O'Reilly Media, 2022, Chapter 9, "Monitoring and
+Observability for Models", pp. 189--223; Chapter 10, "Continuous ML",
+pp. 225--246; Chapter 11, "Incident Response", pp. 247--286.

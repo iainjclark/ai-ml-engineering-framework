@@ -22,6 +22,11 @@ Use requirements, stakeholder needs, architecture, risks, controls, assumptions,
 
 Define what will be checked, how, under what conditions, using which data, and against what acceptance criteria. Cover important failure cases.
 
+For AI/ML systems, define model evaluation before execution, including the
+evaluation data and distributions, relevant performance metrics, sliced analysis
+or stress-test evaluation where appropriate, and the criteria by which model
+validity and quality will be judged [1].
+
 ## Outputs / Artefacts
 
 Produce a V&V Plan describing the V&V strategy, scope, methods, responsibilities and governance.
@@ -33,8 +38,8 @@ planned evidence. Actual evidence is linked when activities are executed in
 
 The structure of the V&V Plan used in this framework is adapted from the
 Verification and Validation Plan Outline in Appendix I of the NASA Systems
-Engineering Handbook, simplified for lightweight AI/ML engineering practice.
-Kossiakoff et al. and Sommerville provide supporting guidance on test planning
+Engineering Handbook [2], simplified for lightweight AI/ML engineering practice.
+Kossiakoff et al. [3] and Sommerville [4] provide supporting guidance on test planning
 and software testing respectively.
 
 ## Traceability
@@ -55,37 +60,44 @@ and software testing respectively.
 
 ## References - Core
 
-\[1\] National Aeronautics and Space Administration, *NASA Systems
+\[1\] C. Chen, N. R. Murphy, K. Parisa, D. Sculley, and T. Underwood,
+*Reliable Machine Learning: Applying SRE Principles to ML in Production*.
+Sebastopol, CA, USA: O'Reilly Media, 2022, Chapter 5, "Evaluating Model
+Validity and Quality", pp. 89--106, in particular the discussion of offline
+evaluation, evaluation distributions, evaluation metrics, and operationalizing
+verification and evaluation.
+
+\[2\] National Aeronautics and Space Administration, *NASA Systems
 Engineering Handbook*, Rev. 2, NASA/SP-2016-6105 Rev. 2. Washington, DC,
 USA: NASA, 2016, Sections 5.3--5.4, "Product Verification" and "Product
 Validation", pp. 88--106; Appendix I, "Verification and Validation Plan
 Outline", p. 216 onward.
 
-\[2\] A. Kossiakoff, W. N. Sweet, S. J. Seymour, and S. M. Biemer,
+\[3\] A. Kossiakoff, W. N. Sweet, S. J. Seymour, and S. M. Biemer,
 *Systems Engineering: Principles and Practice*, 2nd ed. Hoboken, NJ,
 USA: John Wiley & Sons, 2011, Section 4.5, "Testing throughout System
 Development", pp. 103--106; Section 13.2, "Test Planning and
 Preparation", pp. 450--455.
 
-\[3\] I. Sommerville, *Software Engineering*, 10th ed. Boston, MA, USA:
+\[4\] I. Sommerville, *Software Engineering*, 10th ed. Boston, MA, USA:
 Pearson, 2016, Chapter 8, "Software testing", pp. 226--254.
 
-\[4\] INCOSE, *Systems Engineering Handbook: A Guide for System Life Cycle
+\[5\] INCOSE, *Systems Engineering Handbook: A Guide for System Life Cycle
 Processes and Activities*, 5th ed. Hoboken, NJ, USA: John Wiley & Sons,
 2023. 
 
-\[5\] H. Washizaki, ed., *Guide to the Software Engineering Body of
+\[6\] H. Washizaki, ed., *Guide to the Software Engineering Body of
 Knowledge (SWEBOK Guide)*, Version 4.0a. Los Alamitos, CA, USA: IEEE
 Computer Society, 2025. 
 
 ## References - Optional / Specialist
 
-\[6\] W. L. Oberkampf and C. J. Roy, *Verification and Validation in Scientific
+\[7\] W. L. Oberkampf and C. J. Roy, *Verification and Validation in Scientific
 Computing*. Cambridge, UK: Cambridge University Press, 2010, Chapter 2,
 “Fundamental Concepts and Terminology,” pp. 21–75; Chapter 10, “Model
 Validation Fundamentals,” pp. 371–405; Chapter 11, “Design and Execution
 of Validation Experiments,” pp. 409–465.
 
-\[7\] B. J. Taylor, ed., *Methods and Procedures for the Verification and
+\[8\] B. J. Taylor, ed., *Methods and Procedures for the Verification and
 Validation of Artificial Neural Networks*. New York, NY, USA: Springer, 2006.
 
