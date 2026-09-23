@@ -79,7 +79,7 @@ Representative execution environments selected to verify operating-system, proce
 <tr>
 <td align="center">
 <a href="img/diagnostics/lenovo-thinkcentre-c30-ubuntu.jpg">
-<img src="img/diagnostics/lenovo-thinkcentre-c30-ubuntu" height="625" width="400">
+<img src="img/diagnostics/lenovo-thinkcentre-c30-ubuntu.jpg" height="625" width="400">
 </a><br>
 <sub>Ubuntu · Dual Intel Xeon E5-2680 v2 · NVIDIA P400 4GB | NVIDIA P400 2GB</sub>
 </td>
