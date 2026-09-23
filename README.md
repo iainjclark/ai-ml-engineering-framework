@@ -73,7 +73,8 @@ AI Stack:  scikit-learn 1.9.1 | PyTorch 2.14.0+cu126 (GPU OK) | TensorFlow 2.21.
 
 ### Platform verification across diverse hardware and software configurations
 
-Representative execution environments selected to verify operating-system, processor, accelerator and hardware-topology handling in `src.diagnostics`.
+Representative execution environments selected to verify operating-system, processor, accelerator and hardware-topology handling
+in the `src.diagnostics` package.
 
 <table>
 <tr>
@@ -185,3 +186,5 @@ usable independently of any AI assistant.
 \[2\] A. Kossiakoff, W. N. Sweet, S. J. Seymour, and S. M. Biemer, *Systems Engineering: Principles and Practice*, 2nd ed. Hoboken, NJ, USA: John Wiley & Sons, 2011.
 
 \[3\] I. Sommerville, *Software Engineering*, 10th ed. Boston, MA, USA: Pearson, 2016
+
+\[4\] C. Chen, N. R. Murphy, K. Parisa, D. Sculley, and T. Underwood, *Reliable Machine Learning: Applying SRE Principles to ML in Production*. Sebastopol, CA, USA: O'Reilly Media, 2022.
