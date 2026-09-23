@@ -11,7 +11,7 @@ The repository combines a staged set of technical artefacts with suggested Pytho
 
 ## Engineering Lifecycle
 
-The framework organises AI/ML engineering work into ten Stages that I have found work well in my projects.
+The framework organises AI/ML engineering work into ten stages that I have found work well in my projects.
 I've trimmed it down a lot from [1–3] because it doesn't need to be rocket science.
 
 | Stage | Engineering question |
