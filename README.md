@@ -71,7 +71,7 @@ Numerics:  NumPy 2.5.3 | SciPy 1.18.1 | pandas 3.0.6
 AI Stack:  scikit-learn 1.9.1 | PyTorch 2.14.0+cu126 (GPU OK) | TensorFlow 2.21.0 (GPU OK) | Keras 3.15.1
 </small></pre>
 
-### Evidence of platform verification across diverse hardware and software configurations
+### Platform verification across diverse hardware and software configurations
 
 Representative execution environments selected to verify operating-system, processor, accelerator and hardware-topology handling in `src.diagnostics`.
 

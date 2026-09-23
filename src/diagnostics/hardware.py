@@ -1196,6 +1196,176 @@ def get_storage_info() -> list[dict[str, Any]]:
 
     return drives
 
+def _get_windows_gpus():
+    """
+    Return GPU information on Windows.
+
+    Windows CIM is used as the authoritative hardware inventory so that GPUs
+    installed and recognised by Windows are reported even when they are not
+    visible to NVIDIA's compute stack.
+
+    nvidia-smi is then used, where available, to enrich matching NVIDIA
+    devices with a more reliable VRAM value.
+
+    Notes
+    -----
+    Win32_VideoController.AdapterRAM is a 32-bit value and is therefore not
+    reliable for GPUs with more than approximately 4 GiB of VRAM. For NVIDIA
+    devices visible to nvidia-smi, the nvidia-smi memory value is preferred.
+    """
+
+    import json
+
+    # ------------------------------------------------------------------
+    # 1. Enumerate the complete Windows GPU/display-adapter inventory
+    #    using CIM.
+    # ------------------------------------------------------------------
+    cim_output = _run_command(
+        [
+            "powershell",
+            "-NoProfile",
+            "-Command",
+            (
+                "Get-CimInstance Win32_VideoController | "
+                "Select-Object Name,AdapterRAM,PNPDeviceID | "
+                "ConvertTo-Json -Compress"
+            ),
+        ]
+    )
+
+    if not cim_output.strip():
+        return {
+            "Status": "Not detected",
+            "Detector": "Windows CIM",
+            "Reason": "Win32_VideoController returned no devices",
+            "Devices": [],
+        }
+
+    try:
+        cim_data = json.loads(cim_output)
+    except (json.JSONDecodeError, TypeError) as exc:
+        return {
+            "Status": "Failed",
+            "Detector": "Windows CIM",
+            "Reason": f"Unable to parse CIM GPU information: {exc}",
+            "Devices": [],
+        }
+
+    # PowerShell emits an object for one result and an array for >1 results.
+    if isinstance(cim_data, dict):
+        cim_data = [cim_data]
+
+    devices = []
+
+    for index, adapter in enumerate(cim_data):
+        name = adapter.get("Name")
+        adapter_ram = adapter.get("AdapterRAM")
+
+        memory_mb = None
+
+        if isinstance(adapter_ram, (int, float)) and adapter_ram > 0:
+            memory_mb = round(adapter_ram / (1024 ** 2), 2)
+
+        devices.append(
+            {
+                "Name": name or "Unknown GPU",
+                "ID": index,
+                "Memory Total (MB)": memory_mb,
+                "PNP Device ID": adapter.get("PNPDeviceID"),
+                "Compute Visible": False,
+                "Memory Source": (
+                    "Windows CIM" if memory_mb is not None else None
+                ),
+            }
+        )
+
+    # ------------------------------------------------------------------
+    # 2. Ask nvidia-smi which NVIDIA GPUs are visible to the NVIDIA
+    #    compute stack and obtain their authoritative VRAM values.
+    #
+    #    Failure here is deliberately non-fatal: CIM has already given us
+    #    the Windows hardware inventory.
+    # ------------------------------------------------------------------
+    try:
+        smi_output = _run_command(
+            [
+                "nvidia-smi",
+                "--query-gpu=name,memory.total",
+                "--format=csv,noheader,nounits",
+            ]
+        )
+    except Exception:
+        smi_output = ""
+
+    smi_devices = []
+
+    for line in smi_output.splitlines():
+        line = line.strip()
+
+        if not line:
+            continue
+
+        parts = [part.strip() for part in line.split(",", 1)]
+
+        if len(parts) != 2:
+            continue
+
+        smi_name, smi_memory = parts
+
+        try:
+            smi_memory_mb = round(float(smi_memory), 2)
+        except (TypeError, ValueError):
+            smi_memory_mb = None
+
+        smi_devices.append(
+            {
+                "Name": smi_name,
+                "Memory Total (MB)": smi_memory_mb,
+            }
+        )
+
+    # ------------------------------------------------------------------
+    # 3. Enrich CIM devices by matching nvidia-smi devices by name.
+    #
+    #    Use normalised case-insensitive matching because CIM commonly
+    #    reports names such as "NVIDIA Quadro P400", while nvidia-smi may
+    #    report simply "Quadro P400".
+    # ------------------------------------------------------------------
+    def _normalise_gpu_name(name):
+        if not name:
+            return ""
+
+        normalised = name.strip().lower()
+
+        if normalised.startswith("nvidia "):
+            normalised = normalised[len("nvidia "):]
+
+        return " ".join(normalised.split())
+
+    for device in devices:
+        cim_name = _normalise_gpu_name(device["Name"])
+
+        for smi_device in smi_devices:
+            smi_name = _normalise_gpu_name(smi_device["Name"])
+
+            if cim_name == smi_name:
+                device["Compute Visible"] = True
+
+                if smi_device["Memory Total (MB)"] is not None:
+                    device["Memory Total (MB)"] = (
+                        smi_device["Memory Total (MB)"]
+                    )
+                    device["Memory Source"] = "nvidia-smi"
+
+                break
+
+    return {
+        "Status": "Detected" if devices else "Not detected",
+        "Detector": "Windows CIM + nvidia-smi",
+        "Reason": None,
+        "Devices": devices,
+    }
+    
 def get_gpu_info():
     """
     Return GPU information and GPU detection status.
@@ -1249,7 +1419,10 @@ def get_gpu_info():
             "Reason": None,
             "Devices": devices,
         }
-
+    elif system == "Windows":
+        # ChatGPT to write implementation here
+        return _get_windows_gpus()
+    
     if GPUtil is None:
         return {
             "Status": "Unavailable",
