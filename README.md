@@ -85,12 +85,22 @@ Representative execution environments selected to verify operating-system, proce
 </td>
 
 <td align="center">
+<a href="img/diagnostics/lenovo-thinkcentre-c30-win11.jpg">
+<img src="img/diagnostics/lenovo-thinkcentre-c30-win11.jpg" height="625" width="400">
+</a><br>
+<sub>Windows 11 · Dual Intel Xeon E5-2680 v2 · NVIDIA GTX 1050 Ti, P400</sub>
+</td>
+</tr>
+<td align="center">
 <a href="img/diagnostics/lenovo-mx150-win10.jpg">
 <img src="img/diagnostics/lenovo-mx150-win10.jpg" height="625" width="400">
 </a><br>
 <sub>Windows 10 · Intel i7-8650U · NVIDIA MX150</sub>
 </td>
-</tr>
+
+<td align="center">
+</td>
+
 </table>
 
 <!--
