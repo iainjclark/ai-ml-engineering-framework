@@ -101,15 +101,19 @@ def get_package_versions(
 
 def get_pytorch_gpu_diagnostics() -> dict[str, Any]:
     """
-    Test whether the installed PyTorch runtime can execute on a CUDA GPU.
+    Test whether the installed PyTorch runtime can execute on a supported GPU.
 
     A successful result requires:
-        1. A CUDA-enabled PyTorch build.
-        2. At least one CUDA device visible to PyTorch.
+        1. A GPU-capable PyTorch backend.
+        2. At least one usable GPU device visible to PyTorch.
         3. A real tensor computation to complete successfully.
 
+    Supported backends:
+        - CUDA
+        - Apple Metal Performance Shaders (MPS)
+
     Failure is recorded rather than raised so that diagnostics remain usable
-    on CPU-only systems and systems with incomplete CUDA configuration.
+    on CPU-only systems and systems with incomplete accelerator configuration.
     """
     result: dict[str, Any] = {
         "GPU Build": False,
@@ -126,38 +130,66 @@ def get_pytorch_gpu_diagnostics() -> dict[str, Any]:
     try:
         import torch
 
-        # A CPU-only PyTorch build has torch.version.cuda == None.
+        # CUDA path.
         cuda_version = torch.version.cuda
 
-        if cuda_version is None:
+        if cuda_version is not None:
+            result["GPU Build"] = True
+            result["Backend"] = f"CUDA {cuda_version}"
+
+            if not torch.cuda.is_available():
+                return result
+
+            if torch.cuda.device_count() < 1:
+                return result
+
+            result["GPU Detected"] = True
+            result["Device"] = torch.cuda.get_device_name(0)
+
+            x = torch.tensor(
+                [1.0, 2.0],
+                dtype=torch.float32,
+                device="cuda",
+            )
+
+            y = (x * x).sum()
+
+            # Force completion of CUDA work before declaring success.
+            torch.cuda.synchronize()
+
+            result["Smoke Test Passed"] = (
+                y.device.type == "cuda"
+                and y.item() == 5.0
+            )
+
             return result
 
-        result["GPU Build"] = True
-        result["Backend"] = f"CUDA {cuda_version}"
+        # Apple Silicon / MPS path.
+        if (
+            hasattr(torch.backends, "mps")
+            and torch.backends.mps.is_built()
+        ):
+            result["GPU Build"] = True
+            result["Backend"] = "MPS"
 
-        # PyTorch itself must be able to see at least one CUDA device.
-        if not torch.cuda.is_available():
-            return result
+            if not torch.backends.mps.is_available():
+                return result
 
-        if torch.cuda.device_count() < 1:
-            return result
+            result["GPU Detected"] = True
+            result["Device"] = "mps:0"
 
-        result["GPU Detected"] = True
-        result["Device"] = torch.cuda.get_device_name(0)
+            x = torch.tensor(
+                [1.0, 2.0],
+                dtype=torch.float32,
+                device="mps",
+            )
 
-        # Actual GPU smoke test. This is deliberately tiny.
-        x = torch.tensor(
-            [1.0, 2.0],
-            dtype=torch.float32,
-            device="cuda",
-        )
+            y = (x * x).sum()
 
-        y = (x * x).sum()
-
-        # Force completion of the CUDA work before declaring success.
-        torch.cuda.synchronize()
-
-        result["Smoke Test Passed"] = (y.item() == 5.0)
+            result["Smoke Test Passed"] = (
+                y.device.type == "mps"
+                and y.item() == 5.0
+            )
 
     except Exception as exc:
         # Diagnostics should describe a broken accelerator stack rather than
@@ -165,7 +197,7 @@ def get_pytorch_gpu_diagnostics() -> dict[str, Any]:
         result["Error"] = f"{type(exc).__name__}: {exc}"
 
     return result
-
+    
 def get_tensorflow_gpu_diagnostics() -> dict[str, Any]:
     """
     Test whether the installed TensorFlow runtime can execute on a GPU.
