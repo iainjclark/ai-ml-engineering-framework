@@ -14,6 +14,9 @@ from importlib.metadata import PackageNotFoundError, version
 from typing import Any
 from packaging.version import Version
 
+import os
+os.environ.setdefault("TF_CPP_MIN_LOG_LEVEL", "2")
+
 import platform
 
 # Display name -> (distribution name, category).
