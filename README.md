@@ -97,7 +97,7 @@ in the `src.diagnostics` package.
 <a href="img/diagnostics/apple-mac-mini-2025-macos.jpg">
 <img src="img/diagnostics/apple-mac-mini-2025-macos.jpg" height="625" width="400">
 </a><br>
-<sub>macOS · Apple Silicon </sub>
+<sub>macOS 26 · Apple M4 · Apple M4 GPU </sub>
 </td>
 
 <td align="center">
