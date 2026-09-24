@@ -14,6 +14,7 @@ from importlib.metadata import PackageNotFoundError, version
 from typing import Any
 from packaging.version import Version
 
+import contextlib
 import os
 os.environ.setdefault("TF_CPP_MIN_LOG_LEVEL", "2")
 
@@ -56,7 +57,25 @@ DEFAULT_PACKAGES = {
     "CatBoost": ("catboost", "ml"),
 }
 
+@contextlib.contextmanager
+def _suppress_stderr_fd():
+    """
+    Temporarily suppress writes to the process-level stderr file descriptor.
 
+    This also suppresses messages emitted directly by native libraries that
+    bypass Python's sys.stderr.
+    """
+    stderr_fd = 2
+    saved_stderr_fd = os.dup(stderr_fd)
+
+    try:
+        with open(os.devnull, "w") as devnull:
+            os.dup2(devnull.fileno(), stderr_fd)
+            yield
+    finally:
+        os.dup2(saved_stderr_fd, stderr_fd)
+        os.close(saved_stderr_fd)
+        
 def get_packages_in_category(category: str) -> tuple[str, ...]:
     """
     Return the display names registered under a category.
@@ -235,52 +254,53 @@ def get_tensorflow_gpu_diagnostics() -> dict[str, Any]:
     os.environ.setdefault("TF_CPP_MIN_LOG_LEVEL", "2")
 
     try:
-        import tensorflow as tf
+        with _suppress_stderr_fd():
+            import tensorflow as tf
 
-        gpus = tf.config.list_physical_devices("GPU")
+            gpus = tf.config.list_physical_devices("GPU")
 
-        if not gpus:
-            return result
+            if not gpus:
+                return result
 
-        result["GPU Build"] = True
-        result["GPU Detected"] = True
+            result["GPU Build"] = True
+            result["GPU Detected"] = True
 
-        if tf.test.is_built_with_cuda():
-            build_info = tf.sysconfig.get_build_info()
-            cuda_version = build_info.get("cuda_version")
+            if tf.test.is_built_with_cuda():
+                build_info = tf.sysconfig.get_build_info()
+                cuda_version = build_info.get("cuda_version")
 
-            result["Backend"] = (
-                f"CUDA {cuda_version}"
-                if cuda_version
-                else "CUDA"
+                result["Backend"] = (
+                    f"CUDA {cuda_version}"
+                    if cuda_version
+                    else "CUDA"
+                )
+
+            elif platform.system() == "Darwin":
+                result["Backend"] = "Metal"
+
+            else:
+                result["Backend"] = "GPU"
+
+            details = tf.config.experimental.get_device_details(gpus[0])
+            result["Device"] = (
+                details.get("device_name")
+                or gpus[0].name
             )
 
-        elif platform.system() == "Darwin":
-            result["Backend"] = "Metal"
+            with tf.device("/GPU:0"):
+                a = tf.constant(
+                    [[1.0, 2.0], [3.0, 4.0]],
+                    dtype=tf.float32,
+                )
+                b = tf.linalg.matmul(a, a)
 
-        else:
-            result["Backend"] = "GPU"
+            value = float(tf.reduce_sum(b).numpy())
+            ran_on_gpu = "GPU" in b.device.upper()
 
-        details = tf.config.experimental.get_device_details(gpus[0])
-        result["Device"] = (
-            details.get("device_name")
-            or gpus[0].name
-        )
-
-        with tf.device("/GPU:0"):
-            a = tf.constant(
-                [[1.0, 2.0], [3.0, 4.0]],
-                dtype=tf.float32,
+            result["Smoke Test Passed"] = (
+                ran_on_gpu
+                and abs(value - 54.0) < 1e-6
             )
-            b = tf.linalg.matmul(a, a)
-
-        value = float(tf.reduce_sum(b).numpy())
-        ran_on_gpu = "GPU" in b.device.upper()
-
-        result["Smoke Test Passed"] = (
-            ran_on_gpu
-            and abs(value - 54.0) < 1e-6
-        )
 
     except Exception as exc:
         result["Error"] = f"{type(exc).__name__}: {exc}"
