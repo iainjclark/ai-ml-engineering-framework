@@ -94,13 +94,17 @@ in the `src.diagnostics` package.
 </td>
 </tr>
 <td align="center">
+<a href="img/diagnostics/apple-mac-mini-2025-macos.jpg">
+<img src="img/diagnostics/apple-mac-mini-2025-macos.jpg" height="625" width="400">
+</a><br>
+<sub>macOS · Apple Silicon </sub>
+</td>
+
+<td align="center">
 <a href="img/diagnostics/lenovo-mx150-win10.jpg">
 <img src="img/diagnostics/lenovo-mx150-win10.jpg" height="625" width="400">
 </a><br>
 <sub>Windows 10 · Intel i7-8650U · NVIDIA MX150</sub>
-</td>
-
-<td align="center">
 </td>
 
 </table>
