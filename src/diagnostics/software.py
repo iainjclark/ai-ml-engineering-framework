@@ -10,9 +10,11 @@ executing Python interpreter.
 """
 
 from __future__ import annotations
-
 from importlib.metadata import PackageNotFoundError, version
 from typing import Any
+from packaging.version import Version
+
+import platform
 
 # Display name -> (distribution name, category).
 #
@@ -164,10 +166,6 @@ def get_pytorch_gpu_diagnostics() -> dict[str, Any]:
 
     return result
 
-import platform
-
-from packaging.version import Version
-
 def get_tensorflow_gpu_diagnostics() -> dict[str, Any]:
     """
     Test whether the installed TensorFlow runtime can execute on a GPU.
@@ -193,7 +191,9 @@ def get_tensorflow_gpu_diagnostics() -> dict[str, Any]:
         platform.system() == "Windows"
         and Version(tf_version) >= Version("2.11")
     ):
-        result["Reason"] = "Native Windows CUDA unsupported by TensorFlow >= 2.11"
+        result["Reason"] = (
+            "Native Windows CUDA unsupported by TensorFlow >= 2.11"
+        )
         return result
 
     import os
@@ -202,29 +202,35 @@ def get_tensorflow_gpu_diagnostics() -> dict[str, Any]:
     try:
         import tensorflow as tf
 
-        if not tf.test.is_built_with_cuda():
-            return result
-
-        result["GPU Build"] = True
-
-        build_info = tf.sysconfig.get_build_info()
-        cuda_version = build_info.get("cuda_version")
-
-        result["Backend"] = (
-            f"CUDA {cuda_version}"
-            if cuda_version
-            else "CUDA"
-        )
-
         gpus = tf.config.list_physical_devices("GPU")
 
         if not gpus:
             return result
 
+        result["GPU Build"] = True
         result["GPU Detected"] = True
 
+        if tf.test.is_built_with_cuda():
+            build_info = tf.sysconfig.get_build_info()
+            cuda_version = build_info.get("cuda_version")
+
+            result["Backend"] = (
+                f"CUDA {cuda_version}"
+                if cuda_version
+                else "CUDA"
+            )
+
+        elif platform.system() == "Darwin":
+            result["Backend"] = "Metal"
+
+        else:
+            result["Backend"] = "GPU"
+
         details = tf.config.experimental.get_device_details(gpus[0])
-        result["Device"] = details.get("device_name") or gpus[0].name
+        result["Device"] = (
+            details.get("device_name")
+            or gpus[0].name
+        )
 
         with tf.device("/GPU:0"):
             a = tf.constant(
