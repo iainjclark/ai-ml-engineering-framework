@@ -1366,6 +1366,61 @@ def _get_windows_gpus():
         "Devices": devices,
     }
     
+def _parse_amd_smi_static(output: str) -> list[dict[str, Any]]:
+    """Parse the indented `amd-smi static` output (one or more GPUs).
+
+    Parse only explicitly named fields and their parent sections, rather than
+    guessing values from similarly named keys elsewhere in the report.
+    """
+    devices: list[dict[str, Any]] = []
+    device: dict[str, Any] | None = None
+    section = ""
+
+    for line in output.splitlines():
+        match = re.match(r"^GPU:\s*(\d+)\s*$", line)
+        if match:
+            if device is not None and device.get("Name"):
+                devices.append(device)
+            device = {"ID": int(match.group(1)), "Vendor": "AMD"}
+            section = ""
+            continue
+        if device is None:
+            continue
+        # Sections are indented by four spaces; properties by eight.
+        if re.match(r"^    [A-Z][A-Z_]*:\s*$", line):
+            section = line.strip()[:-1]
+            continue
+        match = re.match(r"^        ([A-Z_]+):\s*(.*?)\s*$", line)
+        if not match:
+            continue
+        key, value = match.groups()
+        if section == "ASIC":
+            if key == "MARKET_NAME":
+                device["Name"] = value
+            elif key == "TARGET_GRAPHICS_VERSION":
+                device["Architecture"] = value
+            elif key == "NUM_COMPUTE_UNITS" and value.isdigit():
+                device["Compute Units"] = int(value)
+        elif section == "BUS" and key == "BDF":
+            device["PCI Bus ID"] = value
+        elif section == "VRAM" and key == "SIZE":
+            size = re.fullmatch(r"(\d+(?:\.\d+)?)\s*MB", value, re.I)
+            if size:
+                device["Memory Total (MB)"] = float(size.group(1))
+        elif section == "DRIVER" and key == "VERSION":
+            device["Driver Version"] = value
+
+    if device is not None and device.get("Name"):
+        devices.append(device)
+    return devices
+
+
+def _get_linux_amd_gpus() -> list[dict[str, Any]]:
+    """Enumerate AMD GPUs without requiring a Python ROCm dependency."""
+    output = _run_command(["amd-smi", "static"], timeout=15.0)
+    return _parse_amd_smi_static(output) if output else []
+
+
 def get_gpu_info():
     """
     Return GPU information and GPU detection status.
@@ -1423,37 +1478,38 @@ def get_gpu_info():
         # ChatGPT to write implementation here
         return _get_windows_gpus()
     
-    if GPUtil is None:
-        return {
-            "Status": "Unavailable",
-            "Detector": "GPUtil",
-            "Reason": "Package not installed",
-            "Devices": [],
-        }
+    # Linux: combine independent AMD-SMI and NVIDIA/GPUtil inventories.
+    # An unavailable vendor utility must not hide devices from another vendor.
+    amd_devices = _get_linux_amd_gpus() if system == "Linux" else []
+    nvidia_devices: list[dict[str, Any]] = []
+    gputil_error = None
+    if GPUtil is not None:
+        try:
+            nvidia_devices = [
+                {
+                    "Name": gpu.name,
+                    "ID": gpu.id,
+                    "Vendor": "NVIDIA",
+                    "Memory Total (MB)": round(gpu.memoryTotal, 2),
+                }
+                for gpu in GPUtil.getGPUs()
+            ]
+        except Exception as exc:
+            gputil_error = str(exc)
 
-    try:
-        gpus = GPUtil.getGPUs()
-    except Exception as exc:
-        return {
-            "Status": "Failed",
-            "Detector": "GPUtil",
-            "Reason": str(exc),
-            "Devices": [],
-        }
-
-    devices = [
-        {
-            "Name": gpu.name,
-            "ID": gpu.id,
-            "Memory Total (MB)": round(gpu.memoryTotal, 2),
-        }
-        for gpu in gpus
-    ]
-
+    devices = amd_devices + nvidia_devices
+    if devices:
+        status, reason = "Detected", None
+    elif GPUtil is None and system != "Linux":
+        status, reason = "Unavailable", "GPUtil import failed or is not installed"
+    elif gputil_error:
+        status, reason = "Failed", f"GPUtil failed: {gputil_error}"
+    else:
+        status, reason = "Not detected", None
     return {
-        "Status": "Detected" if devices else "Not detected",
-        "Detector": "GPUtil",
-        "Reason": None,
+        "Status": status,
+        "Detector": "AMD-SMI + GPUtil" if system == "Linux" else "GPUtil",
+        "Reason": reason,
         "Devices": devices,
     }
 

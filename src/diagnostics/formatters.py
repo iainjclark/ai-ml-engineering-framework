@@ -297,10 +297,7 @@ def _format_concise(
         gpu_text = "\n           ".join(gpu_lines)
 
     elif gpu_status == "Unavailable":
-        gpu_text = (
-            "GPU detection unavailable "
-            "(GPUtil not installed)"
-        )
+        gpu_text = "GPU detection unavailable"
 
     elif gpu_status == "Failed":
         gpu_text = "GPU detection failed"
