@@ -1,0 +1,10 @@
+{
+  "files.eol": "\n",
+  "files.insertFinalNewline": true,
+  "[python]": {
+    "files.trimTrailingWhitespace": true
+  },
+  "[markdown]": {
+    "files.trimTrailingWhitespace": false
+  }
+}
