@@ -1,0 +1,250 @@
+{
+  "Captured At (UTC)": "2026-11-02T11:17:53.975658+00:00",
+  "Hardware": {
+    "System": {
+      "Manufacturer": "DigitalOcean",
+      "Model": "Droplet"
+    },
+    "CPU": {
+      "CPU Name (Raw)": "INTEL(R) XEON(R) PLATINUM 8568Y+",
+      "CPU Name (Friendly)": "INTEL XEON PLATINUM 8568Y+",
+      "CPU Packages": [
+        {
+          "Index": 1,
+          "CPU Name (Raw)": "INTEL(R) XEON(R) PLATINUM 8568Y+",
+          "CPU Name (Friendly)": "INTEL XEON PLATINUM 8568Y+"
+        }
+      ],
+      "CPU Package Count": 1,
+      "Cores (Physical)": 20,
+      "Threads (Logical)": 20,
+      "Clock Speed": {
+        "Min (MHz)": 0.0,
+        "Max (MHz)": 0.0,
+        "Current (MHz)": 2300.0
+      }
+    },
+    "RAM": {
+      "Total RAM (Bytes)": 253347033088,
+      "Memory Speed": null
+    },
+    "Storage": [
+      {
+        "Device": "/dev/vda",
+        "Model": null,
+        "Manufacturer": "0x1af4",
+        "Serial": null,
+        "Size (Bytes)": 773094113280,
+        "BusType": "virtio",
+        "Logical Volumes": [
+          {
+            "Partition": "vda1",
+            "Drive": null,
+            "Label": "cloudimg-rootfs",
+            "File System": "ext4",
+            "Size (Bytes)": 772019305984,
+            "Mount Point": "/"
+          },
+          {
+            "Partition": "vda14",
+            "Drive": null,
+            "Label": null,
+            "File System": null,
+            "Size (Bytes)": 4194304,
+            "Mount Point": null
+          },
+          {
+            "Partition": "vda15",
+            "Drive": null,
+            "Label": "UEFI",
+            "File System": "vfat",
+            "Size (Bytes)": 111149056,
+            "Mount Point": "/boot/efi"
+          },
+          {
+            "Partition": "vda16",
+            "Drive": null,
+            "Label": "BOOT",
+            "File System": "ext4",
+            "Size (Bytes)": 957350400,
+            "Mount Point": "/boot"
+          }
+        ]
+      },
+      {
+        "Device": "/dev/vdb",
+        "Model": null,
+        "Manufacturer": "0x1af4",
+        "Serial": null,
+        "Size (Bytes)": 499712,
+        "BusType": "virtio",
+        "Logical Volumes": []
+      },
+      {
+        "Device": "/dev/vdc",
+        "Model": null,
+        "Manufacturer": "0x1af4",
+        "Serial": "SC-0-615014623",
+        "Size (Bytes)": 5497558138880,
+        "BusType": "virtio",
+        "Logical Volumes": [
+          {
+            "Partition": "vdc1",
+            "Drive": null,
+            "Label": "DOSCRATCH",
+            "File System": "ext4",
+            "Size (Bytes)": 5497558008320,
+            "Mount Point": null
+          }
+        ]
+      }
+    ],
+    "GPU": {
+      "Status": "Detected",
+      "Detector": "AMD-SMI + GPUtil",
+      "Reason": null,
+      "Devices": [
+        {
+          "ID": 0,
+          "Vendor": "AMD",
+          "Name": "AMD Instinct MI300X VF",
+          "Compute Units": 304,
+          "Architecture": "gfx942",
+          "PCI Bus ID": "0000:83:00.0",
+          "Driver Version": "6.19.14.31400000",
+          "Memory Total (MB)": 196288.0
+        }
+      ]
+    }
+  },
+  "Environment": {
+    "Host": {
+      "Hostname": "rocm-10-1-gpu-mi300x1-192gb-devcloud-atl1",
+      "FQDN": "rocm-10-1-gpu-mi300x1-192gb-devcloud-atl1"
+    },
+    "Operating System": {
+      "System": "Linux",
+      "Release": "6.8.0-146-generic",
+      "Version": "#146-Ubuntu SMP PREEMPT_DYNAMIC Thu Sep  3 16:12:30 UTC 2026",
+      "Machine": "x86_64",
+      "Processor": "x86_64",
+      "Node": "rocm-10-1-gpu-mi300x1-192gb-devcloud-atl1",
+      "Distribution": "Ubuntu 24.04.5 LTS"
+    },
+    "Architecture": {
+      "Architecture": "64bit",
+      "Linkage": "ELF",
+      "Machine": "x86_64"
+    },
+    "Python Runtime": {
+      "Implementation": "CPython",
+      "Version": "3.12.3",
+      "Compiler": "GCC 13.3.0",
+      "Build": [
+        "main",
+        "Aug 31 2026 10:18:26"
+      ],
+      "Executable": "/root/ai-ml-engineering-framework/.venv/bin/python"
+    },
+    "Container": {
+      "Detected": false,
+      "Type": null
+    },
+    "Container Storage": null
+  },
+  "Software": {
+    "Packages": {
+      "NumPy": "2.5.4",
+      "SciPy": "1.18.1",
+      "pandas": "3.1.0",
+      "pyarrow": null,
+      "polars": null,
+      "statsmodels": null,
+      "JAX": null,
+      "jaxlib": null,
+      "scikit-learn": "1.9.1",
+      "PyTorch": "2.14.0+rocm10.1.0",
+      "TensorFlow": "2.21.0+rocm10.1.0",
+      "Keras": null,
+      "XGBoost": null,
+      "LightGBM": null,
+      "CatBoost": null
+    },
+    "Accelerators": {
+      "PyTorch": {
+        "GPU Build": true,
+        "GPU Detected": true,
+        "Smoke Test Passed": true,
+        "Backend": "HIP 7.16.26385",
+        "Device": "AMD Instinct MI300X VF"
+      },
+      "TensorFlow": {
+        "GPU Build": true,
+        "GPU Detected": true,
+        "Smoke Test Passed": true,
+        "Backend": "GPU",
+        "Device": "AMD Instinct MI300X VF",
+        "Isolation": "subprocess"
+      }
+    }
+  },
+  "Runtime": {
+    "System": {
+      "CPU": {
+        "Overall Usage (%)": 12.9,
+        "Per Core Usage (%)": [
+          8.4,
+          8.3,
+          9.9,
+          8.5,
+          39.4,
+          8.5,
+          47.9,
+          11.8,
+          8.3,
+          8.3,
+          8.2,
+          8.9,
+          8.3,
+          8.3,
+          8.3,
+          8.3,
+          8.3,
+          8.3,
+          8.2,
+          23.7
+        ],
+        "Logical CPUs": 20
+      },
+      "Memory": {
+        "Total (MB)": 241610.56,
+        "Available (MB)": 233376.92,
+        "Used (MB)": 8233.64,
+        "Usage (%)": 3.4
+      },
+      "Swap": {
+        "Total (MB)": 0.0,
+        "Used (MB)": 0.0,
+        "Usage (%)": 0.0
+      }
+    },
+    "Process": {
+      "PID": 443599,
+      "CPU": {
+        "User Time (s)": 5.59,
+        "System Time (s)": 0.28,
+        "Total CPU Time (s)": 5.87
+      },
+      "Memory": {
+        "RSS (MB)": 1141.36,
+        "VMS (MB)": 40111.28,
+        "Memory Usage (%)": 0.4724
+      },
+      "Threads": 42,
+      "IO": {
+        "Read Bytes": 0,
+        "Write Bytes": 9121792
+      }
+    }
+  }
+}
