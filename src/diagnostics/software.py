@@ -99,7 +99,12 @@ def get_package_version(package_name: str) -> str | None:
     try:
         return version(package_name)
     except PackageNotFoundError:
-        return None
+        if package_name == "tensorflow":
+            try:
+                return version("tensorflow-rocm")
+            except PackageNotFoundError:
+                pass
+        return None        
 
 
 def get_package_versions(
@@ -132,6 +137,7 @@ def get_pytorch_gpu_diagnostics() -> dict[str, Any]:
 
     Supported backends:
         - CUDA
+        - AMD ROCm / HIP
         - Apple Metal Performance Shaders (MPS)
 
     Failure is recorded rather than raised so that diagnostics remain usable
@@ -152,12 +158,17 @@ def get_pytorch_gpu_diagnostics() -> dict[str, Any]:
     try:
         import torch
 
-        # CUDA path.
+        # NVIDIA CUDA and AMD HIP share torch.cuda interfaces.
         cuda_version = torch.version.cuda
+        hip_version = getattr(torch.version, "hip", None)
 
-        if cuda_version is not None:
+        if cuda_version is not None or hip_version is not None:
             result["GPU Build"] = True
-            result["Backend"] = f"CUDA {cuda_version}"
+            result["Backend"] = (
+                f"HIP {hip_version}"
+                if hip_version is not None
+                else f"CUDA {cuda_version}"
+            )
 
             if not torch.cuda.is_available():
                 return result
