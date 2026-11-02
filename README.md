@@ -117,8 +117,14 @@ in the `src.diagnostics` package.
 <sub>Ubuntu 24.04 · AMD Instinct MI300X · ROCm · PyTorch and TensorFlow GPU verified</sub>
 </td>
 </tr>
-
 </table>
+
+Optionally, capture the full diagnostic record as JSON:
+
+```bash
+python -m src.diagnostics --json > evidence/specific_configuration/diagnostics.json
+```
+
 
 <!--
 Planned diagnostic capabilities:

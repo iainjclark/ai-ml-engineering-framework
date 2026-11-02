@@ -3,6 +3,8 @@
 from .capture import capture_diagnostics
 from .formatters import format_diagnostics
 
+import argparse
+import json
 import sys
 
 _STATUS_MESSAGE = "Running... (might take 10-15s)"
@@ -33,14 +35,29 @@ def _clear_status() -> None:
 
 
 def main() -> None:
-    """Capture and print a concise diagnostic summary."""
-    status_visible = _show_status()
+    """Capture diagnostics as a concise summary or JSON."""
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument(
+        "--json",
+        action="store_true",
+        help="Print the full diagnostic record as JSON.",
+    )
+    args = parser.parse_args()
 
-    diagnostics = capture_diagnostics()
-    output = format_diagnostics(diagnostics)
+    status_visible = False
+    if not args.json:
+        status_visible = _show_status()
 
-    if status_visible:
-        _clear_status()
+    try:
+        diagnostics = capture_diagnostics()
+        output = (
+            json.dumps(diagnostics, indent=2)
+            if args.json
+            else format_diagnostics(diagnostics)
+        )
+    finally:
+        if status_visible:
+            _clear_status()
 
     print(output)
 
