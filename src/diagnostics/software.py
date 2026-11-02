@@ -132,65 +132,7 @@ def get_package_versions(
         for display_name, (distribution_name, _) in packages.items()
     }
 
-def get_tensorflow_gpu_diagnostics() -> dict[str, Any]:
-    """Isolate TensorFlow ROCm from PyTorch's native runtime."""
-    if get_package_version("tensorflow-rocm") is None:
-        return _get_tensorflow_gpu_diagnostics_in_process()
-
-    result: dict[str, Any] = {
-        "GPU Build": False,
-        "GPU Detected": False,
-        "Smoke Test Passed": False,
-        "Backend": "ROCm",
-        "Device": None,
-    }
-
-    # Load this file directly, avoiding assumptions about package paths.
-    code = """
-import importlib.util
-import json
-import sys
-
-spec = importlib.util.spec_from_file_location("aimlef_tf_probe", sys.argv[1])
-module = importlib.util.module_from_spec(spec)
-spec.loader.exec_module(module)
-result = module._get_tensorflow_gpu_diagnostics_in_process()
-print("AIMLEF_RESULT=" + json.dumps(result), flush=True)
-"""
-
-    try:
-        completed = subprocess.run(
-            [sys.executable, "-c", code, str(Path(__file__).resolve())],
-            capture_output=True,
-            text=True,
-            timeout=120,
-        )
-
-        # A result printed before a shutdown crash is not a clean success.
-        if completed.returncode != 0:
-            result["Error"] = (
-                f"TensorFlow subprocess exited with code "
-                f"{completed.returncode}: {completed.stderr[-2000:].strip()}"
-            )
-            return result
-
-        for line in reversed(completed.stdout.splitlines()):
-            if line.startswith("AIMLEF_RESULT="):
-                probe = json.loads(line.removeprefix("AIMLEF_RESULT="))
-                if not isinstance(probe, dict):
-                    raise ValueError("TensorFlow probe returned invalid data")
-                result.update(probe)
-                result["Isolation"] = "subprocess"
-                return result
-
-        result["Error"] = "TensorFlow subprocess returned no diagnostic result"
-
-    except (OSError, subprocess.TimeoutExpired, ValueError) as exc:
-        result["Error"] = f"{type(exc).__name__}: {exc}"
-
-    return result
-    
-def _get_tensorflow_gpu_diagnostics_in_process() -> dict[str, Any]:    
+def get_pytorch_gpu_diagnostics() -> dict[str, Any]:    
     """
     Test whether the installed PyTorch runtime can execute on a supported GPU.
 
@@ -294,8 +236,67 @@ def _get_tensorflow_gpu_diagnostics_in_process() -> dict[str, Any]:
         result["Error"] = f"{type(exc).__name__}: {exc}"
 
     return result
-    
+
 def get_tensorflow_gpu_diagnostics() -> dict[str, Any]:
+    """Isolate TensorFlow ROCm from PyTorch's native runtime."""
+    if get_package_version("tensorflow-rocm") is None:
+        return _get_tensorflow_gpu_diagnostics_in_process()
+
+    result: dict[str, Any] = {
+        "GPU Build": False,
+        "GPU Detected": False,
+        "Smoke Test Passed": False,
+        "Backend": "ROCm",
+        "Device": None,
+    }
+
+    # Load this file directly, avoiding assumptions about package paths.
+    code = """
+import importlib.util
+import json
+import sys
+
+spec = importlib.util.spec_from_file_location("aimlef_tf_probe", sys.argv[1])
+module = importlib.util.module_from_spec(spec)
+spec.loader.exec_module(module)
+result = module._get_tensorflow_gpu_diagnostics_in_process()
+print("AIMLEF_RESULT=" + json.dumps(result), flush=True)
+"""
+
+    try:
+        completed = subprocess.run(
+            [sys.executable, "-c", code, str(Path(__file__).resolve())],
+            capture_output=True,
+            text=True,
+            timeout=120,
+        )
+
+        # A result printed before a shutdown crash is not a clean success.
+        if completed.returncode != 0:
+            result["Error"] = (
+                f"TensorFlow subprocess exited with code "
+                f"{completed.returncode}: {completed.stderr[-2000:].strip()}"
+            )
+            return result
+
+        for line in reversed(completed.stdout.splitlines()):
+            if line.startswith("AIMLEF_RESULT="):
+                probe = json.loads(line.removeprefix("AIMLEF_RESULT="))
+                if not isinstance(probe, dict):
+                    raise ValueError("TensorFlow probe returned invalid data")
+                result.update(probe)
+                result["Isolation"] = "subprocess"
+                return result
+
+        result["Error"] = "TensorFlow subprocess returned no diagnostic result"
+
+    except (OSError, subprocess.TimeoutExpired, ValueError) as exc:
+        result["Error"] = f"{type(exc).__name__}: {exc}"
+
+    return result
+    
+    
+def _get_tensorflow_gpu_diagnostics_in_process() -> dict[str, Any]:
     """
     Test whether the installed TensorFlow runtime can execute on a GPU.
     """
