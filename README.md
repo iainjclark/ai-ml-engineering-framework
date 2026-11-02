@@ -43,6 +43,7 @@ The framework also includes lightweight utilities for capturing execution-enviro
 From the command line:
 
 ```bash
+python -m pip install -r requirements.txt
 python -m src.diagnostics
 ```
 
@@ -81,31 +82,41 @@ in the `src.diagnostics` package.
 <tr>
 <td align="center">
 <a href="img/diagnostics/lenovo-thinkcentre-c30-ubuntu.jpg">
-<img src="img/diagnostics/lenovo-thinkcentre-c30-ubuntu.jpg" height="625" width="400">
+<img src="img/diagnostics/lenovo-thinkcentre-c30-ubuntu.jpg" width="400">
 </a><br>
 <sub>Ubuntu · Dual Intel Xeon E5-2680 v2 · NVIDIA GTX 1050 Ti, P400</sub>
 </td>
 
 <td align="center">
 <a href="img/diagnostics/lenovo-thinkcentre-c30-win11.jpg">
-<img src="img/diagnostics/lenovo-thinkcentre-c30-win11.jpg" height="625" width="400">
+<img src="img/diagnostics/lenovo-thinkcentre-c30-win11.jpg" width="400">
 </a><br>
 <sub>Windows 11 · Dual Intel Xeon E5-2680 v2 · NVIDIA GTX 1050 Ti, P400</sub>
 </td>
 </tr>
+<tr>
 <td align="center">
 <a href="img/diagnostics/apple-mac-mini-2025-macos.jpg">
-<img src="img/diagnostics/apple-mac-mini-2025-macos.jpg" height="625" width="400">
+<img src="img/diagnostics/apple-mac-mini-2025-macos.jpg" width="400">
 </a><br>
 <sub>macOS 26 · Apple M4 · Apple M4 GPU </sub>
 </td>
-
 <td align="center">
 <a href="img/diagnostics/lenovo-mx150-win10.jpg">
-<img src="img/diagnostics/lenovo-mx150-win10.jpg" height="625" width="400">
+<img src="img/diagnostics/lenovo-mx150-win10.jpg" width="400">
 </a><br>
 <sub>Windows 10 · Intel i7-8650U · NVIDIA MX150</sub>
 </td>
+</tr>
+
+<tr>
+<td colspan="2" align="center">
+<a href="img/diagnostics/amd-instinct-mi300x-ubuntu.jpg">
+<img src="img/diagnostics/amd-instinct-mi300x-ubuntu.jpg" width="400">
+</a><br>
+<sub>Ubuntu 24.04 · AMD Instinct MI300X · ROCm · PyTorch and TensorFlow GPU verified</sub>
+</td>
+</tr>
 
 </table>
 
@@ -144,7 +155,7 @@ Add sections to the rendered README only when executable functionality exists.
 
 ## Proof of Concept - Petrol Price Predictor
 
-**PoC:** *Demonstrates application of the framework across the operational ML lifecycle.*
+**Planned PoC:**  *Will demonstrate application of the framework across the operational ML lifecycle.*
 
 The framework will be illustrated using a live petrol-price prediction model, with
 GitHub Actions supporting automated inference, monitoring, drift detection
